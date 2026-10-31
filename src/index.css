@@ -4,64 +4,38 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 5.9% 10%;
-    --radius: 0.625rem;
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
+    /* Edam — "Rooted in truth" palette
+       cream ground · deep forest ink · terracotta clay accent · sand lines */
+    --background: 44 43% 96%; /* #faf7ef aged-paper cream */
+    --foreground: 141 70% 12%; /* deep forest green ink */
+    --card: 44 50% 98%;
+    --card-foreground: 141 70% 12%;
+    --popover: 44 50% 98%;
+    --popover-foreground: 141 70% 12%;
+    --primary: 143 69% 17%; /* forest #0d4a24 */
+    --primary-foreground: 44 60% 96%;
+    --secondary: 36 38% 91%; /* #f3ece1 peach-cream surface */
+    --secondary-foreground: 141 60% 16%;
+    --muted: 42 28% 90%;
+    --muted-foreground: 98 9% 37%; /* mossy grey-green */
+    --accent: 28 48% 49%; /* clay terracotta #bc773f */
+    --accent-foreground: 40 50% 97%;
+    --destructive: 8 56% 41%;
+    --destructive-foreground: 44 50% 97%;
+    --border: 40 26% 82%;
+    --input: 40 26% 80%;
+    --ring: 143 69% 22%;
+    --radius: 0.5rem;
 
-  .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* brand primitives */
+    --cream: 44 43% 96%;
+    --cream-deep: 39 34% 90%;
+    --forest: 143 69% 17%;
+    --forest-deep: 141 72% 10%;
+    --moss: 96 22% 36%;
+    --leaf: 96 26% 55%;
+    --clay: 28 48% 49%;
+    --sand: 33 36% 80%;
   }
 }
 
@@ -69,7 +43,64 @@
   * {
     @apply border-border;
   }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-background text-foreground;
+    font-family: "Karla", ui-sans-serif, system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: hsl(var(--clay) / 0.25);
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: "Marcellus", Georgia, "Times New Roman", serif;
+    font-weight: 400;
+  }
+  .font-body {
+    font-family: "Karla", ui-sans-serif, system-ui, sans-serif;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+  /* quiet scroll-reveal: visible by default, animated when JS marks it */
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+  .reveal.reveal-armed {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 0.9s ease,
+      transform 0.9s ease;
+  }
+  .reveal.reveal-armed.reveal-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal.reveal-armed {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+    html {
+      scroll-behavior: auto;
+    }
+  }
+  .img-fade {
+    transition:
+      transform 0.7s ease,
+      opacity 0.7s ease;
+  }
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background;
   }
 }
