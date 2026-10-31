@@ -81,6 +81,7 @@ app.post(
 // Inbound payment webhooks (Razorpay → server). Plain REST: the caller is a
 // payment gateway, not our tRPC client. Above the 404 catch-all, always.
 app.route("/api/webhooks", paymentWebhookRoutes);
+app.get("/api/health", (c) => c.json({ ok: true }));
 app.all("/api/*", (c) => c.json({ error: "Not Found" }, 404));
 
 // Unhandled request errors must reach /tmp/kimi-logs/app.log, not just stdout:
