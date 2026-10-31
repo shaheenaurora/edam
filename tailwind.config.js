@@ -5,8 +5,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        display: ['Marcellus', 'Georgia', 'serif'],
-        body: ['Karla', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['Fraunces', 'Georgia', 'serif'],
+        body: ['Figtree', 'Avenir', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       colors: {
         forest: {

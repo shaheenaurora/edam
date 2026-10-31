@@ -13,7 +13,7 @@ export default function StayPage() {
           <div className="absolute inset-0 bg-gradient-to-r from-forest-deep/80 via-forest-deep/40 to-transparent" />
         </div>
         <div className="relative mx-auto flex min-h-[70vh] max-w-7xl flex-col justify-center px-4 py-24 sm:px-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#d9a066]">The Stay · Thrissur, Kerala</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#B38A56]">The Stay · Thrissur, Kerala</p>
           <h1 className="mt-4 max-w-xl font-display text-4xl leading-tight text-cream sm:text-6xl">
             A place to step out of a stressful life — and recharge by reconnecting with nature.
           </h1>

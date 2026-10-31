@@ -5,12 +5,19 @@ import { FieldNotesForm } from "./FieldNotesForm";
 
 export function SiteFooter() {
   return (
-    <footer className="bg-forest-deep text-cream">
+    <footer className="relative overflow-hidden bg-forest-deep text-cream">
+      {/* brand mark watermark — the sprout, as used across Edam print collateral */}
+      <img
+        src="/brand/icon-cream.png"
+        alt=""
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-16 bottom-0 w-72 select-none opacity-[0.07] sm:w-96"
+      />
       {/* Field Notes — lead capture */}
       <section className="border-b border-cream/15">
         <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-2 lg:items-center">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-clay" style={{ color: "#d9a066" }}>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sand">
               Field Notes
             </p>
             <h2 className="mt-3 font-display text-3xl leading-tight sm:text-4xl">
@@ -27,7 +34,8 @@ export function SiteFooter() {
 
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-2 lg:grid-cols-4">
         <div>
-          <Wordmark className="[&_span:last-child]:text-cream [&_svg_rect]:fill-cream [&_svg_path]:stroke-[#0d4a24]" />
+          <Wordmark light />
+          <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.42em] text-cream/60">Hospitality</p>
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-cream/75">
             The honest version of your everyday things — from a named Kerala maker, plastic-free, and every order
             plants a tree.

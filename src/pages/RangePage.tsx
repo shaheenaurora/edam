@@ -32,7 +32,7 @@ export default function RangePage() {
           <Link to="/shop" className="focus-ring inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-cream/80 hover:text-cream">
             <ArrowLeft className="h-3.5 w-3.5" /> All products
           </Link>
-          <p className="mt-6 text-xs font-semibold uppercase tracking-[0.24em] text-[#d9a066]">{meta.role}</p>
+          <p className="mt-6 text-xs font-semibold uppercase tracking-[0.24em] text-[#B38A56]">{meta.role}</p>
           <h1 className="mt-2 font-display text-5xl text-cream sm:text-6xl">{meta.name}</h1>
           <p className="mt-2 font-display text-xl italic text-cream/85">{meta.line}.</p>
           <p className="mt-4 max-w-lg text-sm leading-relaxed text-cream/85">{meta.description}</p>

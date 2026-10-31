@@ -16,20 +16,23 @@ const NAV = [
   { to: "/our-story", label: "Our Story" },
 ];
 
-export function Wordmark({ className = "" }: { className?: string }) {
+export function Wordmark({ className = "", light = false }: { className?: string; light?: boolean }) {
   return (
-    <span className={`inline-flex items-center gap-2 ${className}`}>
-      <svg viewBox="0 0 32 32" className="h-8 w-8" aria-hidden="true">
-        <rect width="32" height="32" rx="8" className="fill-primary" />
-        <path
-          d="M16 25c0-6 0-9 0-12m0 0c0-4 3-7 7-7 0 4-3 7-7 7Zm0 3c0-3.4-2.6-6-6.5-6 0 3.8 2.6 6 6.5 6Z"
-          fill="none"
-          stroke="#faf7ef"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-        />
-      </svg>
-      <span className="font-display text-2xl tracking-wide text-foreground">Edam</span>
+    <span className={`inline-flex items-center gap-2.5 ${className}`}>
+      <img
+        src={light ? "/brand/icon-cream.png" : "/brand/icon-forest.png"}
+        alt=""
+        className="h-9 w-auto"
+        width={578}
+        height={603}
+      />
+      <span
+        className={`font-display text-[26px] font-semibold lowercase leading-none tracking-tight ${
+          light ? "text-cream" : "text-foreground"
+        }`}
+      >
+        edam
+      </span>
     </span>
   );
 }

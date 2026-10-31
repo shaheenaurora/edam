@@ -19,7 +19,7 @@ export default function StoryPage() {
           <div className="absolute inset-0 bg-forest-deep/65" />
         </div>
         <div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32">
-          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#d9a066]">Our story</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#B38A56]">Our story</p>
           <h1 className="mt-4 max-w-2xl font-display text-4xl leading-tight text-cream sm:text-6xl">
             A stressed world needs somewhere to recharge. The planet needs businesses that give back more green than they take.
           </h1>
@@ -90,7 +90,7 @@ export default function StoryPage() {
       <section className="bg-forest-deep">
         <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6">
           <Reveal>
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#d9a066]">The five-year goal</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#B38A56]">The five-year goal</p>
             <p className="mt-4 font-display text-3xl leading-snug text-cream sm:text-4xl">
               The No. 1 choice for eco-conscious stays, the No. 1 eco-friendly brand in our market — and 100,000 trees
               planted through Edam and its guests.

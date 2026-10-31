@@ -30,7 +30,7 @@ export default function TreeLedgerPage() {
           <div className="absolute inset-0 bg-forest-deep/70" />
         </div>
         <div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#d9a066]">The Tree Ledger</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#B38A56]">The Tree Ledger</p>
           <h1 className="mt-3 max-w-2xl font-display text-4xl leading-tight text-cream sm:text-5xl">
             Everyone says they plant trees. We'll show you ours — where, which, and whether they lived.
           </h1>

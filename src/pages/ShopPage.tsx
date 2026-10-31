@@ -100,11 +100,11 @@ export default function ShopPage() {
         <h3 className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">Good to know</h3>
         <div className="mt-3 space-y-2">
           <label className="flex cursor-pointer items-center gap-3 rounded px-2 py-2 text-sm text-foreground/80 hover:bg-secondary/60">
-            <input type="checkbox" checked={giftOnly} onChange={(e) => setGiftOnly(e.target.checked)} className="h-4 w-4 accent-[#0d4a24]" />
+            <input type="checkbox" checked={giftOnly} onChange={(e) => setGiftOnly(e.target.checked)} className="h-4 w-4 accent-primary" />
             Gift-ready
           </label>
           <label className="flex cursor-pointer items-center gap-3 rounded px-2 py-2 text-sm text-foreground/80 hover:bg-secondary/60">
-            <input type="checkbox" checked={liveOnly} onChange={(e) => setLiveOnly(e.target.checked)} className="h-4 w-4 accent-[#0d4a24]" />
+            <input type="checkbox" checked={liveOnly} onChange={(e) => setLiveOnly(e.target.checked)} className="h-4 w-4 accent-primary" />
             Live plants (early-week dispatch)
           </label>
         </div>

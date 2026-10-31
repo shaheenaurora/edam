@@ -145,7 +145,7 @@ export default function CheckoutPage() {
           {/* Gifting */}
           <section className="rounded-md border border-border bg-secondary/60 p-5 sm:p-6">
             <label className="flex cursor-pointer items-start gap-3">
-              <input type="checkbox" checked={isGift} onChange={(e) => setIsGift(e.target.checked)} className="mt-1 h-4 w-4 accent-[#0d4a24]" />
+              <input type="checkbox" checked={isGift} onChange={(e) => setIsGift(e.target.checked)} className="mt-1 h-4 w-4 accent-primary" />
               <span>
                 <span className="flex items-center gap-2 text-sm font-semibold text-foreground">
                   <Gift className="h-4 w-4 text-clay" /> This is a gift
@@ -166,7 +166,7 @@ export default function CheckoutPage() {
                   className="focus-ring w-full rounded-md border border-input bg-card px-4 py-3 text-sm"
                 />
                 <label className="flex cursor-pointer items-center gap-3 text-sm text-foreground">
-                  <input type="checkbox" checked={shipToRecipient} onChange={(e) => setShipToRecipient(e.target.checked)} className="h-4 w-4 accent-[#0d4a24]" />
+                  <input type="checkbox" checked={shipToRecipient} onChange={(e) => setShipToRecipient(e.target.checked)} className="h-4 w-4 accent-primary" />
                   Ship directly to the recipient
                 </label>
                 {shipToRecipient && (
@@ -207,7 +207,7 @@ export default function CheckoutPage() {
                     payment === m.id ? "border-primary bg-secondary" : "border-border bg-card hover:border-foreground/40"
                   }`}
                 >
-                  <input type="radio" name="payment" value={m.id} checked={payment === m.id} onChange={() => setPayment(m.id)} className="mt-1 h-4 w-4 accent-[#0d4a24]" />
+                  <input type="radio" name="payment" value={m.id} checked={payment === m.id} onChange={() => setPayment(m.id)} className="mt-1 h-4 w-4 accent-primary" />
                   <m.icon className="mt-0.5 h-5 w-5 shrink-0 text-primary" strokeWidth={1.5} />
                   <span>
                     <span className="block text-sm font-semibold text-foreground">{m.title}</span>

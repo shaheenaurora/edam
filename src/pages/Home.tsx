@@ -46,7 +46,7 @@ export default function Home() {
         </div>
         <div className="relative mx-auto flex min-h-[78vh] max-w-7xl flex-col justify-center px-4 py-24 sm:px-6">
           <div className="max-w-xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#d9a066]">
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#B38A56]">
               Eco-conscious stays · natural products · real trees
             </p>
             <h1 className="mt-5 font-display text-5xl leading-[1.05] text-cream sm:text-6xl lg:text-7xl">
@@ -125,7 +125,7 @@ export default function Home() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-forest-deep/85 via-forest-deep/20 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-5">
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#d9a066]">{r.role}</p>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#B38A56]">{r.role}</p>
                   <h3 className="mt-1 font-display text-2xl text-cream">{r.name}</h3>
                   <p className="text-sm text-cream/80">{r.line}</p>
                 </div>
@@ -140,7 +140,7 @@ export default function Home() {
         <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2">
           <Reveal>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#d9a066]">The Tree Ledger</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#B38A56]">The Tree Ledger</p>
               <h2 className="mt-3 font-display text-3xl leading-tight text-cream sm:text-4xl">
                 Everyone says they plant trees.
                 <br />
@@ -246,7 +246,7 @@ export default function Home() {
         <div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6">
           <Reveal>
             <div className="max-w-lg">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#d9a066]">The other half of Edam</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#B38A56]">The other half of Edam</p>
               <h2 className="mt-3 font-display text-3xl leading-tight text-cream sm:text-4xl">
                 Some things should be stayed in, not shipped.
               </h2>

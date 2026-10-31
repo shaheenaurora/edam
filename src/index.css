@@ -4,38 +4,39 @@
 
 @layer base {
   :root {
-    /* Edam — "Rooted in truth" palette
-       cream ground · deep forest ink · terracotta clay accent · sand lines */
-    --background: 44 43% 96%; /* #faf7ef aged-paper cream */
-    --foreground: 141 70% 12%; /* deep forest green ink */
-    --card: 44 50% 98%;
-    --card-foreground: 141 70% 12%;
-    --popover: 44 50% 98%;
-    --popover-foreground: 141 70% 12%;
-    --primary: 143 69% 17%; /* forest #0d4a24 */
-    --primary-foreground: 44 60% 96%;
-    --secondary: 36 38% 91%; /* #f3ece1 peach-cream surface */
-    --secondary-foreground: 141 60% 16%;
-    --muted: 42 28% 90%;
-    --muted-foreground: 98 9% 37%; /* mossy grey-green */
-    --accent: 28 48% 49%; /* clay terracotta #bc773f */
-    --accent-foreground: 40 50% 97%;
+    /* Edam — official brand palette ("EDAM Brand Guidelines", Sep 2026)
+       Natural Cream ground · Forest Deep ink · Terracotta Earth accent ·
+       Olive Leaf / Harvest Ochre support tones */
+    --background: 41 35% 86%; /* Natural Cream #E8E0CF */
+    --foreground: 166 81% 10%; /* Forest Deep #053026 */
+    --card: 44 45% 93%; /* lighter cream within the official family */
+    --card-foreground: 166 81% 10%;
+    --popover: 44 45% 93%;
+    --popover-foreground: 166 81% 10%;
+    --primary: 166 81% 10%; /* Forest Deep #053026 */
+    --primary-foreground: 41 45% 92%;
+    --secondary: 42 32% 90%;
+    --secondary-foreground: 166 60% 15%;
+    --muted: 42 24% 82%;
+    --muted-foreground: 20 29% 30%; /* Earth Brown #634637 */
+    --accent: 16 55% 39%; /* Terracotta Earth #A65233, deepened a step for text contrast */
+    --accent-foreground: 41 45% 93%;
     --destructive: 8 56% 41%;
-    --destructive-foreground: 44 50% 97%;
-    --border: 40 26% 82%;
-    --input: 40 26% 80%;
-    --ring: 143 69% 22%;
+    --destructive-foreground: 41 45% 93%;
+    --border: 40 20% 74%;
+    --input: 40 22% 70%;
+    --ring: 166 81% 16%;
     --radius: 0.5rem;
 
     /* brand primitives */
-    --cream: 44 43% 96%;
-    --cream-deep: 39 34% 90%;
-    --forest: 143 69% 17%;
-    --forest-deep: 141 72% 10%;
-    --moss: 96 22% 36%;
-    --leaf: 96 26% 55%;
-    --clay: 28 48% 49%;
-    --sand: 33 36% 80%;
+    --cream: 41 35% 86%;
+    --cream-deep: 38 28% 79%;
+    --forest: 166 81% 10%;
+    --forest-deep: 166 81% 6%;
+    --moss: 73 16% 41%; /* Olive Leaf #737A59 */
+    --leaf: 81 37% 51%; /* secondary green #8FB053 */
+    --clay: 16 55% 39%;
+    --sand: 34 38% 52%; /* Harvest Ochre #B38A56 */
   }
 }
 
@@ -48,7 +49,7 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: "Karla", ui-sans-serif, system-ui, sans-serif;
+    font-family: "Figtree", "Avenir", ui-sans-serif, system-ui, sans-serif;
     font-size: 16px;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
@@ -60,11 +61,14 @@
 
 @layer utilities {
   .font-display {
-    font-family: "Marcellus", Georgia, "Times New Roman", serif;
-    font-weight: 400;
+    /* Utile Display stand-in: Fraunces (editorial serif, Black→Medium range) */
+    font-family: "Fraunces", Georgia, "Times New Roman", serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    font-optical-sizing: auto;
   }
   .font-body {
-    font-family: "Karla", ui-sans-serif, system-ui, sans-serif;
+    font-family: "Figtree", "Avenir", ui-sans-serif, system-ui, sans-serif;
   }
   .text-balance {
     text-wrap: balance;

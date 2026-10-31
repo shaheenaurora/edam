@@ -68,7 +68,7 @@ export function FieldNotesForm({ compact = false }: { compact?: boolean }) {
           type="checkbox"
           checked={consent}
           onChange={(e) => setConsent(e.target.checked)}
-          className="focus-ring mt-0.5 h-4 w-4 shrink-0 accent-[#0d4a24]"
+          className="focus-ring mt-0.5 h-4 w-4 shrink-0 accent-primary"
         />
         Yes — email me the Field Notes and occasional Edam news. Marketing consent, given separately, as it should be.
         No spam, unsubscribe anytime.
