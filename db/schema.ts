@@ -238,3 +238,17 @@ export const auditLog = mysqlTable("auditLog", {
 });
 
 export type AuditEntry = typeof auditLog.$inferSelect;
+
+/* ---------------- Sign-in codes (email OTP) ---------------- */
+
+export const loginCodes = mysqlTable("loginCodes", {
+  id: serial("id").primaryKey(),
+  email: varchar("email", { length: 320 }).notNull(),
+  code: varchar("code", { length: 64 }).notNull(),
+  attempts: int("attempts").default(0).notNull(),
+  expiresAt: timestamp("expiresAt").notNull(),
+  usedAt: timestamp("usedAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type LoginCode = typeof loginCodes.$inferSelect;

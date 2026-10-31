@@ -35,12 +35,12 @@ The repo ships with `railway.toml`; Railway builds with Nixpacks and starts with
    | Variable | Value |
    |---|---|
    | `DATABASE_URL` | `${{MySQL.MYSQL_URL}}` (reference the MySQL service) |
-   | `APP_ID` / `APP_SECRET` | your app credentials |
-   | `KIMI_AUTH_URL` / `KIMI_OPEN_URL` | Kimi platform URLs |
-   | `VITE_KIMI_AUTH_URL` / `VITE_APP_ID` | same auth URL / app id, for the browser bundle |
-   | `OWNER_UNION_ID` | union id of the account that should become admin on first login |
+   | `APP_SECRET` | any long random string, signs the login session cookie |
+   | `ADMIN_EMAILS` | comma-separated emails that become admin on sign-in, e.g. `you@edam.in` |
 
-   Optional, enable when ready: `RAZORPAY_KEY_ID` + `RAZORPAY_KEY_SECRET` (turns on online UPI/card checkout), `MAIL_WEBHOOK_URL` (delivers queued notification mail).
+   Sign-in is passwordless: a six digit code is emailed through the notification outbox. Set `MAIL_WEBHOOK_URL` so those emails actually send; without it, codes can be read from the admin notifications panel or the database while testing.
+
+   Optional, enable when ready: `RAZORPAY_KEY_ID` + `RAZORPAY_KEY_SECRET` (turns on online UPI/card checkout).
 
 4. **Generate a public domain** under Settings → Networking.
 5. **Seed the database** once, from your machine or Railway's shell:

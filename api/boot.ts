@@ -5,7 +5,6 @@ import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 import { appRouter } from "./router";
 import { createContext } from "./context";
 import { env } from "./lib/env";
-import { createOAuthCallbackHandler } from "./kimi/auth";
 import { Paths } from "@contracts/constants";
 import { log } from "./lib/logger";
 import { handleClientLog } from "./lib/clientlog";
@@ -60,7 +59,6 @@ app.use("*", async (c, next) => {
 // bodyless request (DELETE/PATCH on the app's own REST routes) 500s at dispatch.
 // /api/log keeps its own 64KB caps in lib/clientlog.ts, so it needs no middleware.
 app.use("/api/trpc/*", bodyLimit({ maxSize: 50 * 1024 * 1024 }));
-app.get(Paths.oauthCallback, createOAuthCallbackHandler());
 app.use("/api/trpc/*", async (c) => {
   return fetchRequestHandler({
     endpoint: "/api/trpc",
@@ -84,7 +82,7 @@ app.route("/api/webhooks", paymentWebhookRoutes);
 app.get("/api/health", (c) => c.json({ ok: true }));
 app.all("/api/*", (c) => c.json({ error: "Not Found" }, 404));
 
-// Unhandled request errors must reach /tmp/kimi-logs/app.log, not just stdout:
+// Unhandled request errors must reach the app log, not just stdout:
 // that file is what the building agent reads when a preview 500s, and without
 // this the log looks clean while the request actually failed. Response stays a
 // generic 500 (no stack leaked to the caller); the detail goes to the log only.

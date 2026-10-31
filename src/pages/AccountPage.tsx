@@ -4,20 +4,6 @@ import { useAuth } from "@/hooks/useAuth";
 import { trpc } from "@/providers/trpc";
 import { inr } from "@/lib/format";
 
-function getOAuthUrl() {
-  const kimiAuthUrl = import.meta.env.VITE_KIMI_AUTH_URL;
-  const appID = import.meta.env.VITE_APP_ID;
-  const redirectUri = `${window.location.origin}/api/oauth/callback`;
-  const state = btoa(redirectUri);
-  const url = new URL(`${kimiAuthUrl}/api/oauth/authorize`);
-  url.searchParams.set("client_id", appID);
-  url.searchParams.set("redirect_uri", redirectUri);
-  url.searchParams.set("response_type", "code");
-  url.searchParams.set("scope", "profile");
-  url.searchParams.set("state", state);
-  return url.toString();
-}
-
 export default function AccountPage() {
   const { user, isAuthenticated, isLoading, logout } = useAuth();
   const orders = trpc.orders.mine.useQuery(undefined, { enabled: isAuthenticated });
@@ -42,12 +28,12 @@ export default function AccountPage() {
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
           You never need an account to shop or check out. This one is just for keeping your history in one place.
         </p>
-        <button
-          onClick={() => (window.location.href = getOAuthUrl())}
-          className="focus-ring mt-6 h-12 bg-primary px-8 text-sm font-semibold text-primary-foreground hover:bg-forest-deep"
+        <Link
+          to="/login"
+          className="focus-ring mt-6 inline-block bg-primary px-8 py-3.5 text-sm font-semibold text-primary-foreground hover:bg-forest-deep"
         >
-          Sign in with Kimi
-        </button>
+          Sign in with email
+        </Link>
         <p className="mt-6 text-xs text-muted-foreground">
           Just ordered as a guest? Your tree ID is on your confirmation page and in the email. Or{" "}
           <Link to="/the-tree" className="focus-ring font-semibold text-primary underline underline-offset-2">look it up on the ledger</Link>.
