@@ -38,7 +38,7 @@ export default function Home() {
       <section className="relative">
         <div className="absolute inset-0">
           <img
-            src="/images/hero.png"
+            src="/images/hero.jpg"
             alt="A Kerala homestead garden in morning light, mist over banana and coconut palms"
             className="h-full w-full object-cover"
           />
@@ -240,7 +240,7 @@ export default function Home() {
       {/* ---------- Stay bridge ---------- */}
       <section className="relative">
         <div className="absolute inset-0">
-          <img src="/images/stay.png" alt="The Edam eco cottage among Kerala greenery" loading="lazy" className="h-full w-full object-cover" />
+          <img src="/images/stay.jpg" alt="The Edam eco cottage among Kerala greenery" loading="lazy" className="h-full w-full object-cover" />
           <div className="absolute inset-0 bg-forest-deep/60" />
         </div>
         <div className="relative mx-auto max-w-7xl px-5 py-24 sm:px-8">
@@ -286,7 +286,7 @@ export default function Home() {
               </Link>
             </div>
             <div className="order-1 overflow-hidden rounded-md lg:order-2">
-              <img src="/images/range-give.png" alt="An Edam gift hamper on a wooden tray" loading="lazy" className="aspect-[4/3] w-full object-cover" />
+              <img src="/images/range-give.jpg" alt="An Edam gift hamper on a wooden tray" loading="lazy" className="aspect-[4/3] w-full object-cover" />
             </div>
           </div>
         </Reveal>

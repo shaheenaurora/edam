@@ -19,7 +19,7 @@ export const RANGES: RangeMeta[] = [
     role: "The repeat engine",
     description:
       "Spices with a named hill behind them, honey with a batch number, tea from a named garden. Kerala's food, honestly labelled and plastic-free.",
-    image: "/images/range-nourish.png",
+    image: "/images/range-nourish.jpg",
   },
   {
     key: "CARE",
@@ -29,7 +29,7 @@ export const RANGES: RangeMeta[] = [
     role: "The margin engine",
     description:
       "Cold-process soaps, traditional oils and everyday care. Real Kerala craft, described by what it is, never by a claim we can't keep.",
-    image: "/images/range-care.png",
+    image: "/images/range-care.jpg",
   },
   {
     key: "DWELL",
@@ -39,7 +39,7 @@ export const RANGES: RangeMeta[] = [
     role: "The aesthetic engine",
     description:
       "Terracotta, coir, handloom and natural fragrance. Useful, beautiful objects made by hands you can name.",
-    image: "/images/range-dwell.png",
+    image: "/images/range-dwell.jpg",
   },
   {
     key: "GROW",
@@ -49,7 +49,7 @@ export const RANGES: RangeMeta[] = [
     role: "The signature",
     description:
       "Seeds, grow kits and living plants with honest guidance and a replacement promise, because the point is keeping something alive.",
-    image: "/images/range-grow.png",
+    image: "/images/range-grow.jpg",
   },
   {
     key: "GIVE",
@@ -59,7 +59,7 @@ export const RANGES: RangeMeta[] = [
     role: "The AOV engine",
     description:
       "Hampers, gift cards and trees in someone's name. Kerala, sent home, with the tree always inside the price.",
-    image: "/images/range-give.png",
+    image: "/images/range-give.jpg",
   },
 ];
 

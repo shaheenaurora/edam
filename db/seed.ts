@@ -15,7 +15,7 @@ const MAKERS = [
     summary: "Forty-one smallholder families growing pepper, cardamom and turmeric on the cardamom hills.",
     story:
       "The Periyar Spice Collective is a farmer producer organisation of forty-one smallholder families around Kumily, on the edge of the Periyar forests. Their pepper vines climb shade trees the way they have for generations. No estates, no middlemen marking up four times before the spice leaves the district. Every lot Edam buys is dried, graded and packed at the collective's own yard, and the farmer who grew it is named on the batch record.",
-    image: "/images/maker-pepper.png",
+    image: "/images/maker-pepper.jpg",
   },
   {
     slug: "munnar-high-range-growers",
@@ -25,7 +25,7 @@ const MAKERS = [
     summary: "A small group of high-range growers producing single-garden tea and herbal infusions.",
     story:
       "High in the Munnar ranges, a handful of small gardens produce tea that never enters the auction system. It is plucked, withered and rolled in small lots, and sold with the garden's name on it. Edam's tea and infusions come from this group. The After-Travel Herbal Tea is blended to Edam's own recipe from their lemongrass, tulsi and dried ginger.",
-    image: "/images/product-tea.png",
+    image: "/images/product-tea.jpg",
   },
   {
     slug: "nilgiri-beekeepers",
@@ -35,7 +35,7 @@ const MAKERS = [
     summary: "Wild and apiary honey harvested at the forest fringe, every batch tested to standard.",
     story:
       "The collective's hives sit at the forest fringe where the flowering shifts with the season, which is why no two batches of this honey taste the same. Every batch Edam lists is tested for adulteration and conformance to the FSSAI honey standard before it is packed. The certificate belongs to the batch, not to the marketing.",
-    image: "/images/product-honey.png",
+    image: "/images/product-honey.jpg",
   },
   {
     slug: "bharanikkavu-womens-collective",
@@ -45,7 +45,7 @@ const MAKERS = [
     summary: "A women's self-help group making soaps, oils, preserves and breakfast mixes in small batches.",
     story:
       "Fourteen women, one bright workshop, and recipes that were household knowledge long before they were products. The collective makes Edam's cold-process soaps, herbal oils, pickles and breakfast mixes, each batch small enough that the person who made it can initial the packing slip. Coconut for the oils and soaps comes from their own neighbourhood mills.",
-    image: "/images/maker-soap.png",
+    image: "/images/maker-soap.jpg",
   },
   {
     slug: "chalakudy-terracotta-studio",
@@ -55,7 +55,7 @@ const MAKERS = [
     summary: "A two-generation potter's studio throwing terracotta and ceramic tableware with food-safe glazes.",
     story:
       "The studio sits close enough to the river that the clay is dug locally. Terracotta glasses and pots leave the kiln unglazed, the way they have always been; the ceramic mugs and serveware carry food-safe, lead-free glazes, certification on file. Natural variation between pieces is not a defect here; it is the signature of a wheel, not a mould.",
-    image: "/images/maker-potter.png",
+    image: "/images/maker-potter.jpg",
   },
   {
     slug: "alappuzha-coir-craft",
@@ -65,7 +65,7 @@ const MAKERS = [
     summary: "Coir, cane and bamboo utility woven by artisan families in the backwater belt.",
     story:
       "Coir is Kerala's original plastic-free material: coconut husk, retted in backwater, spun and woven by hand. The cluster's baskets, mats and everyday goods are made in family workshops across the Alappuzha belt. Nothing here is injection-moulded to look handmade; it simply is.",
-    image: "/images/range-dwell.png",
+    image: "/images/range-dwell.jpg",
   },
   {
     slug: "nila-handloom-weavers",
@@ -75,7 +75,7 @@ const MAKERS = [
     summary: "Kasavu handloom woven on pit looms: table linen, throws and towels with real gold-toned borders.",
     story:
       "Balaramapuram's weavers have carried the kasavu tradition for generations: unbleached cotton with the familiar gold-toned border, woven on pit looms in homes around the town. Edam's table linen and throws are woven to order, which means lead times are real and every bolt is slightly its own.",
-    image: "/images/range-dwell.png",
+    image: "/images/range-dwell.jpg",
   },
   {
     slug: "palakkad-seed-savers",
@@ -85,7 +85,7 @@ const MAKERS = [
     summary: "Open-pollinated flower, herb and native tree seed, plus the grow kits assembled by hand.",
     story:
       "A licensed seed supplier working with a network of small growers to keep open-pollinated and native varieties in circulation. They supply Edam's seed packets, seed balls and seed paper, and assemble the grow kits by hand: coir pot, growing medium, seed and a guide written for Indian weather, not a translated leaflet.",
-    image: "/images/range-grow.png",
+    image: "/images/range-grow.jpg",
   },
 ] as const;
 
@@ -111,11 +111,11 @@ interface P {
 }
 
 const RANGE_IMG: Record<string, string> = {
-  NOURISH: "/images/range-nourish.png",
-  CARE: "/images/range-care.png",
-  DWELL: "/images/range-dwell.png",
-  GROW: "/images/range-grow.png",
-  GIVE: "/images/range-give.png",
+  NOURISH: "/images/range-nourish.jpg",
+  CARE: "/images/range-care.jpg",
+  DWELL: "/images/range-dwell.jpg",
+  GROW: "/images/range-grow.jpg",
+  GIVE: "/images/range-give.jpg",
 };
 
 const PRODUCTS: P[] = [
@@ -126,11 +126,11 @@ const PRODUCTS: P[] = [
   { slug: "true-cinnamon-quills", name: "True Cinnamon Quills", range: "NOURISH", category: "Spices & blends", price: 220, unit: "50 g pouch", shortLine: "True cinnamon, delicate and sweet, not the hard cassia bark.", description: "Paper-thin quills of true cinnamon with a gentle, sweet warmth. The label says true cinnamon because it is. Cassia is cheaper and louder, and this is neither.", usage: "Simmer in milk, tea and stews; grind fresh for baking.", image: RANGE_IMG.NOURISH, maker: "periyar-pepper-collective", stock: 110 },
   { slug: "malabar-fish-curry-base", name: "Malabar Fish Curry Base", range: "NOURISH", category: "Signature blends", price: 290, unit: "200 g jar", shortLine: "A story in a jar: the coastal curry base, roasted and ground the old way.", description: "Roasted coconut, chilli, coriander, fenugreek and kodampuli, blended to a family recipe from the Malabar coast. This is the range's signature: one jar, a piece of fish, twenty minutes, and dinner tastes like someone's grandmother supervised.", usage: "Simmer a spoonful in coconut milk, add fish or vegetables. Serves four.", image: RANGE_IMG.NOURISH, maker: "bharanikkavu-womens-collective", hero: true, featured: true, giftReady: true, stock: 90 },
   { slug: "sambar-rasam-podi", name: "Sambar & Rasam Podi Duo", range: "NOURISH", category: "Signature blends", price: 160, unit: "2 × 100 g pouches", shortLine: "The two blends a South Indian kitchen reaches for daily.", description: "A fresh-ground sambar podi and a peppery rasam podi, made in weekly batches by the women's collective. High-reorder staples, the quiet engine of the pantry.", usage: "A tablespoon to a pot; adjust salt, not courage.", image: RANGE_IMG.NOURISH, maker: "bharanikkavu-womens-collective", stock: 200 },
-  { slug: "raw-forest-honey", name: "Raw Forest Honey", range: "NOURISH", category: "Honey & sweeteners", price: 420, unit: "250 g jar", shortLine: "Forest-fringe honey, batch-tested, never heated or blended.", description: "Raw honey from hives at the Nilambur forest fringe: unheated, unblended, and tested for adulteration before packing. The flavour shifts with the flowering season; the batch number on your jar traces to the test certificate.", usage: "Drizzle, stir, eat from the spoon. Crystallisation is natural; warm gently to reliquefy.", image: "/images/product-honey.png", maker: "nilgiri-beekeepers", hero: true, featured: true, giftReady: true, stock: 100 },
+  { slug: "raw-forest-honey", name: "Raw Forest Honey", range: "NOURISH", category: "Honey & sweeteners", price: 420, unit: "250 g jar", shortLine: "Forest-fringe honey, batch-tested, never heated or blended.", description: "Raw honey from hives at the Nilambur forest fringe: unheated, unblended, and tested for adulteration before packing. The flavour shifts with the flowering season; the batch number on your jar traces to the test certificate.", usage: "Drizzle, stir, eat from the spoon. Crystallisation is natural; warm gently to reliquefy.", image: "/images/product-honey.jpg", maker: "nilgiri-beekeepers", hero: true, featured: true, giftReady: true, stock: 100 },
   { slug: "palm-jaggery-karupatti", name: "Palm Jaggery (Karupatti)", range: "NOURISH", category: "Honey & sweeteners", price: 150, unit: "400 g block", shortLine: "Dark, mineral-rich karupatti, Kerala's own sweetener.", description: "Sap of the palmyra, cooked down in iron pans to a deep, caramelly block. The honest sweetener for tea, coffee and payasam.", usage: "Grate or shave into hot drinks and sweets.", image: RANGE_IMG.NOURISH, maker: "bharanikkavu-womens-collective", stock: 130 },
-  { slug: "munnar-high-grown-tea", name: "Munnar High-Grown Tea", range: "NOURISH", category: "Tea & coffee", price: 310, unit: "100 g caddy", shortLine: "Single-garden tea from the high ranges, plucked in small lots.", description: "A brisk, bright high-grown tea from a named Munnar garden, never the anonymous auction blend. The caddy is reusable; the tea is not the kind you forget in the cupboard.", usage: "One teaspoon, water just off the boil, three minutes.", image: "/images/product-tea.png", maker: "munnar-high-range-growers", featured: true, giftReady: true, stock: 140 },
+  { slug: "munnar-high-grown-tea", name: "Munnar High-Grown Tea", range: "NOURISH", category: "Tea & coffee", price: 310, unit: "100 g caddy", shortLine: "Single-garden tea from the high ranges, plucked in small lots.", description: "A brisk, bright high-grown tea from a named Munnar garden, never the anonymous auction blend. The caddy is reusable; the tea is not the kind you forget in the cupboard.", usage: "One teaspoon, water just off the boil, three minutes.", image: "/images/product-tea.jpg", maker: "munnar-high-range-growers", featured: true, giftReady: true, stock: 140 },
   { slug: "wayanad-estate-coffee", name: "Wayanad Estate Coffee", range: "NOURISH", category: "Tea & coffee", price: 380, unit: "250 g, beans or ground", shortLine: "Shade-grown Wayanad coffee from a named smallholding.", description: "Grown under pepper vines and silver oak in Wayanad, roasted in small batches. Choose whole beans or a filter grind. The bag names the holding it came from.", usage: "Built for the South Indian filter; forgiving everywhere else.", image: RANGE_IMG.NOURISH, maker: "periyar-pepper-collective", stock: 110 },
-  { slug: "after-travel-herbal-tea", name: "After-Travel Herbal Tea", range: "NOURISH", category: "Infusions", price: 260, unit: "20 sachets", shortLine: "Lemongrass, tulsi and dry ginger: the cup that ends a journey.", description: "Blended to Edam's own recipe from high-range lemongrass, tulsi and dried ginger. The name is a mood, not a medical claim. It is simply a very good cup after a long day.", usage: "Steep four minutes. No milk. Sit down first.", image: "/images/product-tea.png", maker: "munnar-high-range-growers", featured: true, giftReady: true, stock: 120 },
+  { slug: "after-travel-herbal-tea", name: "After-Travel Herbal Tea", range: "NOURISH", category: "Infusions", price: 260, unit: "20 sachets", shortLine: "Lemongrass, tulsi and dry ginger: the cup that ends a journey.", description: "Blended to Edam's own recipe from high-range lemongrass, tulsi and dried ginger. The name is a mood, not a medical claim. It is simply a very good cup after a long day.", usage: "Steep four minutes. No milk. Sit down first.", image: "/images/product-tea.jpg", maker: "munnar-high-range-growers", featured: true, giftReady: true, stock: 120 },
   { slug: "jackfruit-breakfast-mix", name: "Jackfruit Breakfast Mix", range: "NOURISH", category: "Breakfast & mixes", price: 190, unit: "300 g pouch", shortLine: "Kerala's hero fruit, milled into a breakfast worth waking for.", description: "Raw jackfruit flour blended for soft puttu, dosas and porridge, a distinctly Kerala breakfast with a gentle sweetness and plenty of fibre.", usage: "Steam as puttu, or whisk into dosa batter. Pairs with curry leaf anything.", image: RANGE_IMG.NOURISH, maker: "bharanikkavu-womens-collective", featured: true, stock: 150 },
   { slug: "ragi-porridge-mix", name: "Ragi Porridge Mix", range: "NOURISH", category: "Breakfast & mixes", price: 170, unit: "300 g pouch", shortLine: "Stone-milled finger millet with cardamom, five minutes to breakfast.", description: "An everyday health food the way Kerala kitchens have always made it: ragi, a little cardamom, nothing else needed.", usage: "Whisk into water or milk, simmer five minutes, sweeten with karupatti.", image: RANGE_IMG.NOURISH, maker: "bharanikkavu-womens-collective", stock: 160 },
   { slug: "tender-mango-pickle", name: "Tender Mango Pickle", range: "NOURISH", category: "Preserves", price: 240, unit: "200 g jar", shortLine: "Whole tender mangoes in brine and spice, the year-round taste of April.", description: "Tender kannimanga pickled in small batches at the season's start. Sharp, salty, deeply regional. A jar with a long life and a strong opinion.", usage: "A little beside rice, curd rice, kanji. Refrigerate after opening.", image: RANGE_IMG.NOURISH, maker: "bharanikkavu-womens-collective", giftReady: true, stock: 70 },
@@ -140,7 +140,7 @@ const PRODUCTS: P[] = [
   { slug: "neem-charcoal-bath-bar", name: "Neem & Charcoal Bath Bar", range: "CARE", category: "Soaps & bath", price: 220, unit: "110 g bar", shortLine: "Cold-process with neem and activated charcoal, for a deep, clean rinse.", description: "The second bar in the bath line: neem's herbal bitterness balanced by charcoal's clean finish, in the same slow-cured coconut-oil base.", usage: "Daily bar for face or body. Keep on a draining dish.", image: RANGE_IMG.CARE, maker: "bharanikkavu-womens-collective", stock: 160 },
   { slug: "forest-hair-oil", name: "Forest Hair Oil", range: "CARE", category: "Hair", price: 360, unit: "100 ml bottle", shortLine: "Coconut oil infused with hibiscus, amla and curry leaf.", description: "Slow-infused in coconut oil the traditional way: hibiscus, amla, curry leaf, brahmi. Sold as cosmetic care that nourishes and conditions; it does not claim to cure anything, and doesn't need to.", usage: "Warm a little between palms, work through scalp and lengths, wash after an hour.", image: RANGE_IMG.CARE, maker: "bharanikkavu-womens-collective", featured: true, giftReady: true, stock: 120 },
   { slug: "hibiscus-hair-ritual", name: "Hibiscus Hair Ritual", range: "CARE", category: "Hair", price: 480, unit: "Oil + mask set", shortLine: "A two-step ritual: infused oil and a hibiscus powder mask.", description: "A set built like a ritual: the infused oil for the massage, the hibiscus mask for the wash day. A beautiful gift for someone who needs an hour to themselves.", usage: "Oil first, mask second, an unhurried evening throughout.", image: RANGE_IMG.CARE, maker: "bharanikkavu-womens-collective", giftReady: true, stock: 60 },
-  { slug: "virgin-coconut-oil", name: "Virgin Coconut Oil", range: "CARE", category: "Oils & moisturisers", price: 320, unit: "200 ml bottle", shortLine: "Cold-pressed from neighbourhood coconuts. Kerala in a bottle.", description: "Cold-pressed virgin coconut oil from fresh coconut milk, made in small lots. This SKU is labelled for cosmetic use: skin and hair. (An edible grade follows in Wave 2.)", usage: "A few drops for skin, a spoonful for hair. Solidifies in cool weather. That's purity, not a fault.", image: "/images/product-vco.png", maker: "bharanikkavu-womens-collective", hero: true, featured: true, giftReady: true, stock: 140 },
+  { slug: "virgin-coconut-oil", name: "Virgin Coconut Oil", range: "CARE", category: "Oils & moisturisers", price: 320, unit: "200 ml bottle", shortLine: "Cold-pressed from neighbourhood coconuts. Kerala in a bottle.", description: "Cold-pressed virgin coconut oil from fresh coconut milk, made in small lots. This SKU is labelled for cosmetic use: skin and hair. (An edible grade follows in Wave 2.)", usage: "A few drops for skin, a spoonful for hair. Solidifies in cool weather. That's purity, not a fault.", image: "/images/product-vco.jpg", maker: "bharanikkavu-womens-collective", hero: true, featured: true, giftReady: true, stock: 140 },
   { slug: "sleep-body-oil", name: "Sleep Body Oil", range: "CARE", category: "Oils & moisturisers", price: 420, unit: "100 ml bottle", shortLine: "A calming blend for the end of the day. Pairs well with the Calm infusion.", description: "A gentle body oil blended for the evening wind-down: coconut and sesame carrying lavender-adjacent Indian botanicals. The name sets a mood; it makes no therapeutic claim.", usage: "After a bath, before bed. Phones optional, discouraged.", image: RANGE_IMG.CARE, maker: "bharanikkavu-womens-collective", featured: true, giftReady: true, stock: 90 },
   { slug: "nalpamaradi-style-body-oil", name: "Nalpamaradi-Style Body Oil", range: "CARE", category: "Oils & moisturisers", price: 460, unit: "100 ml bottle", shortLine: "The classical four-tree formulation, honestly positioned as cosmetic care.", description: "Made to the classical Nalpamaradi recipe: the barks of four ficus trees in a coconut-oil base. Sold strictly as a cosmetic oil for skin care; the '-style' in the name and the wording on the label are deliberate, and settled with a cosmetics consultant.", usage: "Massage before bath, a few times a week.", image: RANGE_IMG.CARE, maker: "bharanikkavu-womens-collective", stock: 80 },
   { slug: "coconut-body-butter", name: "Coconut Body Butter", range: "CARE", category: "Oils & moisturisers", price: 340, unit: "100 g jar", shortLine: "Whipped coconut and kokum, an everyday moisturiser of this place.", description: "A whipped, fast-absorbing butter built on coconut and kokum. Kerala at its core, useful everywhere elbows exist.", usage: "Post-bath, post-sun, whenever.", image: RANGE_IMG.CARE, maker: "bharanikkavu-womens-collective", stock: 100 },
@@ -149,8 +149,8 @@ const PRODUCTS: P[] = [
   // ---------- DWELL ----------
   { slug: "cardamom-soy-candle", name: "Cardamom Grove Candle", range: "DWELL", category: "Fragrance & ambience", price: 450, unit: "180 g, clay pot", shortLine: "Natural wax in a terracotta pot, scented with cardamom and vetiver.", description: "Hand-poured natural wax in a reusable terracotta pot: cardamom, vetiver, a little cedar. Burns clean for about 35 hours; the pot then holds whatever you like.", usage: "First burn: let the pool reach the edge. Trim the wick after.", image: RANGE_IMG.DWELL, maker: "chalakudy-terracotta-studio", hero: true, featured: true, giftReady: true, stock: 90 },
   { slug: "sambrani-incense-cups", name: "Sambrani Incense Cups", range: "DWELL", category: "Fragrance & ambience", price: 180, unit: "12 cups", shortLine: "Traditional benzoin resin cups, the evening fragrance of Kerala homes.", description: "Sambrani (benzoin) blended and pressed into burnable cups, the fragrance that signals evening in a Kerala household.", usage: "Light the rim, let it smoulder in a safe holder.", image: RANGE_IMG.DWELL, maker: "bharanikkavu-womens-collective", stock: 200 },
-  { slug: "terracotta-glass-set", name: "Terracotta Glass Set", range: "DWELL", category: "Tableware & terracotta", price: 380, unit: "Set of 4", shortLine: "Unglazed river clay glasses. Water tastes like monsoon soil.", description: "Wheel-thrown from local clay and left unglazed, as terracotta has always been. Water cools gently and takes on the faint, pleasant scent of wet earth. Food-safe by construction.", usage: "Season before first use: soak overnight. Hand-wash, no soap.", image: "/images/maker-potter.png", maker: "chalakudy-terracotta-studio", featured: true, stock: 70 },
-  { slug: "handthrown-ceramic-mug", name: "Hand-Thrown Ceramic Mug", range: "DWELL", category: "Tableware & terracotta", price: 520, unit: "320 ml", shortLine: "One wheel, one pair of hands, every mug slightly its own.", description: "Thrown on the wheel in Chalakudy and finished in a food-safe, lead-free glaze. No two are identical; that's the point of a wheel.", usage: "Dishwasher-safe, though it prefers a gentle hand.", image: "/images/maker-potter.png", maker: "chalakudy-terracotta-studio", featured: true, giftReady: true, stock: 50 },
+  { slug: "terracotta-glass-set", name: "Terracotta Glass Set", range: "DWELL", category: "Tableware & terracotta", price: 380, unit: "Set of 4", shortLine: "Unglazed river clay glasses. Water tastes like monsoon soil.", description: "Wheel-thrown from local clay and left unglazed, as terracotta has always been. Water cools gently and takes on the faint, pleasant scent of wet earth. Food-safe by construction.", usage: "Season before first use: soak overnight. Hand-wash, no soap.", image: "/images/maker-potter.jpg", maker: "chalakudy-terracotta-studio", featured: true, stock: 70 },
+  { slug: "handthrown-ceramic-mug", name: "Hand-Thrown Ceramic Mug", range: "DWELL", category: "Tableware & terracotta", price: 520, unit: "320 ml", shortLine: "One wheel, one pair of hands, every mug slightly its own.", description: "Thrown on the wheel in Chalakudy and finished in a food-safe, lead-free glaze. No two are identical; that's the point of a wheel.", usage: "Dishwasher-safe, though it prefers a gentle hand.", image: "/images/maker-potter.jpg", maker: "chalakudy-terracotta-studio", featured: true, giftReady: true, stock: 50 },
   { slug: "coir-storage-basket", name: "Coir Storage Basket", range: "DWELL", category: "Eco-utility", price: 340, unit: "Medium, 25 cm", shortLine: "Backwater coir, woven tight. The basket that outlives plastic.", description: "Handwoven coir from the Alappuzha belt. Sturdy, breathable, and honest about what it is.", usage: "Shelf, kitchen, toys. Brush clean.", image: RANGE_IMG.DWELL, maker: "alappuzha-coir-craft", stock: 80 },
   { slug: "bamboo-everyday-set", name: "Bamboo Everyday Set", range: "DWELL", category: "Eco-utility", price: 260, unit: "Cutlery + straws + brush", shortLine: "The plastic-replacement kit that actually replaces plastic.", description: "A bamboo cutlery pair, four straws and a cleaning brush in a cloth roll. Low-cost, genuinely useful, and a real repeat category.", usage: "Rinse after use; dry before rolling away.", image: RANGE_IMG.DWELL, maker: "alappuzha-coir-craft", stock: 140 },
   { slug: "kasavu-table-linen", name: "Kasavu Table Linen Set", range: "DWELL", category: "Textiles & handloom", price: 680, unit: "4 napkins + runner", shortLine: "Balaramapuram handloom. Unbleached cotton, gold-toned border.", description: "Woven on pit looms in Balaramapuram with the familiar kasavu border. Sets a table the way Onam sets a year.", usage: "Gentle machine wash; line-dry in shade to keep the border bright.", image: RANGE_IMG.DWELL, maker: "nila-handloom-weavers", featured: true, giftReady: true, stock: 40 },
@@ -171,7 +171,7 @@ const PRODUCTS: P[] = [
   { slug: "the-recharge-box", name: "The Recharge Box", range: "GIVE", category: "Hampers", price: 1150, unit: "Boxed hamper", shortLine: "Soap, body oil, bath soak and the Calm tea: self-care, honestly made.", description: "The Glow Bar, Sleep Body Oil and After-Travel Herbal Tea in one box. The stay's evening ritual, sent to someone's door.", usage: "Ready to gift. Include their name for the tree certificate.", image: RANGE_IMG.GIVE, maker: "bharanikkavu-womens-collective", featured: true, giftReady: true, stock: 40 },
   { slug: "the-green-gift", name: "The Green Gift", range: "GIVE", category: "Hampers", price: 890, unit: "Boxed hamper", shortLine: "Grow kit, seed paper, seed balls, and a tree in their name.", description: "The most on-brand box we make: a Kitchen Herb Grow Kit, plantable seed paper and native seed balls, with a tree planted for the recipient. Strong for corporate gifting and CSR-adjacent occasions.", usage: "Ready to gift. Tree certificate addressed to the recipient.", image: RANGE_IMG.GIVE, maker: "palakkad-seed-savers", featured: true, giftReady: true, stock: 50 },
   { slug: "edam-gift-card", name: "Edam Gift Card", range: "GIVE", category: "Cards & vouchers", price: 1000, unit: "Digital", shortLine: "Delivered by email, redeemable across the store.", description: "A digital gift card for the store, delivered by email and never expiring into a support ticket. The low-friction gift that brings a new person to Edam.", usage: "Choose an amount at checkout; the code arrives by email.", image: RANGE_IMG.GIVE, maker: "bharanikkavu-womens-collective", giftReady: true, stock: 999 },
-  { slug: "a-tree-in-their-name", name: "A Tree in Their Name", range: "GIVE", category: "Tree gifting", price: 299, unit: "Tree + certificate", shortLine: "A native tree planted with our Kerala partner, certified in their name.", description: "A native tree planted at a named site by our planting partner, with a certificate on seed paper, digital now and plantable on request. For memorials, weddings, birthdays and the quiet occasions. The ledger page shows the batch it joins.", usage: "Tell us the recipient's name at checkout; the certificate follows by email.", image: "/images/tree-planting.png", maker: "palakkad-seed-savers", featured: true, giftReady: true, stock: 999 },
+  { slug: "a-tree-in-their-name", name: "A Tree in Their Name", range: "GIVE", category: "Tree gifting", price: 299, unit: "Tree + certificate", shortLine: "A native tree planted with our Kerala partner, certified in their name.", description: "A native tree planted at a named site by our planting partner, with a certificate on seed paper, digital now and plantable on request. For memorials, weddings, birthdays and the quiet occasions. The ledger page shows the batch it joins.", usage: "Tell us the recipient's name at checkout; the certificate follows by email.", image: "/images/tree-planting.jpg", maker: "palakkad-seed-savers", featured: true, giftReady: true, stock: 999 },
 ];
 
 const BATCHES = [
@@ -184,7 +184,7 @@ const BATCHES = [
     plantedCount: 820,
     alive12m: 713,
     plantedOn: "18 March 2026",
-    image: "/images/tree-planting.png",
+    image: "/images/tree-planting.jpg",
     note: "Riparian buffer along a seasonal stream. Survival measured at 12 months: 713 of 820, 87%. The losses were mostly one dry spell in January; replanting fills are planned with the same partner.",
     status: "planted" as const,
   },
@@ -197,7 +197,7 @@ const BATCHES = [
     plantedCount: 640,
     alive12m: null as number | null,
     plantedOn: "2 June 2026",
-    image: "/images/tree-planting.png",
+    image: "/images/tree-planting.jpg",
     note: "Bank stabilisation planting with the river guardians' volunteer corps. First monsoon establishment looks good; the honest 12-month number publishes June 2027.",
     status: "planted" as const,
   },
@@ -210,7 +210,7 @@ const BATCHES = [
     plantedCount: 392,
     alive12m: null as number | null,
     plantedOn: "21 September 2026",
-    image: "/images/tree-planting.png",
+    image: "/images/tree-planting.jpg",
     note: "Shade-tree buffer planted with the same collective that grows our pepper. The store and the trees share one landscape.",
     status: "planted" as const,
   },
@@ -223,7 +223,7 @@ const BATCHES = [
     plantedCount: 0,
     alive12m: null as number | null,
     plantedOn: "Planting window: June 2027 (pre-monsoon)",
-    image: "/images/tree-planting.png",
+    image: "/images/tree-planting.jpg",
     note: "The open batch. Trees pledged by orders and stays now are assigned here and planted in the pre-monsoon window. Every tree ID on a certificate resolves to this batch until it closes.",
     status: "open" as const,
   },
@@ -236,7 +236,7 @@ const JOURNAL = [
     excerpt: "Sun, restraint with water, and patience in year one. Everything the plant actually needs, minus the folklore.",
     body: "A curry leaf plant is not difficult. It is just misunderstood. Give it real sun (four hours minimum, a balcony railing is fine), water only when the top two inches of soil are dry, and resist the urge to harvest heavily in the first year. The plant spends year one building roots; year two onwards, it feeds your kitchen for decades.\n\nFeeding: a handful of compost twice a year beats any fertiliser schedule. Buttermilk diluted ten-to-one is the old trick and it works: mild acidity, a little nitrogen.\n\nThe most common killer is kindness: daily watering. The second is a pot with no drainage. Our kits ship in coir pots with a guide written for Indian weather. If yours fails in the first month despite honest care, the replacement promise applies.",
     tag: "Grow guide",
-    image: "/images/range-grow.png",
+    image: "/images/range-grow.jpg",
     readingMinutes: 4,
     publishedOn: "12 October 2026",
   },
@@ -246,7 +246,7 @@ const JOURNAL = [
     excerpt: "Every Edam product names the farm, collective or artisan who made it. Here is why that sentence is the whole business.",
     body: "A named source is not a marketing device. It is a structural commitment: if the maker's name is on the page, then the maker can be asked about the product, and so can we. It removes the comfortable anonymity that lets supply chains hide.\n\nIt also changes the economics. When forty-one farming families around Kumily are the named source of your pepper, their price is not a line item to be squeezed. It is the story itself. We publish the name, the place, and the photograph because those are the actual assets of this brand.\n\nThe rule we hold: if a product cannot name its source, it does not list. No exceptions for 'good deals'.",
     tag: "From the makers",
-    image: "/images/maker-pepper.png",
+    image: "/images/maker-pepper.jpg",
     readingMinutes: 5,
     publishedOn: "28 September 2026",
   },
@@ -256,7 +256,7 @@ const JOURNAL = [
     excerpt: "“Natural”, “ayurvedic”, “chemical-free”: what these words legally mean (often nothing), and what to look for instead.",
     body: "“Chemical-free” means nothing. Everything is chemicals. “Natural” is unregulated on most shelves. “Ayurvedic” on a label can mean a licensed AYUSH medicine or nothing at all; the licence number tells you which.\n\nWhat to look for instead: a full ingredient list (not 'key ingredients'), a batch number, a manufacturer that exists at a real address, and claims that stay in their lane. A soap that cleans is a soap; a soap that cures is either a drug or a lie.\n\nThis is the lens we apply to our own catalogue before we ask you to apply it to anyone else's, including ours.",
     tag: "Field Notes",
-    image: "/images/range-nourish.png",
+    image: "/images/range-nourish.jpg",
     readingMinutes: 6,
     publishedOn: "5 October 2026",
   },
@@ -266,7 +266,7 @@ const JOURNAL = [
     excerpt: "We plant trees and we publish whether they lived. That is a different, smaller, more honest sentence.",
     body: "Carbon-neutral is an accounting position: emissions on one side, offsets on the other, netted to zero on paper. We have nothing against accounting, but it is not what we do, and claiming it would be the exact kind of vagueness this brand exists to refuse.\n\nWhat we do is smaller and checkable: every order and every stay plants a tree with a named Kerala partner, at a named site, in a batch you can look up. Twelve months later we publish how many survived, including when the number disappoints. The March batch at Nilambur came in at 87%. That is on the ledger page, not in a footnote.\n\nA tree is not a licence to consume. It is a promise with an ID on it.",
     tag: "The tree",
-    image: "/images/tree-planting.png",
+    image: "/images/tree-planting.jpg",
     readingMinutes: 4,
     publishedOn: "19 October 2026",
   },

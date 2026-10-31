@@ -15,7 +15,7 @@ export default function StoryPage() {
       {/* Hero */}
       <section className="relative">
         <div className="absolute inset-0">
-          <img src="/images/story.png" alt="The Edam family homestead in Thrissur" className="h-full w-full object-cover" />
+          <img src="/images/story.jpg" alt="The Edam family homestead in Thrissur" className="h-full w-full object-cover" />
           <div className="absolute inset-0 bg-forest-deep/65" />
         </div>
         <div className="relative mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32">

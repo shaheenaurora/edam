@@ -25,7 +25,7 @@ export default function CorporatePage() {
               <li className="flex gap-3"><CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" /> Bulk tree programmes with batch-level reporting and survival updates</li>
               <li className="flex gap-3"><CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" /> GST invoicing and single-point fulfilment across India</li>
             </ul>
-            <img src="/images/range-give.png" alt="Edam gifting hampers" loading="lazy" className="mt-8 w-full rounded-md object-cover" />
+            <img src="/images/range-give.jpg" alt="Edam gifting hampers" loading="lazy" className="mt-8 w-full rounded-md object-cover" />
           </div>
         </Reveal>
 

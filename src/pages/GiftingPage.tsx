@@ -47,7 +47,7 @@ export default function GiftingPage() {
       {/* Hero */}
       <section className="relative">
         <div className="absolute inset-0">
-          <img src="/images/range-give.png" alt="An Edam hamper on a wooden tray" className="h-full w-full object-cover" />
+          <img src="/images/range-give.jpg" alt="An Edam hamper on a wooden tray" className="h-full w-full object-cover" />
           <div className="absolute inset-0 bg-forest-deep/65" />
         </div>
         <div className="relative mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-24">

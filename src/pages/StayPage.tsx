@@ -9,7 +9,7 @@ export default function StayPage() {
       {/* Hero */}
       <section className="relative">
         <div className="absolute inset-0">
-          <img src="/images/stay.png" alt="The Edam homestead, a tiled-roof cottage in lush Kerala greenery" className="h-full w-full object-cover" />
+          <img src="/images/stay.jpg" alt="The Edam homestead, a tiled-roof cottage in lush Kerala greenery" className="h-full w-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-forest-deep/80 via-forest-deep/40 to-transparent" />
         </div>
         <div className="relative mx-auto flex min-h-[70vh] max-w-7xl flex-col justify-center px-5 py-24 sm:px-8">
@@ -74,7 +74,7 @@ export default function StayPage() {
             </div>
           </Reveal>
           <Reveal delay={120}>
-            <img src="/images/range-nourish.png" alt="Spices and staples from the Edam pantry" loading="lazy" className="w-full rounded-md object-cover" />
+            <img src="/images/range-nourish.jpg" alt="Spices and staples from the Edam pantry" loading="lazy" className="w-full rounded-md object-cover" />
           </Reveal>
         </div>
       </section>

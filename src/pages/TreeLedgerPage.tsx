@@ -26,7 +26,7 @@ export default function TreeLedgerPage() {
       {/* Hero */}
       <section className="relative">
         <div className="absolute inset-0">
-          <img src="/images/tree-planting.png" alt="Hands planting a native sapling in Kerala soil" className="h-full w-full object-cover" />
+          <img src="/images/tree-planting.jpg" alt="Hands planting a native sapling in Kerala soil" className="h-full w-full object-cover" />
           <div className="absolute inset-0 bg-forest-deep/70" />
         </div>
         <div className="relative mx-auto max-w-7xl px-5 py-24 sm:px-8">
