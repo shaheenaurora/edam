@@ -20,6 +20,14 @@ import PoliciesPage from "./pages/PoliciesPage";
 import CorporatePage from "./pages/CorporatePage";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
+import AdminLayout from "./pages/admin/AdminLayout";
+import AdminOverviewPage from "./pages/admin/AdminOverviewPage";
+import AdminOrdersPage from "./pages/admin/AdminOrdersPage";
+import AdminOrderDetailPage from "./pages/admin/AdminOrderDetailPage";
+import AdminCustomersPage from "./pages/admin/AdminCustomersPage";
+import AdminTreesPage from "./pages/admin/AdminTreesPage";
+import AdminStockPage from "./pages/admin/AdminStockPage";
+import AdminSubscribersPage from "./pages/admin/AdminSubscribersPage";
 
 export default function App() {
   return (
@@ -43,6 +51,15 @@ export default function App() {
           <Route path="/account" element={<AccountPage />} />
           <Route path="/policies" element={<PoliciesPage />} />
           <Route path="/corporate-gifting" element={<CorporatePage />} />
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminOverviewPage />} />
+            <Route path="orders" element={<AdminOrdersPage />} />
+            <Route path="orders/:orderNo" element={<AdminOrderDetailPage />} />
+            <Route path="customers" element={<AdminCustomersPage />} />
+            <Route path="trees" element={<AdminTreesPage />} />
+            <Route path="stock" element={<AdminStockPage />} />
+            <Route path="subscribers" element={<AdminSubscribersPage />} />
+          </Route>
           <Route path="*" element={<NotFound />} />
         </Route>
         <Route path="/login" element={<Login />} />

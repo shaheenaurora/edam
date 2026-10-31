@@ -1,7 +1,8 @@
 import { z } from "zod";
-import { createRouter, publicQuery, authedQuery } from "./middleware";
+import { createRouter, publicQuery, authedQuery, adminQuery } from "./middleware";
 import { authRouter } from "./auth-router";
 import * as store from "./queries/store";
+import * as admin from "./queries/admin";
 
 const addressSchema = z.object({
   line1: z.string().min(3),
@@ -78,6 +79,33 @@ export const appRouter = createRouter({
       }),
     byOrderNo: publicQuery.input(z.object({ orderNo: z.string() })).query(({ input }) => store.getOrderByNo(input.orderNo)),
     mine: authedQuery.query(({ ctx }) => store.listOrdersForUser(ctx.user.id, ctx.user.email)),
+  }),
+
+  admin: createRouter({
+    stats: adminQuery.query(() => admin.getAdminStats()),
+    orders: adminQuery
+      .input(
+        z.object({
+          q: z.string().optional(),
+          status: z.enum(["placed", "packed", "shipped", "delivered"]).optional(),
+        }),
+      )
+      .query(({ input }) => admin.listOrdersAdmin(input.q, input.status)),
+    order: adminQuery.input(z.object({ orderNo: z.string() })).query(({ input }) => admin.getOrderAdmin(input.orderNo)),
+    setOrderStatus: adminQuery
+      .input(z.object({ orderNo: z.string(), status: z.enum(["placed", "packed", "shipped", "delivered"]) }))
+      .mutation(({ input }) => admin.setOrderStatus(input.orderNo, input.status)),
+    customers: adminQuery.input(z.object({ q: z.string().optional() })).query(({ input }) => admin.listCustomersAdmin(input.q)),
+    subscribers: adminQuery.query(() => admin.listSubscribersAdmin()),
+    removeSubscriber: adminQuery.input(z.object({ id: z.number() })).mutation(({ input }) => admin.removeSubscriber(input.id)),
+    trees: adminQuery.input(z.object({ batchCode: z.string().optional() })).query(({ input }) => admin.listTreesAdmin(input.batchCode)),
+    setTreeStatus: adminQuery
+      .input(z.object({ treeNo: z.string(), status: z.enum(["pledged", "planted", "verified"]) }))
+      .mutation(({ input }) => admin.setTreeStatus(input.treeNo, input.status)),
+    stock: adminQuery.input(z.object({ q: z.string().optional() })).query(({ input }) => admin.listStockAdmin(input.q)),
+    setStock: adminQuery.input(z.object({ id: z.number(), stock: z.number().int().min(0) })).mutation(({ input }) => admin.setStock(input.id, input.stock)),
+    setFeatured: adminQuery.input(z.object({ id: z.number(), featured: z.boolean() })).mutation(({ input }) => admin.setFeatured(input.id, input.featured)),
+    users: adminQuery.query(() => admin.listUsersAdmin()),
   }),
 });
 

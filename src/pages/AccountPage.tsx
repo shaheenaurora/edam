@@ -68,6 +68,18 @@ export default function AccountPage() {
         </button>
       </div>
 
+      {user?.role === "admin" && (
+        <section className="mt-6 rounded-md border border-primary/30 bg-secondary/60 p-5">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-clay">Store owner</p>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Orders, customers, trees and stock live in the admin area.
+          </p>
+          <Link to="/admin" className="focus-ring mt-3 inline-block bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover:bg-forest-deep">
+            Open store management
+          </Link>
+        </section>
+      )}
+
       <section className="mt-10">
         <h2 className="flex items-center gap-2 font-display text-2xl text-foreground">
           <Package className="h-5 w-5 text-clay" /> Orders
