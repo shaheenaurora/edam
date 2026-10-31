@@ -18,7 +18,7 @@ export default function ProductPage() {
 
   if (isLoading) {
     return (
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-2">
+      <div className="mx-auto grid max-w-7xl gap-10 px-5 py-12 sm:px-8 lg:grid-cols-2">
         <div className="aspect-square animate-pulse rounded-md bg-secondary" />
         <div className="space-y-4">
           <div className="h-8 w-2/3 animate-pulse rounded bg-secondary" />
@@ -34,7 +34,7 @@ export default function ProductPage() {
   const crossSell = (siblings.data ?? []).filter((p) => p.slug !== product.slug).slice(0, 4);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12">
+    <div className="mx-auto max-w-7xl px-5 py-8 sm:px-8 sm:py-12">
       <nav className="mb-6 text-xs text-muted-foreground" aria-label="Breadcrumb">
         <Link to="/shop" className="focus-ring hover:text-foreground">Shop</Link>
         <span className="mx-2">/</span>

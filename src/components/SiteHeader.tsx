@@ -44,12 +44,12 @@ export function CartDrawer() {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetContent side="right" className="flex w-full flex-col bg-background sm:max-w-md">
-        <SheetHeader className="border-b border-border pb-4">
+        <SheetHeader className="border-b border-border px-5 pb-4 pt-5">
           <SheetTitle className="font-display text-xl">Your basket</SheetTitle>
         </SheetHeader>
 
         {items.length === 0 ? (
-          <div className="flex flex-1 flex-col items-center justify-center gap-4 text-center">
+          <div className="flex flex-1 flex-col items-center justify-center gap-4 px-6 text-center">
             <ShoppingBag className="h-10 w-10 text-muted-foreground" strokeWidth={1.25} />
             <p className="max-w-[26ch] text-sm text-muted-foreground">
               Nothing here yet. Every order plants a tree — when you're ready.
@@ -66,7 +66,7 @@ export function CartDrawer() {
           </div>
         ) : (
           <>
-            <div className="flex-1 overflow-y-auto py-4">
+            <div className="flex-1 overflow-y-auto px-5 py-4">
               <ul className="divide-y divide-border">
                 {items.map((item) => (
                   <li key={item.slug} className="flex gap-4 py-4">
@@ -94,23 +94,23 @@ export function CartDrawer() {
                           <button
                             aria-label={`Decrease quantity of ${item.name}`}
                             onClick={() => setQty(item.slug, item.qty - 1)}
-                            className="focus-ring flex h-8 w-8 items-center justify-center text-foreground transition-colors hover:bg-secondary"
+                            className="focus-ring flex h-11 w-11 items-center justify-center text-foreground transition-colors hover:bg-secondary"
                           >
-                            <Minus className="h-3.5 w-3.5" />
+                            <Minus className="h-4 w-4" />
                           </button>
                           <span className="w-8 text-center text-sm tabular-nums">{item.qty}</span>
                           <button
                             aria-label={`Increase quantity of ${item.name}`}
                             onClick={() => setQty(item.slug, item.qty + 1)}
-                            className="focus-ring flex h-8 w-8 items-center justify-center text-foreground transition-colors hover:bg-secondary"
+                            className="focus-ring flex h-11 w-11 items-center justify-center text-foreground transition-colors hover:bg-secondary"
                           >
-                            <Plus className="h-3.5 w-3.5" />
+                            <Plus className="h-4 w-4" />
                           </button>
                         </div>
                         <button
                           aria-label={`Remove ${item.name} from basket`}
                           onClick={() => remove(item.slug)}
-                          className="focus-ring flex h-8 w-8 items-center justify-center text-muted-foreground transition-colors hover:text-destructive"
+                          className="focus-ring flex h-11 w-11 items-center justify-center text-muted-foreground transition-colors hover:text-destructive"
                         >
                           <Trash2 className="h-4 w-4" />
                         </button>
@@ -121,7 +121,7 @@ export function CartDrawer() {
               </ul>
             </div>
 
-            <div className="border-t border-border pt-4">
+            <div className="border-t border-border px-5 pt-4" style={{ paddingBottom: "calc(1rem + env(safe-area-inset-bottom))" }}>
               <div className="mb-3 flex items-start gap-2 rounded-md bg-secondary p-3 text-xs leading-relaxed text-secondary-foreground">
                 <TreePine className="mt-0.5 h-4 w-4 shrink-0 text-primary" strokeWidth={1.75} />
                 <span>
@@ -164,7 +164,7 @@ export function SiteHeader() {
         Rooted in truth · Named makers · Plastic-free · A tree in every order
       </div>
       <div className="border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/85">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-5 sm:px-8">
           <button
             className="focus-ring -ml-2 flex h-11 w-11 items-center justify-center lg:hidden"
             aria-label="Open menu"
@@ -230,7 +230,7 @@ export function SiteHeader() {
           <SheetHeader className="sr-only">
             <SheetTitle>Menu</SheetTitle>
           </SheetHeader>
-          <div className="flex items-center justify-between border-b border-border p-4">
+          <div className="flex items-center justify-between border-b border-border px-5 py-4">
             <Wordmark />
             <button
               className="focus-ring flex h-11 w-11 items-center justify-center"
@@ -240,7 +240,7 @@ export function SiteHeader() {
               <X className="h-5 w-5" />
             </button>
           </div>
-          <nav className="flex flex-col p-4" aria-label="Mobile">
+          <nav className="flex flex-col px-5 py-2" aria-label="Mobile" style={{ paddingBottom: "calc(1rem + env(safe-area-inset-bottom))" }}>
             {NAV.map((item) => (
               <NavLink
                 key={item.to}

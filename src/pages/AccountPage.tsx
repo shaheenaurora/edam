@@ -24,7 +24,7 @@ export default function AccountPage() {
 
   if (isLoading) {
     return (
-      <div className="mx-auto max-w-3xl px-4 py-24">
+      <div className="mx-auto max-w-3xl px-5 py-24">
         <div className="h-8 w-48 animate-pulse rounded bg-secondary" />
         <div className="mt-6 h-40 animate-pulse rounded-md bg-secondary" />
       </div>
@@ -33,7 +33,7 @@ export default function AccountPage() {
 
   if (!isAuthenticated) {
     return (
-      <div className="mx-auto flex max-w-md flex-col items-center px-4 py-24 text-center">
+      <div className="mx-auto flex max-w-md flex-col items-center px-5 py-24 text-center">
         <User className="h-10 w-10 text-primary" strokeWidth={1.5} />
         <h1 className="mt-4 font-display text-3xl text-foreground">Your Edam account</h1>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
@@ -57,7 +57,7 @@ export default function AccountPage() {
   }
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-14 sm:px-6">
+    <div className="mx-auto max-w-4xl px-5 py-14 sm:px-8">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="font-display text-4xl text-foreground">Hello, {user?.name?.split(" ")[0] ?? "friend"}.</h1>

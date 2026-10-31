@@ -50,7 +50,7 @@ export default function GiftingPage() {
           <img src="/images/range-give.png" alt="An Edam hamper on a wooden tray" className="h-full w-full object-cover" />
           <div className="absolute inset-0 bg-forest-deep/65" />
         </div>
-        <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24">
+        <div className="relative mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-24">
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#B38A56]">Gifting</p>
           <h1 className="mt-3 max-w-2xl font-display text-4xl leading-tight text-cream sm:text-5xl">
             Send Kerala home — the real thing, beautifully, with a tree planted in their name.
@@ -67,7 +67,7 @@ export default function GiftingPage() {
       </section>
 
       {/* Hampers */}
-      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
+      <section className="mx-auto max-w-7xl px-5 py-14 sm:px-8">
         <Reveal>
           <h2 className="font-display text-3xl text-foreground">The hampers</h2>
           <p className="mt-2 max-w-xl text-sm text-muted-foreground">
@@ -85,7 +85,7 @@ export default function GiftingPage() {
 
       {/* Gift finder */}
       <section className="border-y border-border bg-secondary">
-        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
+        <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8">
           <Reveal>
             <h2 className="font-display text-3xl text-foreground">Find a gift</h2>
             <p className="mt-2 text-sm text-muted-foreground">By who it's for — not by department.</p>
@@ -114,7 +114,7 @@ export default function GiftingPage() {
       </section>
 
       {/* NRI + corporate */}
-      <section className="mx-auto grid max-w-7xl gap-6 px-4 py-14 sm:px-6 lg:grid-cols-2">
+      <section className="mx-auto grid max-w-7xl gap-6 px-5 py-14 sm:px-8 lg:grid-cols-2">
         <Reveal>
           <div className="flex h-full flex-col rounded-md border border-border bg-card p-8">
             <h2 className="font-display text-2xl text-foreground">Sending from abroad?</h2>

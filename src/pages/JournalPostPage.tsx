@@ -8,13 +8,13 @@ export default function JournalPostPage() {
   const { data: post, isLoading } = trpc.journal.bySlug.useQuery({ slug }, { staleTime: 60_000 });
   const more = trpc.journal.list.useQuery(undefined, { staleTime: 60_000 });
 
-  if (isLoading) return <div className="mx-auto max-w-2xl px-4 py-20"><div className="h-64 animate-pulse rounded-md bg-secondary" /></div>;
+  if (isLoading) return <div className="mx-auto max-w-2xl px-5 py-20"><div className="h-64 animate-pulse rounded-md bg-secondary" /></div>;
   if (!post) return <NotFound />;
 
   const others = (more.data ?? []).filter((p) => p.slug !== post.slug).slice(0, 3);
 
   return (
-    <article className="mx-auto max-w-3xl px-4 py-12 sm:px-6">
+    <article className="mx-auto max-w-3xl px-5 py-12 sm:px-8">
       <Link to="/journal" className="focus-ring inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground hover:text-foreground">
         <ArrowLeft className="h-3.5 w-3.5" /> Journal
       </Link>

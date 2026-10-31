@@ -18,7 +18,7 @@ export default function StoryPage() {
           <img src="/images/story.png" alt="The Edam family homestead in Thrissur" className="h-full w-full object-cover" />
           <div className="absolute inset-0 bg-forest-deep/65" />
         </div>
-        <div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32">
+        <div className="relative mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32">
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#B38A56]">Our story</p>
           <h1 className="mt-4 max-w-2xl font-display text-4xl leading-tight text-cream sm:text-6xl">
             A stressed world needs somewhere to recharge. The planet needs businesses that give back more green than they take.
@@ -30,7 +30,7 @@ export default function StoryPage() {
       </section>
 
       {/* Purpose */}
-      <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+      <section className="mx-auto max-w-3xl px-5 py-16 sm:px-8">
         <Reveal>
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-clay">Why we exist</p>
           <blockquote className="mt-4 border-l-2 border-clay pl-6 font-display text-2xl leading-relaxed text-foreground sm:text-3xl">
@@ -46,7 +46,7 @@ export default function StoryPage() {
 
       {/* What that means in practice */}
       <section className="border-y border-border bg-secondary">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
+        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
           <Reveal>
             <h2 className="font-display text-3xl text-foreground">What that means in practice</h2>
           </Reveal>
@@ -64,7 +64,7 @@ export default function StoryPage() {
       </section>
 
       {/* The one thing we removed */}
-      <section className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+      <section className="mx-auto max-w-3xl px-5 py-16 sm:px-8">
         <Reveal>
           <div className="rounded-md border border-border bg-card p-8">
             <div className="flex items-start gap-4">
@@ -88,7 +88,7 @@ export default function StoryPage() {
 
       {/* The goal */}
       <section className="bg-forest-deep">
-        <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:px-6">
+        <div className="mx-auto max-w-4xl px-5 py-16 text-center sm:px-8">
           <Reveal>
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#B38A56]">The five-year goal</p>
             <p className="mt-4 font-display text-3xl leading-snug text-cream sm:text-4xl">

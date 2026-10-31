@@ -3,7 +3,7 @@ import { ArrowLeft } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <div className="mx-auto flex min-h-[60vh] max-w-lg flex-col items-center justify-center px-4 py-24 text-center">
+    <div className="mx-auto flex min-h-[60vh] max-w-lg flex-col items-center justify-center px-5 py-24 text-center">
       <p className="font-display text-7xl text-clay">404</p>
       <h1 className="mt-4 font-display text-3xl text-foreground">This path isn't on the map.</h1>
       <p className="mt-3 text-sm leading-relaxed text-muted-foreground">

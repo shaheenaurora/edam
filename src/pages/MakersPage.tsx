@@ -7,7 +7,7 @@ export default function MakersPage() {
   const makers = trpc.makers.list.useQuery(undefined, { staleTime: 60_000 });
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
+    <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8">
       <Reveal>
         <div className="max-w-2xl">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-clay">Provenance</p>

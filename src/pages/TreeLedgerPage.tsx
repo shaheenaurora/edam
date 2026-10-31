@@ -29,7 +29,7 @@ export default function TreeLedgerPage() {
           <img src="/images/tree-planting.png" alt="Hands planting a native sapling in Kerala soil" className="h-full w-full object-cover" />
           <div className="absolute inset-0 bg-forest-deep/70" />
         </div>
-        <div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6">
+        <div className="relative mx-auto max-w-7xl px-5 py-24 sm:px-8">
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#B38A56]">The Tree Ledger</p>
           <h1 className="mt-3 max-w-2xl font-display text-4xl leading-tight text-cream sm:text-5xl">
             Everyone says they plant trees. We'll show you ours — where, which, and whether they lived.
@@ -42,7 +42,7 @@ export default function TreeLedgerPage() {
 
       {/* How it works */}
       <section className="border-b border-border">
-        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 md:grid-cols-3">
+        <div className="mx-auto grid max-w-7xl gap-8 px-5 py-14 sm:px-8 md:grid-cols-3">
           {[
             { n: "01", t: "Included, never added on", d: "Every stay and every order plants a tree — inside the price. The moment it becomes a checkbox, it becomes a donation, and the mechanic collapses. So it isn't one." },
             { n: "02", t: "A named partner, a named site", d: "We plant with the Nilambur Vanam Trust and the Chalakudy River Guardians, at sites you can find on a map. No third-party offset platform, no anonymous fund." },
@@ -61,7 +61,7 @@ export default function TreeLedgerPage() {
 
       {/* Find your tree */}
       <section className="bg-secondary">
-        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
+        <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8">
           <Reveal>
             <h2 className="font-display text-3xl text-foreground">Find your tree</h2>
             <p className="mt-2 max-w-xl text-sm text-muted-foreground">
@@ -133,7 +133,7 @@ export default function TreeLedgerPage() {
       </section>
 
       {/* Batches */}
-      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
+      <section className="mx-auto max-w-7xl px-5 py-14 sm:px-8">
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>

@@ -44,7 +44,7 @@ export default function Home() {
           />
           <div className="absolute inset-0 bg-gradient-to-r from-forest-deep/80 via-forest-deep/45 to-transparent" />
         </div>
-        <div className="relative mx-auto flex min-h-[78vh] max-w-7xl flex-col justify-center px-4 py-24 sm:px-6">
+        <div className="relative mx-auto flex min-h-[78vh] max-w-7xl flex-col justify-center px-5 py-24 sm:px-8">
           <div className="max-w-xl">
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#B38A56]">
               Eco-conscious stays · natural products · real trees
@@ -76,7 +76,7 @@ export default function Home() {
 
       {/* ---------- Proof strip ---------- */}
       <section className="border-b border-border bg-background">
-        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:grid-cols-3 sm:px-6">
+        <div className="mx-auto grid max-w-7xl gap-8 px-5 py-12 sm:grid-cols-3 sm:px-8">
           {PROOFS.map((p) => (
             <Reveal key={p.title}>
               <Link to={p.to} className="focus-ring group flex gap-4">
@@ -95,7 +95,7 @@ export default function Home() {
       </section>
 
       {/* ---------- The five ranges ---------- */}
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
+      <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20">
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
@@ -137,7 +137,7 @@ export default function Home() {
 
       {/* ---------- Tree counter band ---------- */}
       <section className="bg-forest-deep">
-        <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2">
+        <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-16 sm:px-8 lg:grid-cols-2">
           <Reveal>
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#B38A56]">The Tree Ledger</p>
@@ -173,7 +173,7 @@ export default function Home() {
       </section>
 
       {/* ---------- Featured products ---------- */}
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
+      <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20">
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
@@ -204,7 +204,7 @@ export default function Home() {
       {/* ---------- Featured maker ---------- */}
       {featuredMaker && (
         <section className="border-y border-border bg-secondary">
-          <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2">
+          <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-16 sm:px-8 lg:grid-cols-2">
             <Reveal>
               <div className="overflow-hidden rounded-md">
                 <img
@@ -243,7 +243,7 @@ export default function Home() {
           <img src="/images/stay.png" alt="The Edam eco cottage among Kerala greenery" loading="lazy" className="h-full w-full object-cover" />
           <div className="absolute inset-0 bg-forest-deep/60" />
         </div>
-        <div className="relative mx-auto max-w-7xl px-4 py-24 sm:px-6">
+        <div className="relative mx-auto max-w-7xl px-5 py-24 sm:px-8">
           <Reveal>
             <div className="max-w-lg">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#B38A56]">The other half of Edam</p>
@@ -266,7 +266,7 @@ export default function Home() {
       </section>
 
       {/* ---------- Gifting entry ---------- */}
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20">
+      <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20">
         <Reveal>
           <div className="grid items-center gap-10 lg:grid-cols-2">
             <div className="order-2 lg:order-1">

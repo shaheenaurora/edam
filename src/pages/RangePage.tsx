@@ -28,7 +28,7 @@ export default function RangePage() {
           <img src={meta.image} alt={meta.name} className="h-full w-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-forest-deep/80 via-forest-deep/40 to-transparent" />
         </div>
-        <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24">
+        <div className="relative mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-24">
           <Link to="/shop" className="focus-ring inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-cream/80 hover:text-cream">
             <ArrowLeft className="h-3.5 w-3.5" /> All products
           </Link>
@@ -40,7 +40,7 @@ export default function RangePage() {
       </section>
 
       {/* Products */}
-      <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
+      <section className="mx-auto max-w-7xl px-5 py-14 sm:px-8">
         {products.isLoading ? (
           <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
             {Array.from({ length: 8 }).map((_, i) => (
@@ -60,7 +60,7 @@ export default function RangePage() {
 
       {/* Next range */}
       <section className="border-t border-border">
-        <Link to={`/shop/${next.slug}`} className="focus-ring group mx-auto flex max-w-7xl items-center justify-between px-4 py-10 sm:px-6">
+        <Link to={`/shop/${next.slug}`} className="focus-ring group mx-auto flex max-w-7xl items-center justify-between px-5 py-10 sm:px-8">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">Next range</p>
             <p className="mt-1 font-display text-2xl text-foreground transition-colors group-hover:text-clay sm:text-3xl">

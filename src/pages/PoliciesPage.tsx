@@ -67,7 +67,7 @@ export default function PoliciesPage() {
   }, [hash]);
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-14 sm:px-6">
+    <div className="mx-auto max-w-3xl px-5 py-14 sm:px-8">
       <Reveal>
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-clay">The fine print, in plain language</p>
         <h1 className="mt-2 font-display text-4xl text-foreground">Policies, written to be read.</h1>

@@ -12,7 +12,7 @@ export default function StayPage() {
           <img src="/images/stay.png" alt="The Edam homestead — a tiled-roof cottage in lush Kerala greenery" className="h-full w-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-forest-deep/80 via-forest-deep/40 to-transparent" />
         </div>
-        <div className="relative mx-auto flex min-h-[70vh] max-w-7xl flex-col justify-center px-4 py-24 sm:px-6">
+        <div className="relative mx-auto flex min-h-[70vh] max-w-7xl flex-col justify-center px-5 py-24 sm:px-8">
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#B38A56]">The Stay · Thrissur, Kerala</p>
           <h1 className="mt-4 max-w-xl font-display text-4xl leading-tight text-cream sm:text-6xl">
             A place to step out of a stressful life — and recharge by reconnecting with nature.
@@ -39,7 +39,7 @@ export default function StayPage() {
       </section>
 
       {/* What a stay is */}
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
+      <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {[
             { icon: Moon, t: "Genuine rest", d: "No itinerary, no itinerary pressure. Hammocks, reading corners, and evenings that smell of sambrani." },
@@ -60,7 +60,7 @@ export default function StayPage() {
 
       {/* The loop */}
       <section className="bg-forest-deep">
-        <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2">
+        <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-16 sm:px-8 lg:grid-cols-2">
           <Reveal>
             <div>
               <h2 className="font-display text-3xl leading-tight text-cream sm:text-4xl">The stay and the store are one brand.</h2>
@@ -80,7 +80,7 @@ export default function StayPage() {
       </section>
 
       {/* Departed guest offer */}
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
+      <section className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
         <Reveal>
           <div className="rounded-md border border-border bg-secondary p-8 sm:p-12">
             <div className="max-w-2xl">

@@ -11,12 +11,12 @@ export default function MakerDetailPage() {
   const products = trpc.catalogue.byMaker.useQuery({ makerId: maker?.id ?? 0 }, { enabled: !!maker, staleTime: 60_000 });
 
   if (isLoading) {
-    return <div className="mx-auto max-w-4xl px-4 py-20"><div className="h-64 animate-pulse rounded-md bg-secondary" /></div>;
+    return <div className="mx-auto max-w-4xl px-5 py-20"><div className="h-64 animate-pulse rounded-md bg-secondary" /></div>;
   }
   if (!maker) return <NotFound />;
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
+    <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8">
       <Link to="/makers" className="focus-ring inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground hover:text-foreground">
         <ArrowLeft className="h-3.5 w-3.5" /> All makers
       </Link>

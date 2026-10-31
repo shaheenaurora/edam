@@ -113,7 +113,7 @@ export default function ShopPage() {
   );
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6">
+    <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8">
       <Reveal>
         <div className="max-w-2xl">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-clay">The store</p>

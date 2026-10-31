@@ -7,7 +7,7 @@ export default function CorporatePage() {
   const [sent, setSent] = useState(false);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
+    <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8">
       <div className="grid gap-12 lg:grid-cols-2 lg:items-start">
         <Reveal>
           <div>

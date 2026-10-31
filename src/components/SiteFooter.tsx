@@ -15,7 +15,7 @@ export function SiteFooter() {
       />
       {/* Field Notes — lead capture */}
       <section className="border-b border-cream/15">
-        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-2 lg:items-center">
+        <div className="mx-auto grid max-w-7xl gap-8 px-5 py-14 sm:px-8 lg:grid-cols-2 lg:items-center">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sand">
               Field Notes
@@ -32,7 +32,7 @@ export function SiteFooter() {
         </div>
       </section>
 
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-2 lg:grid-cols-4">
+      <div className="mx-auto grid max-w-7xl gap-10 px-5 py-14 sm:px-8 md:grid-cols-2 lg:grid-cols-4">
         <div>
           <Wordmark light />
           <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.42em] text-cream/60">Hospitality</p>
@@ -88,7 +88,7 @@ export function SiteFooter() {
       </div>
 
       <div className="border-t border-cream/15">
-        <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-6 text-xs text-cream/55 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+        <div className="mx-auto flex max-w-7xl flex-col gap-2 px-5 py-6 text-xs text-cream/55 sm:flex-row sm:items-center sm:justify-between sm:px-8">
           <span>© 2026 Edam · Thrissur, Kerala · GST-inclusive pricing, always.</span>
           <span className="italic">"Everyone says they plant trees. We'll show you ours."</span>
         </div>

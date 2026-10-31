@@ -10,7 +10,7 @@ export default function OrderConfirmationPage() {
 
   if (isLoading) {
     return (
-      <div className="mx-auto max-w-2xl px-4 py-24">
+      <div className="mx-auto max-w-2xl px-5 py-24">
         <div className="h-10 w-2/3 animate-pulse rounded bg-secondary" />
         <div className="mt-4 h-40 animate-pulse rounded bg-secondary" />
       </div>
@@ -22,7 +22,7 @@ export default function OrderConfirmationPage() {
   const items = JSON.parse(order.items) as { name: string; qty: number; price: number; unit: string }[];
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+    <div className="mx-auto max-w-3xl px-5 py-16 sm:px-8">
       <div className="text-center">
         <CheckCircle2 className="mx-auto h-12 w-12 text-primary" strokeWidth={1.5} />
         <h1 className="mt-4 font-display text-4xl text-foreground">Thank you, {order.name.split(" ")[0]}.</h1>
