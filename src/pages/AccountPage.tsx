@@ -37,7 +37,7 @@ export default function AccountPage() {
         <User className="h-10 w-10 text-primary" strokeWidth={1.5} />
         <h1 className="mt-4 font-display text-3xl text-foreground">Your Edam account</h1>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-          Sign in to see your orders and your trees — every order you've placed and the tree IDs that came with them.
+          Sign in to see your orders and your trees: every order you've placed and the tree IDs that came with them.
         </p>
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
           You never need an account to shop or check out. This one is just for keeping your history in one place.
@@ -49,7 +49,7 @@ export default function AccountPage() {
           Sign in with Kimi
         </button>
         <p className="mt-6 text-xs text-muted-foreground">
-          Just ordered as a guest? Your tree ID is on your confirmation page and in the email — or{" "}
+          Just ordered as a guest? Your tree ID is on your confirmation page and in the email. Or{" "}
           <Link to="/the-tree" className="focus-ring font-semibold text-primary underline underline-offset-2">look it up on the ledger</Link>.
         </p>
       </div>
@@ -110,7 +110,7 @@ export default function AccountPage() {
                   {trees.length > 0 && (
                     <p className="mt-3 flex items-center gap-2 rounded bg-secondary px-3 py-2 text-xs text-secondary-foreground">
                       <TreePine className="h-4 w-4 shrink-0 text-primary" />
-                      {trees.map((t) => t.treeNo).join(" · ")} — {trees.length > 1 ? "trees" : "tree"} {trees[0].status}
+                      {trees.map((t) => t.treeNo).join(" · ")} · {trees.length > 1 ? "trees" : "tree"} {trees[0].status}
                     </p>
                   )}
                 </li>
@@ -119,7 +119,7 @@ export default function AccountPage() {
           </ul>
         ) : (
           <div className="mt-4 rounded-md border border-dashed border-border p-10 text-center">
-            <p className="text-sm text-muted-foreground">No orders yet — the first one plants a tree.</p>
+            <p className="text-sm text-muted-foreground">No orders yet. The first one plants a tree.</p>
             <Link to="/shop" className="focus-ring mt-4 inline-block bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover:bg-forest-deep">
               Browse the store
             </Link>

@@ -15,7 +15,7 @@ export function FieldNotesForm({ compact = false }: { compact?: boolean }) {
       <div className="flex items-start gap-3 text-sm">
         <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
         <p className={compact ? "" : "text-cream"}>
-          You're on the list. The first Field Note — our honest guide to reading labels — is on its way to{" "}
+          You're on the list. The first Field Note, our honest guide to reading labels, is on its way to{" "}
           <strong>{email}</strong>.
         </p>
       </div>
@@ -70,10 +70,10 @@ export function FieldNotesForm({ compact = false }: { compact?: boolean }) {
           onChange={(e) => setConsent(e.target.checked)}
           className="focus-ring mt-0.5 h-4 w-4 shrink-0 accent-primary"
         />
-        Yes — email me the Field Notes and occasional Edam news. Marketing consent, given separately, as it should be.
+        Yes, email me the Field Notes and occasional Edam news. Marketing consent, given separately, as it should be.
         No spam, unsubscribe anytime.
       </label>
-      {subscribe.isError && <p className="mt-2 text-xs text-red-700">Something went wrong — please try again.</p>}
+      {subscribe.isError && <p className="mt-2 text-xs text-red-700">Something went wrong. Please try again.</p>}
     </form>
   );
 }

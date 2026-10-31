@@ -72,7 +72,7 @@ export default function AdminOverviewPage() {
               {(recent.data ?? []).length === 0 && (
                 <tr>
                   <td colSpan={5} className="px-4 py-8 text-center text-muted-foreground">
-                    No orders yet — they'll land here the moment someone checks out.
+                    No orders yet. They'll land here the moment someone checks out.
                   </td>
                 </tr>
               )}
@@ -83,7 +83,7 @@ export default function AdminOverviewPage() {
 
       <section>
         <h2 className="font-display text-xl text-foreground">Recent activity</h2>
-        <p className="mt-1 text-xs text-muted-foreground">Every privileged change is recorded — who did what, when.</p>
+        <p className="mt-1 text-xs text-muted-foreground">Every privileged change is recorded: who did what, when.</p>
         <ul className="mt-4 divide-y divide-border rounded-md border border-border bg-card">
           {(audit.data ?? []).map((a) => (
             <li key={a.id} className="flex items-baseline justify-between gap-4 px-4 py-3 text-sm">
@@ -98,7 +98,7 @@ export default function AdminOverviewPage() {
             </li>
           ))}
           {(audit.data ?? []).length === 0 && (
-            <li className="px-4 py-6 text-center text-sm text-muted-foreground">Nothing yet — admin actions will be logged here.</li>
+            <li className="px-4 py-6 text-center text-sm text-muted-foreground">Nothing yet. Admin actions will be logged here.</li>
           )}
         </ul>
       </section>

@@ -4,9 +4,9 @@ import { Reveal } from "@/components/Reveal";
 
 const VALUES = [
   { t: "Sustainability & eco-friendliness", d: "We choose the greener option even when it's costlier or slower. No decision is allowed to harm nature." },
-  { t: "Honesty & ethics", d: "No greenwashing, ever. Sustainability claims are real and verifiable — the ledger is public for a reason." },
+  { t: "Honesty & ethics", d: "No greenwashing, ever. Sustainability claims are real and verifiable. The ledger is public for a reason." },
   { t: "Positivity", d: "Warmth in every interaction and every corner of the space. A hopeful tone, in service and in content." },
-  { t: "Nature-led relaxation", d: "Every experience is designed to bring people closer to nature and help them genuinely unwind — not just to sell a room." },
+  { t: "Nature-led relaxation", d: "Every experience is designed to bring people closer to nature and help them genuinely unwind, not just to sell a room." },
 ];
 
 export default function StoryPage() {
@@ -24,7 +24,7 @@ export default function StoryPage() {
             A stressed world needs somewhere to recharge. The planet needs businesses that give back more green than they take.
           </h1>
           <p className="mt-6 max-w-lg text-base leading-relaxed text-cream/90">
-            Edam is both answers at once — a family brand from Thrissur, Kerala, built by David Mathew and family.
+            Edam is both answers at once: a family brand from Thrissur, Kerala, built by David Mathew and family.
           </p>
         </div>
       </section>
@@ -34,12 +34,12 @@ export default function StoryPage() {
         <Reveal>
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-clay">Why we exist</p>
           <blockquote className="mt-4 border-l-2 border-clay pl-6 font-display text-2xl leading-relaxed text-foreground sm:text-3xl">
-            To help people step out of stressful modern life and recharge by reconnecting with nature — while making
+            To help people step out of stressful modern life and recharge by reconnecting with nature, while making
             the planet greener and happier for the generations to come.
           </blockquote>
           <p className="mt-6 max-w-xl text-[15px] leading-relaxed text-foreground/85">
-            That's the sentence that would survive even if the business never made money. Everything else — the stays,
-            the store, the nursery, the trees — is that sentence made operational.
+            That's the sentence that would survive even if the business never made money. Everything else, the stays,
+            the store, the nursery, the trees, is that sentence made operational.
           </p>
         </Reveal>
       </section>
@@ -73,12 +73,12 @@ export default function StoryPage() {
                 <h2 className="font-display text-2xl text-foreground">An honesty story, on the record</h2>
                 <p className="mt-3 text-[15px] leading-relaxed text-foreground/85">
                   Early in the planning, a skin-whitening cream sat on the product shortlist. It would have sold. It's
-                  gone — not deferred, not reworded, removed. A fairness claim is not something Edam believes in, and a
+                  gone. Not deferred, not reworded: removed. A fairness claim is not something Edam believes in, and a
                   brand taking Kerala's traditions honestly to the world doesn't get to make that exception.
                 </p>
                 <p className="mt-3 text-[15px] leading-relaxed text-foreground/85">
                   That's the standard applied to every product since: if it exists to chase a trend or make a claim we
-                  can't stand behind, it doesn't list — however profitable it might be.
+                  can't stand behind, it doesn't list, however profitable it might be.
                 </p>
               </div>
             </div>
@@ -92,7 +92,7 @@ export default function StoryPage() {
           <Reveal>
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#B38A56]">The five-year goal</p>
             <p className="mt-4 font-display text-3xl leading-snug text-cream sm:text-4xl">
-              The No. 1 choice for eco-conscious stays, the No. 1 eco-friendly brand in our market — and 100,000 trees
+              The No. 1 choice for eco-conscious stays, the No. 1 eco-friendly brand in our market, and 100,000 trees
               planted through Edam and its guests.
             </p>
             <Link

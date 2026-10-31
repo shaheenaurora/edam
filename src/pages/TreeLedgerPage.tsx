@@ -32,7 +32,7 @@ export default function TreeLedgerPage() {
         <div className="relative mx-auto max-w-7xl px-5 py-24 sm:px-8">
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#B38A56]">The Tree Ledger</p>
           <h1 className="mt-3 max-w-2xl font-display text-4xl leading-tight text-cream sm:text-5xl">
-            Everyone says they plant trees. We'll show you ours — where, which, and whether they lived.
+            Everyone says they plant trees. We'll show you ours: where, which, and whether they lived.
           </h1>
           <div className="mt-10">
             <TreeCounter dark />
@@ -44,9 +44,9 @@ export default function TreeLedgerPage() {
       <section className="border-b border-border">
         <div className="mx-auto grid max-w-7xl gap-8 px-5 py-14 sm:px-8 md:grid-cols-3">
           {[
-            { n: "01", t: "Included, never added on", d: "Every stay and every order plants a tree — inside the price. The moment it becomes a checkbox, it becomes a donation, and the mechanic collapses. So it isn't one." },
+            { n: "01", t: "Included, never added on", d: "Every stay and every order plants a tree, inside the price. The moment it becomes a checkbox, it becomes a donation, and the mechanic collapses. So it isn't one." },
             { n: "02", t: "A named partner, a named site", d: "We plant with the Nilambur Vanam Trust and the Chalakudy River Guardians, at sites you can find on a map. No third-party offset platform, no anonymous fund." },
-            { n: "03", t: "Survival, published", d: "Twelve months after each planting we count what lived and publish the number — including when it disappoints. The March batch at Nilambur: 87%." },
+            { n: "03", t: "Survival, published", d: "Twelve months after each planting we count what lived and publish the number, including when it disappoints. The March batch at Nilambur: 87%." },
           ].map((s) => (
             <Reveal key={s.n}>
               <div>
@@ -91,7 +91,7 @@ export default function TreeLedgerPage() {
 
             {submitted && find.data === null && !find.isLoading && (
               <p className="mt-4 text-sm text-muted-foreground">
-                Nothing found for “{submitted}”. Check the ID — or <Link to="/policies#contact" className="focus-ring font-semibold text-primary underline underline-offset-2">write to us</Link> and we'll find it together.
+                Nothing found for “{submitted}”. Check the ID, or <Link to="/policies#contact" className="focus-ring font-semibold text-primary underline underline-offset-2">write to us</Link> and we'll find it together.
               </p>
             )}
             {find.data && "tree" in find.data && find.data.tree && (
@@ -116,7 +116,7 @@ export default function TreeLedgerPage() {
             )}
             {find.data && "order" in find.data && find.data.order && (
               <div className="mt-6 max-w-lg rounded-md border border-border bg-card p-5">
-                <p className="text-sm font-semibold">Order {find.data.order.orderNo} — {find.data.trees.length} tree{find.data.trees.length === 1 ? "" : "s"}</p>
+                <p className="text-sm font-semibold">Order {find.data.order.orderNo} · {find.data.trees.length} tree{find.data.trees.length === 1 ? "" : "s"}</p>
                 <ul className="mt-3 space-y-2 text-sm">
                   {find.data.trees.map(({ tree, batch }) => (
                     <li key={tree.treeNo} className="rounded border border-border bg-background px-4 py-3">
@@ -172,7 +172,7 @@ export default function TreeLedgerPage() {
                   <div className="flex flex-wrap items-center gap-3">
                     <span className="font-mono text-xs font-semibold text-clay">{b.code}</span>
                     <span className={`px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wider ${b.status === "open" ? "bg-clay/15 text-clay" : "bg-primary/10 text-primary"}`}>
-                      {b.status === "open" ? "Open — collecting pledges" : "Planted"}
+                      {b.status === "open" ? "Open, collecting pledges" : "Planted"}
                     </span>
                   </div>
                   <h3 className="mt-2 font-display text-2xl text-foreground">{b.site}</h3>
@@ -202,7 +202,7 @@ export default function TreeLedgerPage() {
           <div className="mt-14 rounded-md bg-forest-deep p-8 text-center sm:p-12">
             <h2 className="font-display text-3xl text-cream">Plant your first tree</h2>
             <p className="mx-auto mt-3 max-w-md text-sm text-cream/75">
-              It happens automatically with any order — or plant one deliberately, in someone's name.
+              It happens automatically with any order. Or plant one deliberately, in someone's name.
             </p>
             <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
               <Link to="/shop" className="focus-ring inline-flex h-12 items-center justify-center bg-cream px-8 text-sm font-semibold text-foreground hover:bg-white">

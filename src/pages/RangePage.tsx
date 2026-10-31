@@ -64,7 +64,7 @@ export default function RangePage() {
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">Next range</p>
             <p className="mt-1 font-display text-2xl text-foreground transition-colors group-hover:text-clay sm:text-3xl">
-              {next.name} — {next.line.toLowerCase()}
+              {next.name}
             </p>
           </div>
           <ArrowRight className="h-6 w-6 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-clay" />

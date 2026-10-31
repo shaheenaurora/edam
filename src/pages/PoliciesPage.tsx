@@ -8,7 +8,7 @@ const SECTIONS = [
     title: "Shipping",
     body: [
       "We ship across India through a multi-carrier aggregator, so your order takes the fastest serviceable route to your pincode. Most orders dispatch within 2 working days and arrive in 2–6.",
-      "Shipping is a flat ₹79, free above ₹1,499. Live plants dispatch Monday to Wednesday only — a plant should never spend a weekend in a warehouse — and are currently limited to serviceable South-Indian pincodes while we prove the handling.",
+      "Shipping is a flat ₹79, free above ₹1,499. Live plants dispatch Monday to Wednesday only, because a plant should never spend a weekend in a warehouse. Plants are currently limited to serviceable South-Indian pincodes while we prove the handling.",
       "Every parcel is packed plastic-free: paper, coir and jute. The packaging is part of the promise, and part of the product photography.",
     ],
   },
@@ -16,16 +16,16 @@ const SECTIONS = [
     id: "returns",
     title: "Returns & the replacement promise",
     body: [
-      "If something arrives damaged, photograph it and write to us within 7 days — replacement or refund, your choice, processed promptly. We log every cause (product, packing or carrier) so the same failure doesn't ship twice.",
+      "If something arrives damaged, photograph it and write to us within 7 days. Replacement or refund, your choice, processed promptly. We log every cause (product, packing or carrier) so the same failure doesn't ship twice.",
       "For live plants: if your plant fails in the first month despite honest care, we replace it. The gain you're buying is not a plant; it's succeeding at keeping one alive.",
-      "Edibles and opened personal-care products can't be resold, so we don't take them back — but if something is wrong, tell us and we'll make it right.",
+      "Edibles and opened personal-care products can't be resold, so we don't take them back. But if something is wrong, tell us and we'll make it right.",
     ],
   },
   {
     id: "privacy",
     title: "Privacy",
     body: [
-      "Your data belongs to you and stays portable. Marketing consent is captured explicitly and separately from any order — a purchase is never consent.",
+      "Your data belongs to you and stays portable. Marketing consent is captured explicitly and separately from any order. A purchase is never consent.",
       "We keep personal data only as long as there's a reason to, honour deletion requests, and never sell or rent your information. Payment details never touch our systems; the gateway (PCI-compliant) handles them.",
       "Questions or a deletion request: privacy@edam.in.",
     ],
@@ -34,7 +34,7 @@ const SECTIONS = [
     id: "terms",
     title: "Terms",
     body: [
-      "Prices are displayed inclusive of GST, as Indian consumer rules require — the price on the page is the price at checkout. No compare-at inflation, no countdown timers, no manufactured scarcity.",
+      "Prices are displayed inclusive of GST, as Indian consumer rules require. The price on the page is the price at checkout. No compare-at inflation, no countdown timers, no manufactured scarcity.",
       "The tree registered to each order is planted with a named Kerala partner in the next planting window; the tree ID and batch are published on the public ledger, where survival is reported honestly at 12 and 24 months.",
       "Product descriptions stay in their lane: foods are foods, cosmetics are cosmetics. Nothing here makes a medical or therapeutic claim.",
     ],
@@ -43,17 +43,17 @@ const SECTIONS = [
     id: "faq",
     title: "FAQ",
     body: [
-      "Is the tree really included in the price? Yes — it's never a checkout add-on. Every order and every stay registers a tree obligation in our own registry, which feeds the public ledger.",
-      "Can I choose the species? The batch planting sets the species with the local partner — natives only, suited to the site.",
+      "Is the tree really included in the price? Yes, and it's never a checkout add-on. Every order and every stay registers a tree obligation in our own registry, which feeds the public ledger.",
+      "Can I choose the species? The batch planting sets the species with the local partner: natives only, suited to the site.",
       "Do you ship abroad? Not yet at launch; NRI gifters can order to any Indian address with an international card.",
-      "Where do products come from? Every product page names its maker — farmer collectives, women's self-help groups and artisan clusters across Kerala.",
+      "Where do products come from? Every product page names its maker: farmer collectives, women's self-help groups and artisan clusters across Kerala.",
     ],
   },
   {
     id: "contact",
     title: "Contact",
     body: [
-      "Email: hello@edam.in — the whole team reads it. WhatsApp and phone support run during shop hours, IST.",
+      "Email: hello@edam.in. The whole team reads it. WhatsApp and phone support run during shop hours, IST.",
       "Edam, Thrissur, Kerala, India. GSTIN and registration details appear on every invoice.",
       "For corporate and bulk gifting, use the enquiry form on the corporate gifting page.",
     ],

@@ -54,7 +54,7 @@ export default function AdminSettingsPage() {
       <div>
         <h2 className="font-display text-2xl text-foreground">Store settings</h2>
         <p className="mt-1 text-sm text-muted-foreground">
-          The server is authoritative — these values drive what checkout actually charges, not just what it displays.
+          The server is authoritative. These values drive what checkout actually charges, not just what it displays.
         </p>
       </div>
 
@@ -82,7 +82,7 @@ export default function AdminSettingsPage() {
           <button type="submit" disabled={save.isPending} className="focus-ring h-11 bg-primary px-8 text-sm font-semibold text-primary-foreground hover:bg-forest-deep disabled:opacity-50">
             {save.isPending ? "Saving…" : "Save settings"}
           </button>
-          {saved && <span className="text-sm font-semibold text-primary">Saved — live on the next order.</span>}
+          {saved && <span className="text-sm font-semibold text-primary">Saved. Live on the next order.</span>}
           {save.error && <span className="text-sm text-destructive">{save.error.message}</span>}
         </div>
       </form>

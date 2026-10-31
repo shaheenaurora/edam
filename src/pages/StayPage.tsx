@@ -9,13 +9,13 @@ export default function StayPage() {
       {/* Hero */}
       <section className="relative">
         <div className="absolute inset-0">
-          <img src="/images/stay.png" alt="The Edam homestead — a tiled-roof cottage in lush Kerala greenery" className="h-full w-full object-cover" />
+          <img src="/images/stay.png" alt="The Edam homestead, a tiled-roof cottage in lush Kerala greenery" className="h-full w-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-forest-deep/80 via-forest-deep/40 to-transparent" />
         </div>
         <div className="relative mx-auto flex min-h-[70vh] max-w-7xl flex-col justify-center px-5 py-24 sm:px-8">
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#B38A56]">The Stay · Thrissur, Kerala</p>
           <h1 className="mt-4 max-w-xl font-display text-4xl leading-tight text-cream sm:text-6xl">
-            A place to step out of a stressful life — and recharge by reconnecting with nature.
+            A place to step out of a stressful life and recharge by reconnecting with nature.
           </h1>
           <p className="mt-5 max-w-lg text-base leading-relaxed text-cream/90">
             A small, green homestead near the Vadakkumnathan temple. Nine keys, a nursery, good food, and quiet. Every
@@ -87,7 +87,7 @@ export default function StayPage() {
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-clay">Stayed with us?</p>
               <h2 className="mt-2 font-display text-3xl text-foreground">The welcome-back is coded into your card.</h2>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                The seed-paper card you left with carries a code for your first store order — our way of keeping the
+                The seed-paper card you left with carries a code for your first store order. Our way of keeping the
                 stay going after the checkout. If it never reached you, write to{" "}
                 <a href="mailto:hello@edam.in" className="focus-ring font-semibold text-primary underline underline-offset-2">hello@edam.in</a>.
               </p>

@@ -73,7 +73,7 @@ export default function BuildHamperPage() {
         </h1>
         <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
           Choose {MIN_ITEMS} or more things and we'll assemble them on the kraft-and-coir tray, tuck in a
-          hand-written seed-paper card, and plant a tree for the recipient — all inside the price you see. Live
+          hand-written seed-paper card, and plant a tree for the recipient, all inside the price you see. Live
           plants travel separately, so they're not in this list.
         </p>
       </div>
@@ -141,7 +141,7 @@ export default function BuildHamperPage() {
 
           {chosen.length === 0 ? (
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-              Nothing picked yet. Start with something they'd never buy themselves — the forest honey is the usual
+              Nothing picked yet. Start with something they'd never buy themselves. The forest honey is the usual
               answer.
             </p>
           ) : (
@@ -174,7 +174,7 @@ export default function BuildHamperPage() {
           <div className="mt-4 flex items-start gap-2 rounded-md bg-secondary p-3 text-xs leading-relaxed text-secondary-foreground">
             <TreePine className="mt-0.5 h-4 w-4 shrink-0 text-primary" strokeWidth={1.75} />
             <span>
-              A tree in the recipient's name, the tray, the kraft and the hand-written card — included, never
+              A tree in the recipient's name, the tray, the kraft and the hand-written card. Included, never
               itemised at you.
             </span>
           </div>

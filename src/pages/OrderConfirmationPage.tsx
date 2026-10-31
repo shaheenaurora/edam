@@ -27,8 +27,8 @@ export default function OrderConfirmationPage() {
         <CheckCircle2 className="mx-auto h-12 w-12 text-primary" strokeWidth={1.5} />
         <h1 className="mt-4 font-display text-4xl text-foreground">Thank you, {order.name.split(" ")[0]}.</h1>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-          Order <strong className="text-foreground">{order.orderNo}</strong> is placed. A confirmation — and your tree
-          certificate — is on its way to <strong className="text-foreground">{order.email}</strong>.
+          Order <strong className="text-foreground">{order.orderNo}</strong> is placed. A confirmation, with your tree
+          certificate, is on its way to <strong className="text-foreground">{order.email}</strong>.
         </p>
       </div>
 
@@ -42,7 +42,7 @@ export default function OrderConfirmationPage() {
               <p className="mt-2 text-sm leading-relaxed text-foreground/85">
                 {trees.length === 1 ? "This tree is" : "These trees are"} pledged to the open batch at Vattakkad village
                 commons, Thrissur, planted with the Chalakudy River Guardians in the pre-monsoon window. Not a donation,
-                not an offset — part of what you bought.
+                not an offset. Part of what you bought.
               </p>
               <ul className="mt-4 space-y-2">
                 {trees.map((t) => (

@@ -49,7 +49,7 @@ export default function AdminLayout() {
         <h1 className="font-display text-3xl text-foreground">Not your door</h1>
         <p className="text-sm leading-relaxed text-muted-foreground">
           This area is for the Edam team. Your account ({user.email ?? user.name ?? "signed in"}) is a customer
-          account — your orders and trees live under Account.
+          account. Your orders and trees live under Account.
         </p>
         <button
           onClick={() => navigate("/account")}

@@ -46,7 +46,7 @@ export default function AdminDiscountsPage() {
       <div>
         <h2 className="font-display text-2xl text-foreground">Discount codes</h2>
         <p className="mt-1 text-sm text-muted-foreground">
-          Validated and priced on the server at order time — a customer can never talk the total down from their browser.
+          Validated and priced on the server at order time. A customer can never talk the total down from their browser.
         </p>
       </div>
 

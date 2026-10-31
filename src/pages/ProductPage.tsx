@@ -52,7 +52,7 @@ export default function ProductPage() {
             <img src={product.image} alt={product.name} className="aspect-square w-full object-cover" />
             {product.livePlant && (
               <span className="absolute left-4 top-4 flex items-center gap-1.5 bg-background/95 px-3 py-1.5 text-xs font-semibold text-primary">
-                <Leaf className="h-3.5 w-3.5" /> Live plant — early-week dispatch
+                <Leaf className="h-3.5 w-3.5" /> Live plant · early-week dispatch
               </span>
             )}
           </div>
@@ -69,7 +69,7 @@ export default function ProductPage() {
             <span className="text-sm text-muted-foreground">· {product.unit} · GST included</span>
           </div>
           <p className="mt-1 text-xs text-muted-foreground">
-            The price is the provenance: a named maker, small batches, plastic-free packing — no fake compare-at, no fake discount.
+            The price is the provenance: a named maker, small batches, plastic-free packing. No fake compare-at, no fake discount.
           </p>
 
           <div className="mt-7 flex items-stretch gap-3">
@@ -92,7 +92,7 @@ export default function ProductPage() {
               }
               className="focus-ring h-12 flex-1 bg-primary text-sm font-semibold uppercase tracking-[0.1em] text-primary-foreground transition-colors hover:bg-forest-deep disabled:cursor-not-allowed disabled:opacity-40"
             >
-              {out ? "Out of stock — check back soon" : "Add to basket"}
+              {out ? "Out of stock" : "Add to basket"}
             </button>
           </div>
           {out && (
@@ -107,12 +107,12 @@ export default function ProductPage() {
               <TreePine className="mt-0.5 h-5 w-5 shrink-0 text-primary" strokeWidth={1.5} />
               <span>
                 <strong>Every order plants a tree.</strong>{" "}
-                <Link to="/the-tree" className="focus-ring font-semibold text-primary underline underline-offset-2">See the ledger</Link> — your tree ID arrives with the confirmation.
+                <Link to="/the-tree" className="focus-ring font-semibold text-primary underline underline-offset-2">See the ledger</Link>. Your tree ID arrives with the confirmation.
               </span>
             </li>
             <li className="flex items-start gap-3">
               <Recycle className="mt-0.5 h-5 w-5 shrink-0 text-primary" strokeWidth={1.5} />
-              <span><strong>Plastic-free packing.</strong> Paper, coir and jute — the parcel itself keeps the promise.</span>
+              <span><strong>Plastic-free packing.</strong> Paper, coir and jute. The parcel itself keeps the promise.</span>
             </li>
             <li className="flex items-start gap-3">
               <Package className="mt-0.5 h-5 w-5 shrink-0 text-primary" strokeWidth={1.5} />
@@ -142,7 +142,7 @@ export default function ProductPage() {
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-clay">The named source</p>
               <h2 className="mt-2 font-display text-2xl text-foreground sm:text-3xl">Made by {product.makerName}</h2>
               <p className="mt-3 max-w-2xl text-sm leading-relaxed text-foreground/85">
-                Every Edam product names the farm, collective or artisan behind it — that's not decoration, it's the
+                Every Edam product names the farm, collective or artisan behind it. That's not decoration, it's the
                 whole model. If we can't name the source, we don't list the product.
               </p>
               <MakerLink makerId={product.makerId} />

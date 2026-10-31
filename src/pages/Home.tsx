@@ -10,13 +10,13 @@ const PROOFS = [
   {
     icon: UserRound,
     title: "Named makers",
-    text: "Every product names the farm, collective or artisan behind it — with a photograph, not a logo.",
+    text: "Every product names the farm, collective or artisan behind it, with a photograph, not a logo.",
     to: "/makers",
   },
   {
     icon: Recycle,
     title: "Plastic-free",
-    text: "Coir, glass, paper and tin. The parcel that arrives is the proof — nothing synthetic to throw away.",
+    text: "Coir, glass, paper and tin. The parcel that arrives is the proof. Nothing synthetic to throw away.",
     to: "/our-story",
   },
   {
@@ -53,7 +53,7 @@ export default function Home() {
               Rooted in truth.
             </h1>
             <p className="mt-6 max-w-md text-lg leading-relaxed text-cream/90">
-              The honest version of your everyday things — from a named Kerala maker, plastic-free, and every order
+              The honest version of your everyday things: made by named Kerala makers, plastic-free, and every order
               plants a tree.
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
@@ -147,7 +147,7 @@ export default function Home() {
                 We'll show you ours.
               </h2>
               <p className="mt-4 max-w-md text-sm leading-relaxed text-cream/75">
-                Where, which species, and whether they lived — the count below is the real one, never rounded up.
+                Where, which species, and whether they lived. The count below is the real one, never rounded up.
                 Survival at twelve months is published on the ledger, including when the number disappoints.
               </p>
               <Link
@@ -163,7 +163,7 @@ export default function Home() {
               <TreeCounter dark />
               <div className="mt-6 border-t border-cream/15 pt-5 text-sm text-cream/70">
                 <p>
-                  Planted with the Nilambur Vanam Trust and the Chalakudy River Guardians — sites and batches on the
+                  Planted with the Nilambur Vanam Trust and the Chalakudy River Guardians. Sites and batches on the
                   ledger page.
                 </p>
               </div>
@@ -251,7 +251,7 @@ export default function Home() {
                 Some things should be stayed in, not shipped.
               </h2>
               <p className="mt-4 text-sm leading-relaxed text-cream/85">
-                Edam began as a place — a quiet, green homestead in Thrissur where stressed people come to recharge.
+                Edam began as a place: a quiet, green homestead in Thrissur where stressed people come to recharge.
                 Every stay plants a tree, and every guest leaves with seeds or a sapling.
               </p>
               <Link
@@ -272,11 +272,11 @@ export default function Home() {
             <div className="order-2 lg:order-1">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-clay">Gifting</p>
               <h2 className="mt-3 font-display text-3xl leading-tight text-foreground sm:text-4xl">
-                Send Kerala home — the real thing, with a tree in their name.
+                Send Kerala home: the real thing, with a tree in their name.
               </h2>
               <p className="mt-4 max-w-lg text-sm leading-relaxed text-muted-foreground">
                 Hampers built on wooden trays, gift cards, and trees planted for someone you love. Photographed as the
-                parcel that actually arrives — because for a gift sent from far away, trust is the whole product.
+                parcel that actually arrives, because for a gift sent from far away, trust is the whole product.
               </p>
               <Link
                 to="/gifting"

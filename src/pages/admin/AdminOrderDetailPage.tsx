@@ -76,7 +76,7 @@ export default function AdminOrderDetailPage() {
       {/* progress */}
       {order.status === "cancelled" ? (
         <p className="rounded-md border border-destructive/40 bg-destructive/10 px-4 py-3 text-sm font-semibold text-destructive">
-          Cancelled — units were returned to stock and the customer was notified.
+          Cancelled. Units were returned to stock and the customer was notified.
         </p>
       ) : (
         <ol className="flex flex-wrap gap-2">
@@ -142,7 +142,7 @@ export default function AdminOrderDetailPage() {
                 {address.line1}
                 {address.line2 ? `, ${address.line2}` : ""}
                 <br />
-                {address.city}, {address.state} — {address.pincode}
+                {address.city}, {address.state} {address.pincode}
               </p>
             </section>
           )}
@@ -163,7 +163,7 @@ export default function AdminOrderDetailPage() {
               {trees.map((t) => (
                 <li key={t.treeNo} className="text-sm">
                   <span className="font-mono text-xs font-semibold text-clay">{t.treeNo}</span> · {t.species}
-                  {t.recipientName && <span className="text-muted-foreground"> — for {t.recipientName}</span>}
+                  {t.recipientName && <span className="text-muted-foreground"> · for {t.recipientName}</span>}
                   <span className="block text-xs capitalize text-muted-foreground">
                     {t.status} · {t.site ?? "site pending"}
                   </span>

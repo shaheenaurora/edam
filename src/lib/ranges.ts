@@ -18,7 +18,7 @@ export const RANGES: RangeMeta[] = [
     line: "What Edam feeds you",
     role: "The repeat engine",
     description:
-      "Spices with a named hill behind them, honey with a batch number, tea from a named garden — Kerala's food, honestly labelled and plastic-free.",
+      "Spices with a named hill behind them, honey with a batch number, tea from a named garden. Kerala's food, honestly labelled and plastic-free.",
     image: "/images/range-nourish.png",
   },
   {
@@ -28,7 +28,7 @@ export const RANGES: RangeMeta[] = [
     line: "What Edam does for your body",
     role: "The margin engine",
     description:
-      "Cold-process soaps, traditional oils and everyday care — real Kerala craft, described by what it is, never by a claim we can't keep.",
+      "Cold-process soaps, traditional oils and everyday care. Real Kerala craft, described by what it is, never by a claim we can't keep.",
     image: "/images/range-care.png",
   },
   {
@@ -38,7 +38,7 @@ export const RANGES: RangeMeta[] = [
     line: "What Edam brings into your home",
     role: "The aesthetic engine",
     description:
-      "Terracotta, coir, handloom and natural fragrance — useful, beautiful objects made by hands you can name.",
+      "Terracotta, coir, handloom and natural fragrance. Useful, beautiful objects made by hands you can name.",
     image: "/images/range-dwell.png",
   },
   {
@@ -48,7 +48,7 @@ export const RANGES: RangeMeta[] = [
     line: "What Edam plants with you",
     role: "The signature",
     description:
-      "Seeds, grow kits and living plants with honest guidance and a replacement promise — because the point is keeping something alive.",
+      "Seeds, grow kits and living plants with honest guidance and a replacement promise, because the point is keeping something alive.",
     image: "/images/range-grow.png",
   },
   {
@@ -58,7 +58,7 @@ export const RANGES: RangeMeta[] = [
     line: "What Edam helps you give",
     role: "The AOV engine",
     description:
-      "Hampers, gift cards and trees in someone's name — Kerala, sent home, with the tree always inside the price.",
+      "Hampers, gift cards and trees in someone's name. Kerala, sent home, with the tree always inside the price.",
     image: "/images/range-give.png",
   },
 ];

@@ -15,7 +15,7 @@ export default function MakersPage() {
             Behind every Edam product is a person you can name. Here they are.
           </h1>
           <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-            Edam has no estate and no factory. Everything is sourced — which means the whole credibility of the brand
+            Edam has no estate and no factory. Everything is sourced, which means the whole credibility of the brand
             rests on these relationships being real, and verifiable. So we publish them.
           </p>
         </div>

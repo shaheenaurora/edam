@@ -20,7 +20,7 @@ export default function AdminTreesPage() {
         <h2 className="font-display text-xl text-foreground">Tree registry</h2>
         <p className="mt-1 text-sm text-muted-foreground">
           Every tree pledged by an order. Flip to <em>planted</em> when the batch goes in the ground,{" "}
-          <em>verified</em> after the 12-month count — the public ledger reads from this table.
+          <em>verified</em> after the 12-month count. The public ledger reads from this table.
         </p>
         <p className="mt-2 text-xs text-muted-foreground">
           pledged {counts.pledged ?? 0} · planted {counts.planted ?? 0} · verified {counts.verified ?? 0}

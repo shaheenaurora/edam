@@ -53,10 +53,10 @@ export default function GiftingPage() {
         <div className="relative mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-24">
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#B38A56]">Gifting</p>
           <h1 className="mt-3 max-w-2xl font-display text-4xl leading-tight text-cream sm:text-5xl">
-            Send Kerala home — the real thing, beautifully, with a tree planted in their name.
+            Send Kerala home: the real thing, beautifully, with a tree planted in their name.
           </h1>
           <p className="mt-4 max-w-lg text-sm leading-relaxed text-cream/85">
-            Every hamper is photographed as the parcel that actually arrives. The tree is inside the price — never an
+            Every hamper is photographed as the parcel that actually arrives. The tree is inside the price, never an
             add-on. Gift messages are hand-written on seed paper that can be planted.
           </p>
           <div className="mt-6 flex flex-wrap items-center gap-4">
@@ -80,7 +80,7 @@ export default function GiftingPage() {
           <div className="max-w-xl">
             <h2 className="font-display text-2xl text-foreground">Rather choose every piece yourself?</h2>
             <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
-              Pick any three or more things and we assemble them as a hamper — tray, kraft, seed-paper card and the
+              Pick any three or more things and we assemble them as a hamper: tray, kraft, seed-paper card and the
               tree, all inside the price.
             </p>
           </div>
@@ -115,7 +115,7 @@ export default function GiftingPage() {
         <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8">
           <Reveal>
             <h2 className="font-display text-3xl text-foreground">Find a gift</h2>
-            <p className="mt-2 text-sm text-muted-foreground">By who it's for — not by department.</p>
+            <p className="mt-2 text-sm text-muted-foreground">By who it's for, not by department.</p>
           </Reveal>
           <div className="mt-6 flex flex-wrap gap-2">
             {OCCASIONS.map((o) => (
@@ -147,7 +147,7 @@ export default function GiftingPage() {
             <h2 className="font-display text-2xl text-foreground">Sending from abroad?</h2>
             <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
               International cards work at checkout, the parcel is photographed as it will arrive, and the tree
-              certificate is addressed to your recipient — the distance shrinks to a delivery date.
+              certificate is addressed to your recipient. The distance shrinks to a delivery date.
             </p>
             <Link to="/product/a-tree-in-their-name" className="focus-ring mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-clay">
               The simplest far-away gift: a tree in their name <ArrowRight className="h-4 w-4" />
@@ -158,7 +158,7 @@ export default function GiftingPage() {
           <div className="flex h-full flex-col rounded-md border border-border bg-card p-8">
             <h2 className="font-display text-2xl text-foreground">Corporate &amp; occasion gifting</h2>
             <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
-              Fifty hampers for Onam, five hundred trees for a company's anniversary — same honesty, larger scale,
+              Fifty hampers for Onam, five hundred trees for a company's anniversary. Same honesty, larger scale,
               co-branded certificates.
             </p>
             <Link to="/corporate-gifting" className="focus-ring mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-clay">

@@ -57,7 +57,7 @@ export default function AdminIntegrationsPage() {
       <div>
         <h2 className="font-display text-2xl text-foreground">Integrations</h2>
         <p className="mt-1 text-sm text-muted-foreground">
-          Payments, outbound webhooks and the mail outbox — the wires that connect Edam to the rest of your stack.
+          Payments, outbound webhooks and the mail outbox: the wires that connect Edam to the rest of your stack.
         </p>
       </div>
 
@@ -72,10 +72,10 @@ export default function AdminIntegrationsPage() {
           )}
         </div>
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-          One gateway, every Indian payment method — UPI, cards, netbanking, wallets. Amounts are computed on this
+          One gateway, every Indian payment method: UPI, cards, netbanking, wallets. Amounts are computed on this
           server from database prices, and a payment counts only when Razorpay's signature verifies. To go live, set{" "}
           <code className="font-mono text-xs">RAZORPAY_KEY_ID</code> and <code className="font-mono text-xs">RAZORPAY_KEY_SECRET</code>{" "}
-          in the environment — no code change, the storefront starts offering online checkout immediately.
+          in the environment. No code change; the storefront starts offering online checkout immediately.
         </p>
         <div className="mt-4 rounded-md bg-secondary p-4 text-xs leading-relaxed text-secondary-foreground">
           <p className="font-semibold uppercase tracking-[0.12em]">Webhook URL for the Razorpay dashboard</p>
@@ -88,7 +88,7 @@ export default function AdminIntegrationsPage() {
       <section className="rounded-md border border-border bg-card p-5 sm:p-6">
         <h3 className="font-display text-lg text-foreground">Outbound webhooks</h3>
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-          Push store events anywhere — a CRM, a courier, Google Sheets via Zapier/Make, your own server. Every delivery
+          Push store events anywhere: a CRM, a courier, Google Sheets via Zapier/Make, your own server. Every delivery
           is signed <code className="font-mono text-xs">X-Edam-Signature: HMAC-SHA256(secret, body)</code> and logged below,
           with retry.
         </p>
@@ -110,7 +110,7 @@ export default function AdminIntegrationsPage() {
           {error && <p className="text-sm text-destructive">{error}</p>}
           {newSecret && (
             <p className="rounded-md bg-primary/10 p-3 font-mono text-xs text-primary">
-              Signing secret (shown once — save it): {newSecret}
+              Signing secret (shown once, save it): {newSecret}
             </p>
           )}
           <button type="submit" disabled={create.isPending || events.length === 0} className="focus-ring inline-flex h-11 items-center gap-2 bg-primary px-6 text-sm font-semibold text-primary-foreground hover:bg-forest-deep disabled:opacity-50">
@@ -157,7 +157,7 @@ export default function AdminIntegrationsPage() {
               )}
               <div className="min-w-0 flex-1">
                 <p className="font-mono text-xs font-semibold">{d.event}{d.responseCode ? ` · HTTP ${d.responseCode}` : ""}</p>
-                <p className="truncate text-xs text-muted-foreground">{d.url}{d.lastError ? ` — ${d.lastError}` : ""}</p>
+                <p className="truncate text-xs text-muted-foreground">{d.url}{d.lastError ? ` · ${d.lastError}` : ""}</p>
               </div>
               <span className="text-xs text-muted-foreground">
                 {new Date(d.createdAt).toLocaleString("en-IN", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}
@@ -169,7 +169,7 @@ export default function AdminIntegrationsPage() {
               )}
             </li>
           ))}
-          {(deliveries.data ?? []).length === 0 && <li className="py-4 text-sm text-muted-foreground">Nothing delivered yet — place a test order after adding an endpoint.</li>}
+          {(deliveries.data ?? []).length === 0 && <li className="py-4 text-sm text-muted-foreground">Nothing delivered yet. Place a test order after adding an endpoint.</li>}
         </ul>
       </section>
 

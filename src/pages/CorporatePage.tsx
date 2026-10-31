@@ -17,7 +17,7 @@ export default function CorporatePage() {
             </h1>
             <p className="mt-5 max-w-lg text-[15px] leading-relaxed text-foreground/85">
               Corporate gifting at Edam is the same honesty at a larger scale: hampers assembled by the women's
-              collective, certificates on plantable seed paper, and a tree count your CSR report can point at — with a
+              collective, certificates on plantable seed paper, and a tree count your CSR report can point at, with a
               public ledger behind it.
             </p>
             <ul className="mt-8 space-y-4 text-sm leading-relaxed">
@@ -36,7 +36,7 @@ export default function CorporatePage() {
               <div className="mt-6 flex items-start gap-3 rounded-md bg-secondary p-5 text-sm">
                 <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
                 <p>
-                  Thank you — noted. Corporate gifting is handled personally; expect a reply from{" "}
+                  Thank you, noted. Corporate gifting is handled personally; expect a reply from{" "}
                   <strong>gifts@edam.in</strong> within one working day.
                 </p>
               </div>
@@ -75,7 +75,7 @@ export default function CorporatePage() {
         <div className="grid gap-6 lg:grid-cols-2 lg:items-center">
           <div>
             <h2 className="font-display text-2xl text-cream">The Field Notes, for your team</h2>
-            <p className="mt-2 text-sm text-cream/75">Our honest guide to reading labels — a useful thing to put in a welcome kit.</p>
+            <p className="mt-2 text-sm text-cream/75">Our honest guide to reading labels. A useful thing to put in a welcome kit.</p>
           </div>
           <FieldNotesForm />
         </div>

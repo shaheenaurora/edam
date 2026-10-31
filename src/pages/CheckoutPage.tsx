@@ -137,7 +137,7 @@ export default function CheckoutPage() {
     return (
       <div className="mx-auto flex max-w-lg flex-col items-center gap-5 px-5 py-24 text-center">
         <h1 className="font-display text-3xl text-foreground">Your basket is empty</h1>
-        <p className="text-sm text-muted-foreground">Add something honest first — then this page gets interesting.</p>
+        <p className="text-sm text-muted-foreground">Add something honest first. Then this page gets interesting.</p>
         <Link to="/shop" className="focus-ring bg-primary px-8 py-3.5 text-sm font-semibold text-primary-foreground hover:bg-forest-deep">
           Browse the store
         </Link>
@@ -251,14 +251,14 @@ export default function CheckoutPage() {
                   <Gift className="h-4 w-4 text-clay" /> This is a gift
                 </span>
                 <span className="mt-1 block text-xs leading-relaxed text-muted-foreground">
-                  We pack gifts as gifts — no invoice inside, a hand-written note if you'd like one.
+                  We pack gifts as gifts: no invoice inside, and a hand-written note if you'd like one.
                 </span>
               </span>
             </label>
             {isGift && (
               <div className="mt-5 space-y-4 border-t border-border pt-5">
                 <textarea
-                  placeholder="Gift message — we'll hand-write it on seed paper"
+                  placeholder="Gift message (we'll hand-write it on seed paper)"
                   value={giftMessage}
                   onChange={(e) => setGiftMessage(e.target.value)}
                   maxLength={500}
@@ -301,17 +301,17 @@ export default function CheckoutPage() {
                     icon: Smartphone,
                     title: "UPI",
                     desc: onlinePayments
-                      ? "Pay instantly by UPI through the secure Razorpay window — GPay, PhonePe, Paytm."
+                      ? "Pay instantly by UPI through the secure Razorpay window: GPay, PhonePe, Paytm."
                       : config.data?.upiId
-                        ? `Pay to ${config.data.upiId} from any UPI app and share the reference — we confirm within the hour.`
-                        : "Google Pay, PhonePe, Paytm — intent or QR. The way most of India pays.",
+                        ? `Pay to ${config.data.upiId} from any UPI app and share the reference. We confirm within the hour.`
+                        : "Google Pay, PhonePe, Paytm, by intent or QR. The way most of India pays.",
                   },
                   {
                     id: "card",
                     icon: CreditCard,
                     title: onlinePayments ? "Card · Netbanking · Wallets" : "Card",
                     desc: onlinePayments
-                      ? "Secure Razorpay checkout — Indian and international cards, netbanking, wallets."
+                      ? "Secure Razorpay checkout. Indian and international cards, netbanking, wallets."
                       : "Credit or debit, Indian and international cards welcome (hello, NRI gifters).",
                   },
                   { id: "cod", icon: Banknote, title: "Cash on delivery", desc: "Pay the courier. Available on most pincodes for orders under ₹5,000." },
@@ -398,7 +398,7 @@ export default function CheckoutPage() {
           <div className="mt-4 flex items-start gap-2 rounded-md bg-secondary p-3 text-xs leading-relaxed text-secondary-foreground">
             <TreePine className="mt-0.5 h-4 w-4 shrink-0 text-primary" strokeWidth={1.75} />
             <span>
-              This order plants <strong>{1 + treeGiftCount} tree{treeGiftCount > 0 ? "s" : ""}</strong> — included in
+              This order plants <strong>{1 + treeGiftCount} tree{treeGiftCount > 0 ? "s" : ""}</strong>, included in
               the price. Your tree ID{treeGiftCount > 0 ? "s" : ""} and the ledger link arrive with the confirmation.
             </span>
           </div>
@@ -411,7 +411,7 @@ export default function CheckoutPage() {
             {createOrder.isPending ? "Placing your order…" : `Place order · ${inr(total)}`}
           </button>
           <p className="mt-3 text-center text-[11px] text-muted-foreground">
-            Totals are computed on our server from listed prices — what you see is exactly what's recorded.
+            Totals are computed on our server from listed prices. What you see is exactly what's recorded.
           </p>
         </aside>
       </form>

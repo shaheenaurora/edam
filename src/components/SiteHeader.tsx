@@ -56,7 +56,7 @@ export function CartDrawer() {
           <div className="flex flex-1 flex-col items-center justify-center gap-4 px-6 text-center">
             <ShoppingBag className="h-10 w-10 text-muted-foreground" strokeWidth={1.25} />
             <p className="max-w-[26ch] text-sm text-muted-foreground">
-              Nothing here yet. Every order plants a tree — when you're ready.
+              Nothing here yet. Every order plants a tree, whenever you're ready.
             </p>
             <button
               onClick={() => {
@@ -129,8 +129,8 @@ export function CartDrawer() {
               <div className="mb-3 flex items-start gap-2 rounded-md bg-secondary p-3 text-xs leading-relaxed text-secondary-foreground">
                 <TreePine className="mt-0.5 h-4 w-4 shrink-0 text-primary" strokeWidth={1.75} />
                 <span>
-                  This order plants <strong>a tree with our named Kerala partner</strong> — included in the price, never an
-                  add-on. Your tree ID arrives with the confirmation.
+                  This order plants <strong>a tree with our named Kerala partner</strong>. Included in the price, never
+                  an add-on. Your tree ID arrives with the confirmation.
                 </span>
               </div>
               <div className="flex items-center justify-between text-sm">
@@ -180,7 +180,7 @@ export function SiteHeader() {
             <Menu className="h-5 w-5" />
           </button>
 
-          <Link to="/" className="focus-ring shrink-0" aria-label="Edam — home">
+          <Link to="/" className="focus-ring shrink-0" aria-label="Edam home">
             <Wordmark />
           </Link>
 

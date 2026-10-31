@@ -69,7 +69,7 @@ export default function ShopPage() {
                   range === r.key ? "bg-secondary font-semibold text-foreground" : "text-foreground/80 hover:bg-secondary/60"
                 }`}
               >
-                {r.name} <span className="text-muted-foreground">— {r.line.toLowerCase()}</span>
+                {r.name}
               </button>
             </li>
           ))}
@@ -173,7 +173,7 @@ export default function ShopPage() {
           ) : (
             <div className="flex flex-col items-center gap-4 rounded-md border border-dashed border-border py-20 text-center">
               <p className="max-w-[34ch] text-sm text-muted-foreground">
-                Nothing matches that combination. Honesty is a smaller catalogue — try widening the filters.
+                Nothing matches that combination. Honesty is a smaller catalogue. Try widening the filters.
               </p>
               <button
                 onClick={() => {
@@ -217,7 +217,7 @@ export default function ShopPage() {
       )}
 
       <p className="mt-16 border-t border-border pt-8 text-xs text-muted-foreground">
-        Looking for something specific? <Link to="/policies#contact" className="focus-ring font-semibold text-primary underline underline-offset-2">Write to us</Link> — if it's genuine and Kerala-true, we may know a maker.
+        Looking for something specific? <Link to="/policies#contact" className="focus-ring font-semibold text-primary underline underline-offset-2">Write to us</Link>. If it's genuine and Kerala-true, we may know a maker.
       </p>
     </div>
   );

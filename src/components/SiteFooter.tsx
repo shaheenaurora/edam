@@ -25,7 +25,7 @@ export function SiteFooter() {
             </h2>
             <p className="mt-3 max-w-md text-sm leading-relaxed text-cream/75">
               An occasional letter from Edam: a maker, a season, a guide to telling the real thing from the labelled
-              thing. Useful and brand-true — never "10% off".
+              thing. Useful and brand-true. Never "10% off".
             </p>
           </div>
           <FieldNotesForm />
@@ -37,7 +37,7 @@ export function SiteFooter() {
           <Wordmark light />
           <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.42em] text-cream/60">Hospitality</p>
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-cream/75">
-            The honest version of your everyday things — from a named Kerala maker, plastic-free, and every order
+            The honest version of your everyday things: made by named Kerala makers, plastic-free, and every order
             plants a tree.
           </p>
           <p className="mt-4 text-sm italic text-cream/60">Thrissur, Kerala, India</p>
@@ -49,7 +49,7 @@ export function SiteFooter() {
             {RANGES.map((r) => (
               <li key={r.key}>
                 <Link to={`/shop/${r.slug}`} className="focus-ring text-cream/85 transition-colors hover:text-cream">
-                  {r.name} — {r.line.toLowerCase()}
+                  {r.name}
                 </Link>
               </li>
             ))}
