@@ -92,9 +92,12 @@ export default function BuildHamperPage() {
                   <div className="flex flex-1 flex-col pt-3">
                     <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-clay">{p.category}</p>
                     <p className="mt-1 font-display text-lg leading-snug text-foreground">{p.name}</p>
-                    <p className="mt-1 text-sm font-semibold tabular-nums text-foreground">
-                      {inr(p.price)} <span className="text-xs font-normal text-muted-foreground">· {p.unit}</span>
-                    </p>
+                    <div className="mt-1 flex items-baseline gap-1.5">
+                      <span className="whitespace-nowrap text-sm font-semibold tabular-nums text-foreground">
+                        {inr(p.price)}
+                      </span>
+                      <span className="truncate text-xs text-muted-foreground">· {p.unit}</span>
+                    </div>
                     <div className="mt-auto pt-3">
                       {qty === 0 ? (
                         <button

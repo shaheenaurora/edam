@@ -42,10 +42,9 @@ export function ProductCard({ product }: { product: Product }) {
         <p className="mt-2 text-xs text-muted-foreground">
           Made by <span className="font-semibold text-foreground/80">{product.makerName}</span>
         </p>
-        <div className="mt-3 flex items-center justify-between">
-          <span className="text-base font-semibold tabular-nums">
-            {inr(product.price)} <span className="text-xs font-normal text-muted-foreground">· {product.unit}</span>
-          </span>
+        <div className="mt-3 flex items-baseline gap-1.5">
+          <span className="whitespace-nowrap text-base font-semibold tabular-nums">{inr(product.price)}</span>
+          <span className="truncate text-xs text-muted-foreground">· {product.unit}</span>
         </div>
         <div className="mt-3 flex items-center gap-2">
           <button
@@ -60,7 +59,7 @@ export function ProductCard({ product }: { product: Product }) {
               })
             }
             disabled={out}
-            className="focus-ring h-11 flex-1 border border-foreground text-[13px] font-semibold uppercase tracking-[0.08em] text-foreground transition-colors hover:bg-foreground hover:text-background disabled:cursor-not-allowed disabled:opacity-40"
+            className="focus-ring h-11 flex-1 whitespace-nowrap border border-foreground text-[11px] font-semibold uppercase tracking-[0.06em] text-foreground transition-colors hover:bg-foreground hover:text-background disabled:cursor-not-allowed disabled:opacity-40 sm:text-[13px] sm:tracking-[0.08em]"
           >
             {out ? "Out of stock" : "Add to basket"}
           </button>

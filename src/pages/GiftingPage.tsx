@@ -122,7 +122,7 @@ export default function GiftingPage() {
               <button
                 key={o.id}
                 onClick={() => setOccasion(o.id)}
-                className={`focus-ring min-h-11 rounded-full border px-5 text-sm font-semibold transition-colors ${
+                className={`focus-ring min-h-11 whitespace-nowrap rounded-full border px-5 text-sm font-semibold transition-colors ${
                   occasion === o.id
                     ? "border-primary bg-primary text-primary-foreground"
                     : "border-border bg-card text-foreground hover:border-foreground/40"

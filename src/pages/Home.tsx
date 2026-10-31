@@ -46,7 +46,7 @@ export default function Home() {
         </div>
         <div className="relative mx-auto flex min-h-[78vh] max-w-7xl flex-col justify-center px-5 py-24 sm:px-8">
           <div className="max-w-xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#B38A56]">
+            <p className="text-xs font-semibold uppercase leading-relaxed tracking-[0.18em] text-[#B38A56] sm:tracking-[0.24em]">
               Eco-conscious stays · natural products · real trees
             </p>
             <h1 className="mt-5 font-display text-5xl leading-[1.05] text-cream sm:text-6xl lg:text-7xl">

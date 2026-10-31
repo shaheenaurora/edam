@@ -2,7 +2,9 @@ import { Link, NavLink, useNavigate } from "react-router";
 import { Menu, Search, ShoppingBag, User, X, Minus, Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { useCart } from "@/context/CartContext";
-import { inr } from "@/lib/format";
+import { inr, FREE_SHIPPING_ABOVE } from "@/lib/format";
+import { RANGES } from "@/lib/ranges";
+import { trpc } from "@/providers/trpc";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { TreePine } from "lucide-react";
 
@@ -40,6 +42,8 @@ export function Wordmark({ className = "", light = false }: { className?: string
 export function CartDrawer() {
   const { items, subtotal, open, setOpen, setQty, remove } = useCart();
   const navigate = useNavigate();
+  const config = trpc.config.public.useQuery(undefined, { staleTime: 60_000 });
+  const freeAbove = config.data?.freeShippingAbove ?? FREE_SHIPPING_ABOVE;
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -134,7 +138,7 @@ export function CartDrawer() {
                 <span className="font-semibold tabular-nums">{inr(subtotal)}</span>
               </div>
               <p className="mt-1 text-xs text-muted-foreground">
-                {subtotal >= 1499 ? "Free shipping unlocked." : `Free shipping above ${inr(1499)}.`}
+                {subtotal >= freeAbove ? "Free shipping unlocked." : `Free shipping above ${inr(freeAbove)}.`}
               </p>
               <button
                 onClick={() => {
@@ -160,8 +164,11 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40">
-      <div className="bg-primary py-1.5 text-center text-[11px] font-medium tracking-[0.18em] text-primary-foreground uppercase">
-        Rooted in truth · Named makers · Plastic-free · A tree in every order
+      <div className="bg-primary px-4 py-1.5 text-center text-[10px] font-medium uppercase leading-relaxed tracking-[0.14em] text-primary-foreground sm:text-[11px] sm:tracking-[0.18em]">
+        <span className="block sm:inline">Rooted in truth · Named makers</span>
+        <span className="block sm:inline">
+          <span className="hidden sm:inline"> · </span>Plastic-free · A tree in every order
+        </span>
       </div>
       <div className="border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/85">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-5 sm:px-8">
@@ -226,28 +233,28 @@ export function SiteHeader() {
 
       {/* Mobile drawer */}
       <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-        <SheetContent side="left" className="w-[85vw] max-w-sm bg-background p-0">
+        <SheetContent side="left" className="w-[85vw] max-w-sm gap-0 bg-background p-0 [&>button]:hidden">
           <SheetHeader className="sr-only">
             <SheetTitle>Menu</SheetTitle>
           </SheetHeader>
-          <div className="flex items-center justify-between border-b border-border px-5 py-4">
+          <div className="flex items-center justify-between border-b border-border px-5 py-3">
             <Wordmark />
             <button
-              className="focus-ring flex h-11 w-11 items-center justify-center"
+              className="focus-ring -mr-2 flex h-11 w-11 items-center justify-center"
               aria-label="Close menu"
               onClick={() => setMobileOpen(false)}
             >
               <X className="h-5 w-5" />
             </button>
           </div>
-          <nav className="flex flex-col px-5 py-2" aria-label="Mobile" style={{ paddingBottom: "calc(1rem + env(safe-area-inset-bottom))" }}>
+          <nav className="flex flex-col px-5 py-2" aria-label="Mobile">
             {NAV.map((item) => (
               <NavLink
                 key={item.to}
                 to={item.to}
                 onClick={() => setMobileOpen(false)}
                 className={({ isActive }) =>
-                  `focus-ring border-b border-border/60 py-4 font-display text-2xl ${
+                  `focus-ring border-b border-border/60 py-3.5 font-display text-[22px] leading-tight ${
                     isActive ? "text-clay" : "text-foreground"
                   }`
                 }
@@ -258,11 +265,37 @@ export function SiteHeader() {
             <NavLink
               to="/account"
               onClick={() => setMobileOpen(false)}
-              className="focus-ring py-4 font-display text-2xl text-foreground"
+              className="focus-ring py-3.5 font-display text-[22px] leading-tight text-foreground"
             >
               Account
             </NavLink>
           </nav>
+          <div
+            className="mt-2 border-t border-border px-5 pt-4"
+            style={{ paddingBottom: "calc(1.25rem + env(safe-area-inset-bottom))" }}
+          >
+            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">Shop by range</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {RANGES.map((r) => (
+                <NavLink
+                  key={r.key}
+                  to={`/shop/${r.slug}`}
+                  onClick={() => setMobileOpen(false)}
+                  className="focus-ring rounded-full border border-border px-3.5 py-1.5 text-xs font-semibold text-foreground/80 transition-colors hover:border-foreground hover:text-foreground"
+                >
+                  {r.name}
+                </NavLink>
+              ))}
+            </div>
+            <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-xs font-semibold text-muted-foreground">
+              <NavLink to="/corporate-gifting" onClick={() => setMobileOpen(false)} className="focus-ring py-1 hover:text-foreground">
+                Corporate gifting
+              </NavLink>
+              <NavLink to="/policies" onClick={() => setMobileOpen(false)} className="focus-ring py-1 hover:text-foreground">
+                Shipping, returns & contact
+              </NavLink>
+            </div>
+          </div>
         </SheetContent>
       </Sheet>
 

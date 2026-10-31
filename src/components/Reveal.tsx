@@ -26,10 +26,20 @@ export function Reveal({ children, delay = 0, className = "" }: { children: Reac
           }
         }
       },
-      { threshold: 0.12 },
+      { threshold: 0.05, rootMargin: "0px 0px 48px 0px" },
     );
     io.observe(el);
-    return () => io.disconnect();
+    // Safety net: if the observer never fires (edge cases with very tall
+    // elements, print emulation, odd browsers), reveal anything that has
+    // reached the viewport so content is never stranded invisible.
+    const fallback = window.setTimeout(() => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight) setInView(true);
+    }, 1400);
+    return () => {
+      io.disconnect();
+      window.clearTimeout(fallback);
+    };
   }, []);
 
   return (

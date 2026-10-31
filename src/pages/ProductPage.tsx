@@ -174,7 +174,7 @@ export default function ProductPage() {
         <section className="mt-16 border-t border-border pt-12">
           <div className="flex items-end justify-between gap-4">
             <h2 className="font-display text-2xl text-foreground sm:text-3xl">From the same maker</h2>
-            <Link to="/makers" className="focus-ring inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-clay">
+            <Link to="/makers" className="focus-ring inline-flex shrink-0 items-center gap-2 whitespace-nowrap text-sm font-semibold text-primary hover:text-clay">
               All makers <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
