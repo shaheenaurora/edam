@@ -8,6 +8,7 @@ import ProductPage from "./pages/ProductPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import OrderConfirmationPage from "./pages/OrderConfirmationPage";
 import GiftingPage from "./pages/GiftingPage";
+import BuildHamperPage from "./pages/BuildHamperPage";
 import TreeLedgerPage from "./pages/TreeLedgerPage";
 import MakersPage from "./pages/MakersPage";
 import MakerDetailPage from "./pages/MakerDetailPage";
@@ -41,6 +42,7 @@ export default function App() {
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/order/:orderNo" element={<OrderConfirmationPage />} />
           <Route path="/gifting" element={<GiftingPage />} />
+          <Route path="/gifting/build" element={<BuildHamperPage />} />
           <Route path="/the-tree" element={<TreeLedgerPage />} />
           <Route path="/makers" element={<MakersPage />} />
           <Route path="/makers/:slug" element={<MakerDetailPage />} />

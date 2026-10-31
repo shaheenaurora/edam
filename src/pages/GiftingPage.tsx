@@ -59,10 +59,37 @@ export default function GiftingPage() {
             Every hamper is photographed as the parcel that actually arrives. The tree is inside the price — never an
             add-on. Gift messages are hand-written on seed paper that can be planted.
           </p>
-          <div className="mt-6 inline-flex items-center gap-2 rounded-md bg-cream/10 px-4 py-2.5 text-xs text-cream backdrop-blur">
-            <CalendarDays className="h-4 w-4 text-[#B38A56]" />
-            Festival note: order by <strong>18 December</strong> for Christmas delivery across India.
+          <div className="mt-6 flex flex-wrap items-center gap-4">
+            <Link
+              to="/gifting/build"
+              className="focus-ring inline-flex items-center gap-2 bg-cream px-6 py-3.5 text-sm font-semibold text-foreground transition-colors hover:bg-white"
+            >
+              Build your own hamper <ArrowRight className="h-4 w-4" />
+            </Link>
+            <div className="inline-flex items-center gap-2 rounded-md bg-cream/10 px-4 py-2.5 text-xs text-cream backdrop-blur">
+              <CalendarDays className="h-4 w-4 text-[#B38A56]" />
+              Festival note: order by <strong>18 December</strong> for Christmas delivery across India.
+            </div>
           </div>
+        </div>
+      </section>
+
+      {/* Build your own — entry band */}
+      <section className="border-b border-border bg-secondary">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-5 py-8 sm:px-8">
+          <div className="max-w-xl">
+            <h2 className="font-display text-2xl text-foreground">Rather choose every piece yourself?</h2>
+            <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+              Pick any three or more things and we assemble them as a hamper — tray, kraft, seed-paper card and the
+              tree, all inside the price.
+            </p>
+          </div>
+          <Link
+            to="/gifting/build"
+            className="focus-ring inline-flex items-center gap-2 border border-foreground px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-foreground hover:text-background"
+          >
+            Start building <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
       </section>
 

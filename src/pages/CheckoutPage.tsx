@@ -59,7 +59,14 @@ export default function CheckoutPage() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState<AddressForm>(emptyAddress);
-  const [isGift, setIsGift] = useState(false);
+  const [isGift, setIsGift] = useState(() => {
+    // Arriving from the hamper builder pre-arms the gift section.
+    if (typeof window !== "undefined" && localStorage.getItem("edam-gift-intent") === "1") {
+      localStorage.removeItem("edam-gift-intent");
+      return true;
+    }
+    return false;
+  });
   const [giftMessage, setGiftMessage] = useState("");
   const [recipientName, setRecipientName] = useState("");
   const [recipientAddress, setRecipientAddress] = useState<AddressForm>(emptyAddress);
