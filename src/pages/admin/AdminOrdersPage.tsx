@@ -5,7 +5,7 @@ import { inr } from "@/lib/format";
 import { Search } from "lucide-react";
 import { StatusPill } from "./AdminOverviewPage";
 
-const STATUSES = ["placed", "packed", "shipped", "delivered"] as const;
+const STATUSES = ["placed", "packed", "shipped", "delivered", "cancelled"] as const;
 
 export default function AdminOrdersPage() {
   const [q, setQ] = useState("");

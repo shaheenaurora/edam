@@ -4,6 +4,8 @@ import { inr } from "@/lib/format";
 import { ArrowLeft } from "lucide-react";
 
 const FLOW = ["placed", "packed", "shipped", "delivered"] as const;
+const ALL_STATUSES = [...FLOW, "cancelled"] as const;
+const PAYMENT_STATUSES = ["pending", "paid", "failed", "refunded"] as const;
 
 type AddressForm = { line1: string; line2?: string; city: string; state: string; pincode: string };
 type OrderItem = { slug: string; name: string; qty: number; price: number; makerName?: string };
@@ -15,6 +17,9 @@ export default function AdminOrderDetailPage() {
   const setStatus = trpc.admin.setOrderStatus.useMutation({
     onSuccess: () => utils.admin.order.invalidate({ orderNo }),
   });
+  const setPayment = trpc.admin.setPaymentStatus.useMutation({
+    onSuccess: () => utils.admin.order.invalidate({ orderNo }),
+  });
 
   if (data.isLoading) return <p className="text-sm text-muted-foreground">Loading order…</p>;
   if (!data.data) return <p className="text-sm text-destructive">Order not found.</p>;
@@ -22,7 +27,7 @@ export default function AdminOrderDetailPage() {
   const { order, trees } = data.data;
   const address = safeJson<AddressForm>(order.address);
   const items = safeJson<OrderItem[]>(order.items) ?? [];
-  const idx = FLOW.indexOf(order.status);
+  const idx = FLOW.indexOf(order.status as (typeof FLOW)[number]);
 
   return (
     <div className="space-y-8">
@@ -38,34 +43,55 @@ export default function AdminOrderDetailPage() {
             {order.isGift && " · Gift order"}
           </p>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">Status</span>
-          <select
-            value={order.status}
-            onChange={(e) => setStatus.mutate({ orderNo, status: e.target.value as (typeof FLOW)[number] })}
-            disabled={setStatus.isPending}
-            className="focus-ring h-11 rounded-md border border-input bg-card px-3 text-sm font-semibold"
-          >
-            {FLOW.map((s) => (
-              <option key={s} value={s} className="capitalize">{s}</option>
-            ))}
-          </select>
+        <div className="flex flex-wrap items-center gap-4">
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">Status</span>
+            <select
+              value={order.status}
+              onChange={(e) => setStatus.mutate({ orderNo, status: e.target.value as (typeof ALL_STATUSES)[number] })}
+              disabled={setStatus.isPending}
+              className="focus-ring h-11 rounded-md border border-input bg-card px-3 text-sm font-semibold"
+            >
+              {ALL_STATUSES.map((s) => (
+                <option key={s} value={s} className="capitalize">{s}</option>
+              ))}
+            </select>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">Payment</span>
+            <select
+              value={order.paymentStatus}
+              onChange={(e) => setPayment.mutate({ orderNo, paymentStatus: e.target.value as (typeof PAYMENT_STATUSES)[number] })}
+              disabled={setPayment.isPending}
+              className="focus-ring h-11 rounded-md border border-input bg-card px-3 text-sm font-semibold"
+            >
+              {PAYMENT_STATUSES.map((s) => (
+                <option key={s} value={s} className="capitalize">{s}</option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
 
       {/* progress */}
-      <ol className="flex flex-wrap gap-2">
-        {FLOW.map((s, i) => (
-          <li
-            key={s}
-            className={`rounded-full border px-4 py-2 text-xs font-semibold capitalize ${
-              i <= idx ? "border-primary bg-primary text-primary-foreground" : "border-border text-muted-foreground"
-            }`}
-          >
-            {s}
-          </li>
-        ))}
-      </ol>
+      {order.status === "cancelled" ? (
+        <p className="rounded-md border border-destructive/40 bg-destructive/10 px-4 py-3 text-sm font-semibold text-destructive">
+          Cancelled — units were returned to stock and the customer was notified.
+        </p>
+      ) : (
+        <ol className="flex flex-wrap gap-2">
+          {FLOW.map((s, i) => (
+            <li
+              key={s}
+              className={`rounded-full border px-4 py-2 text-xs font-semibold capitalize ${
+                i <= idx ? "border-primary bg-primary text-primary-foreground" : "border-border text-muted-foreground"
+              }`}
+            >
+              {s}
+            </li>
+          ))}
+        </ol>
+      )}
 
       <div className="grid gap-6 lg:grid-cols-3">
         {/* items */}
@@ -84,6 +110,12 @@ export default function AdminOrderDetailPage() {
           </ul>
           <dl className="mt-3 space-y-1.5 border-t border-border pt-3 text-sm">
             <div className="flex justify-between"><dt className="text-muted-foreground">Subtotal (incl. GST)</dt><dd className="tabular-nums">{inr(order.subtotal)}</dd></div>
+            {order.discount > 0 && (
+              <div className="flex justify-between text-primary">
+                <dt>Discount{order.discountCode ? ` · ${order.discountCode}` : ""}</dt>
+                <dd className="tabular-nums">− {inr(order.discount)}</dd>
+              </div>
+            )}
             <div className="flex justify-between"><dt className="text-muted-foreground">Shipping</dt><dd className="tabular-nums">{order.shipping === 0 ? "Free" : inr(order.shipping)}</dd></div>
             <div className="flex justify-between border-t border-border pt-2 font-semibold"><dt>Total</dt><dd className="tabular-nums">{inr(order.total)}</dd></div>
           </dl>
@@ -96,7 +128,10 @@ export default function AdminOrderDetailPage() {
             <p className="mt-2 text-sm font-semibold">{order.name}</p>
             <p className="text-sm text-muted-foreground">{order.email}</p>
             <p className="text-sm text-muted-foreground">{order.phone}</p>
-            <p className="mt-3 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">Payment · {order.paymentMethod.toUpperCase()}</p>
+            <p className="mt-3 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+              Payment · {order.paymentMethod.toUpperCase()} · <span className="capitalize">{order.paymentStatus}</span>
+            </p>
+            {order.paymentRef && <p className="mt-1 font-mono text-xs text-muted-foreground">ref {order.paymentRef}</p>}
           </section>
 
           {/* delivery */}

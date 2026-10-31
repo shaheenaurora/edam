@@ -82,13 +82,17 @@ export const orders = mysqlTable("orders", {
   address: text("address").notNull(), // JSON: line1, line2, city, state, pincode
   items: text("items").notNull(), // JSON: [{productId, slug, name, qty, price, makerName}]
   subtotal: int("subtotal").notNull(),
+  discount: int("discount").default(0).notNull(), // INR off, from a discount code
+  discountCode: varchar("discountCode", { length: 40 }),
   shipping: int("shipping").notNull(),
   total: int("total").notNull(),
   paymentMethod: mysqlEnum("paymentMethod", ["upi", "card", "cod"]).notNull(),
+  paymentStatus: mysqlEnum("paymentStatus", ["pending", "paid", "failed", "refunded"]).default("pending").notNull(),
+  paymentRef: varchar("paymentRef", { length: 128 }), // gateway payment id, once captured
   isGift: boolean("isGift").default(false).notNull(),
   giftMessage: text("giftMessage"),
   recipientAddress: text("recipientAddress"),
-  status: mysqlEnum("status", ["placed", "packed", "shipped", "delivered"]).default("placed").notNull(),
+  status: mysqlEnum("status", ["placed", "packed", "shipped", "delivered", "cancelled"]).default("placed").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
@@ -155,3 +159,82 @@ export const subscribers = mysqlTable("subscribers", {
   consent: boolean("consent").default(true).notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
+
+/* ---------------- Discount codes ---------------- */
+
+export const discounts = mysqlTable("discounts", {
+  id: serial("id").primaryKey(),
+  code: varchar("code", { length: 40 }).notNull().unique(), // stored uppercase
+  kind: mysqlEnum("kind", ["percent", "fixed"]).notNull(),
+  value: int("value").notNull(), // percent (1–90) or fixed INR
+  minSubtotal: int("minSubtotal").default(0).notNull(),
+  maxUses: int("maxUses"), // null = unlimited
+  usedCount: int("usedCount").default(0).notNull(),
+  active: boolean("active").default(true).notNull(),
+  expiresAt: timestamp("expiresAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type Discount = typeof discounts.$inferSelect;
+
+/* ---------------- Outbound webhooks (integration hub) ---------------- */
+
+export const webhookEndpoints = mysqlTable("webhookEndpoints", {
+  id: serial("id").primaryKey(),
+  url: varchar("url", { length: 512 }).notNull(),
+  secret: varchar("secret", { length: 80 }).notNull(), // signs every delivery (HMAC-SHA256)
+  events: text("events").notNull(), // JSON array: ["order.placed", ...]
+  active: boolean("active").default(true).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type WebhookEndpoint = typeof webhookEndpoints.$inferSelect;
+
+export const webhookDeliveries = mysqlTable("webhookDeliveries", {
+  id: serial("id").primaryKey(),
+  endpointId: bigint("endpointId", { mode: "number", unsigned: true }).notNull(),
+  event: varchar("event", { length: 60 }).notNull(),
+  payload: text("payload").notNull(), // JSON body that was/will be sent
+  status: mysqlEnum("status", ["pending", "success", "failed"]).default("pending").notNull(),
+  attempts: int("attempts").default(0).notNull(),
+  responseCode: int("responseCode"),
+  lastError: varchar("lastError", { length: 500 }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  deliveredAt: timestamp("deliveredAt"),
+});
+
+export type WebhookDelivery = typeof webhookDeliveries.$inferSelect;
+
+/* ---------------- Notification outbox ---------------- */
+
+export const notifications = mysqlTable("notifications", {
+  id: serial("id").primaryKey(),
+  kind: varchar("kind", { length: 60 }).notNull(), // order_confirmation | order_status
+  toEmail: varchar("toEmail", { length: 320 }).notNull(),
+  subject: varchar("subject", { length: 255 }).notNull(),
+  body: text("body").notNull(),
+  status: mysqlEnum("status", ["queued", "sent", "failed"]).default("queued").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  sentAt: timestamp("sentAt"),
+});
+
+export type Notification = typeof notifications.$inferSelect;
+
+/* ---------------- Store settings (key-value) ---------------- */
+
+export const settings = mysqlTable("settings", {
+  key: varchar("key", { length: 80 }).primaryKey(),
+  value: text("value").notNull(), // JSON-encoded
+});
+
+/* ---------------- Admin audit log ---------------- */
+
+export const auditLog = mysqlTable("auditLog", {
+  id: serial("id").primaryKey(),
+  actorName: varchar("actorName", { length: 255 }).notNull(),
+  action: varchar("action", { length: 120 }).notNull(),
+  detail: text("detail"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type AuditEntry = typeof auditLog.$inferSelect;

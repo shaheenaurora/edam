@@ -10,6 +10,7 @@ import { Paths } from "@contracts/constants";
 import { log } from "./lib/logger";
 import { handleClientLog } from "./lib/clientlog";
 import { REQUEST_ID_HEADER, runWithRequestId } from "./lib/requestcontext";
+import { paymentWebhookRoutes } from "./routes/webhooks";
 
 const app = new Hono<{ Bindings: HttpBindings }>();
 
@@ -77,6 +78,9 @@ app.post(
   bodyLimit({ maxSize: 64 * 1024, onError: (c) => c.body(null, 413) }),
   handleClientLog,
 );
+// Inbound payment webhooks (Razorpay → server). Plain REST: the caller is a
+// payment gateway, not our tRPC client. Above the 404 catch-all, always.
+app.route("/api/webhooks", paymentWebhookRoutes);
 app.all("/api/*", (c) => c.json({ error: "Not Found" }, 404));
 
 // Unhandled request errors must reach /tmp/kimi-logs/app.log, not just stdout:

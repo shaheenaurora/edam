@@ -1,9 +1,26 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
-import { ArrowLeft, Gift, Smartphone, CreditCard, Banknote, TreePine } from "lucide-react";
+import { ArrowLeft, Gift, Smartphone, CreditCard, Banknote, TreePine, TicketPercent } from "lucide-react";
 import { trpc } from "@/providers/trpc";
 import { useCart } from "@/context/CartContext";
 import { inr, FREE_SHIPPING_ABOVE, SHIPPING_FEE } from "@/lib/format";
+
+declare global {
+  interface Window {
+    Razorpay?: new (options: Record<string, unknown>) => { open: () => void };
+  }
+}
+
+function loadRazorpayScript(): Promise<boolean> {
+  return new Promise((resolve) => {
+    if (window.Razorpay) return resolve(true);
+    const s = document.createElement("script");
+    s.src = "https://checkout.razorpay.com/v1/checkout.js";
+    s.onload = () => resolve(true);
+    s.onerror = () => resolve(false);
+    document.body.appendChild(s);
+  });
+}
 
 interface AddressForm {
   line1: string;
@@ -54,6 +71,11 @@ export default function CheckoutPage() {
   const { items, subtotal, clear } = useCart();
   const navigate = useNavigate();
   const createOrder = trpc.orders.create.useMutation();
+  const utils = trpc.useUtils();
+  const config = trpc.config.public.useQuery();
+  const payments = trpc.payments.status.useQuery();
+  const beginPayment = trpc.payments.begin.useMutation();
+  const confirmPayment = trpc.payments.confirm.useMutation();
 
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -74,9 +96,42 @@ export default function CheckoutPage() {
   const [payment, setPayment] = useState<"upi" | "card" | "cod">("upi");
   const [error, setError] = useState<string | null>(null);
 
-  const shipping = subtotal >= FREE_SHIPPING_ABOVE ? 0 : SHIPPING_FEE;
-  const total = subtotal + shipping;
+  // Promo code — previewed client-side, re-validated and priced on the server
+  const [promoInput, setPromoInput] = useState("");
+  const [promo, setPromo] = useState<{ code: string; amount: number } | null>(null);
+  const [promoError, setPromoError] = useState<string | null>(null);
+  const [promoChecking, setPromoChecking] = useState(false);
+
+  // Server-driven shipping rules (admin-editable), constants as fallback
+  const freeAbove = config.data?.freeShippingAbove ?? FREE_SHIPPING_ABOVE;
+  const shipFee = config.data?.shippingFee ?? SHIPPING_FEE;
+  const onlinePayments = payments.data?.configured ?? false;
+
+  const discount = promo?.amount ?? 0;
+  const shipping = subtotal - discount >= freeAbove ? 0 : shipFee;
+  const total = subtotal - discount + shipping;
   const treeGiftCount = items.filter((i) => i.slug === "a-tree-in-their-name").reduce((s, i) => s + i.qty, 0);
+
+  const applyPromo = async () => {
+    setPromoError(null);
+    setPromoChecking(true);
+    try {
+      const res = await utils.discounts.validate.fetch({
+        code: promoInput,
+        items: items.map((i) => ({ slug: i.slug, qty: i.qty })),
+      });
+      if (res.ok && res.code) {
+        setPromo({ code: res.code, amount: res.amount });
+      } else {
+        setPromo(null);
+        setPromoError(res.reason ?? "That code isn't valid.");
+      }
+    } catch {
+      setPromoError("Couldn't check that code just now.");
+    } finally {
+      setPromoChecking(false);
+    }
+  };
 
   if (items.length === 0) {
     return (
@@ -101,6 +156,7 @@ export default function CheckoutPage() {
         address,
         items: items.map((i) => ({ slug: i.slug, qty: i.qty })),
         paymentMethod: payment,
+        discountCode: promo?.code,
         isGift,
         giftMessage: isGift && giftMessage ? giftMessage : undefined,
         recipientName: treeGiftCount > 0 && recipientName ? recipientName : undefined,
@@ -109,11 +165,48 @@ export default function CheckoutPage() {
       {
         onSuccess: (res) => {
           clear();
-          navigate(`/order/${res.orderNo}`);
+          // Online payment: open Razorpay for the server-computed total
+          if (payment === "card" && onlinePayments) {
+            void payOnline(res.orderNo);
+          } else {
+            navigate(`/order/${res.orderNo}`);
+          }
         },
         onError: (err) => setError(err.message),
       },
     );
+  };
+
+  const payOnline = async (orderNo: string) => {
+    try {
+      const loaded = await loadRazorpayScript();
+      const begin = await beginPayment.mutateAsync({ orderNo });
+      if (!loaded || !window.Razorpay) throw new Error("gateway unavailable");
+      const rzp = new window.Razorpay({
+        key: begin.keyId,
+        amount: begin.amountInr * 100,
+        currency: "INR",
+        name: "Edam",
+        description: `Order ${orderNo}`,
+        order_id: begin.rpOrderId,
+        prefill: { name, email, contact: phone },
+        theme: { color: "#053026" },
+        handler: async (resp: { razorpay_order_id: string; razorpay_payment_id: string; razorpay_signature: string }) => {
+          await confirmPayment.mutateAsync({
+            orderNo,
+            razorpayOrderId: resp.razorpay_order_id,
+            razorpayPaymentId: resp.razorpay_payment_id,
+            signature: resp.razorpay_signature,
+          });
+          navigate(`/order/${orderNo}`);
+        },
+        modal: { ondismiss: () => navigate(`/order/${orderNo}`) },
+      });
+      rzp.open();
+    } catch {
+      // Gateway hiccup — the order exists and can be paid later; don't strand the customer.
+      navigate(`/order/${orderNo}`);
+    }
   };
 
   const input = "focus-ring h-12 w-full rounded-md border border-input bg-card px-4 text-sm";
@@ -125,8 +218,8 @@ export default function CheckoutPage() {
       </Link>
       <h1 className="mt-4 font-display text-4xl text-foreground">Checkout</h1>
       <p className="mt-2 text-sm text-muted-foreground">
-        No account needed, no hidden costs at the last step, GST included in every price. This demo build records the
-        order without charging a card.
+        No account needed, no hidden costs at the last step, GST included in every price. Your order is confirmed on
+        our server the moment you place it.
       </p>
 
       <form onSubmit={submit} className="mt-10 grid gap-12 lg:grid-cols-[1fr_400px]">
@@ -203,8 +296,24 @@ export default function CheckoutPage() {
             <div className="mt-4 space-y-3">
               {(
                 [
-                  { id: "upi", icon: Smartphone, title: "UPI", desc: "Google Pay, PhonePe, Paytm — intent or QR. The way most of India pays." },
-                  { id: "card", icon: CreditCard, title: "Card", desc: "Credit or debit, Indian and international cards welcome (hello, NRI gifters)." },
+                  {
+                    id: "upi",
+                    icon: Smartphone,
+                    title: "UPI",
+                    desc: onlinePayments
+                      ? "Pay instantly by UPI through the secure Razorpay window — GPay, PhonePe, Paytm."
+                      : config.data?.upiId
+                        ? `Pay to ${config.data.upiId} from any UPI app and share the reference — we confirm within the hour.`
+                        : "Google Pay, PhonePe, Paytm — intent or QR. The way most of India pays.",
+                  },
+                  {
+                    id: "card",
+                    icon: CreditCard,
+                    title: onlinePayments ? "Card · Netbanking · Wallets" : "Card",
+                    desc: onlinePayments
+                      ? "Secure Razorpay checkout — Indian and international cards, netbanking, wallets."
+                      : "Credit or debit, Indian and international cards welcome (hello, NRI gifters).",
+                  },
                   { id: "cod", icon: Banknote, title: "Cash on delivery", desc: "Pay the courier. Available on most pincodes for orders under ₹5,000." },
                 ] as const
               ).map((m) => (
@@ -246,6 +355,17 @@ export default function CheckoutPage() {
               <dt className="text-muted-foreground">Subtotal (incl. GST)</dt>
               <dd className="tabular-nums">{inr(subtotal)}</dd>
             </div>
+            {promo && (
+              <div className="flex justify-between font-semibold text-primary">
+                <dt className="flex items-center gap-1.5">
+                  <TicketPercent className="h-3.5 w-3.5" /> {promo.code}
+                  <button type="button" onClick={() => { setPromo(null); setPromoInput(""); }} className="focus-ring text-xs font-normal text-muted-foreground underline">
+                    remove
+                  </button>
+                </dt>
+                <dd className="tabular-nums">− {inr(promo.amount)}</dd>
+              </div>
+            )}
             <div className="flex justify-between">
               <dt className="text-muted-foreground">Shipping</dt>
               <dd className="tabular-nums">{shipping === 0 ? "Free" : inr(shipping)}</dd>
@@ -255,6 +375,26 @@ export default function CheckoutPage() {
               <dd className="tabular-nums">{inr(total)}</dd>
             </div>
           </dl>
+
+          {!promo && (
+            <div className="mt-4 flex gap-2">
+              <input
+                placeholder="Discount code"
+                value={promoInput}
+                onChange={(e) => setPromoInput(e.target.value.toUpperCase())}
+                className="focus-ring h-11 min-w-0 flex-1 rounded-md border border-input bg-card px-3 font-mono text-sm uppercase"
+              />
+              <button
+                type="button"
+                onClick={applyPromo}
+                disabled={promoChecking || promoInput.trim().length < 2}
+                className="focus-ring h-11 shrink-0 rounded-md border border-foreground px-4 text-xs font-semibold uppercase tracking-[0.1em] hover:bg-foreground hover:text-background disabled:opacity-50"
+              >
+                {promoChecking ? "…" : "Apply"}
+              </button>
+            </div>
+          )}
+          {promoError && <p className="mt-2 text-xs text-destructive">{promoError}</p>}
           <div className="mt-4 flex items-start gap-2 rounded-md bg-secondary p-3 text-xs leading-relaxed text-secondary-foreground">
             <TreePine className="mt-0.5 h-4 w-4 shrink-0 text-primary" strokeWidth={1.75} />
             <span>
@@ -271,7 +411,7 @@ export default function CheckoutPage() {
             {createOrder.isPending ? "Placing your order…" : `Place order · ${inr(total)}`}
           </button>
           <p className="mt-3 text-center text-[11px] text-muted-foreground">
-            Demo checkout — no payment is charged. Placing the order writes it to the store and registers your tree.
+            Totals are computed on our server from listed prices — what you see is exactly what's recorded.
           </p>
         </aside>
       </form>

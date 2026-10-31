@@ -1,6 +1,13 @@
 import { and, desc, eq, like, or, sql, type SQL } from "drizzle-orm";
 import { getDb } from "../queries/connection";
 import { journalPosts, makers, orders, products, treeBatches, trees, subscribers } from "@db/schema";
+import { checkDiscount, redeemDiscount } from "../services/discounts";
+import { getSettings } from "../services/settings";
+import { dispatchEvent } from "../services/webhooks";
+import { queueNotification, orderConfirmationMail } from "../services/notify";
+
+/** Deliberate business-rule failures (bad code, out of stock) — the router maps these to 400, not 500. */
+export class BusinessError extends Error {}
 
 /* ---------------- Products ---------------- */
 
@@ -145,15 +152,13 @@ export interface CreateOrderInput {
   address: AddressInput;
   items: OrderItemInput[];
   paymentMethod: "upi" | "card" | "cod";
+  discountCode?: string;
   isGift?: boolean;
   giftMessage?: string;
   recipientAddress?: AddressInput;
   recipientName?: string;
   userId?: number;
 }
-
-const FREE_SHIPPING_ABOVE = 1499;
-const SHIPPING_FEE = 79;
 
 export async function createOrder(input: CreateOrderInput) {
   const db = getDb();
@@ -162,14 +167,28 @@ export async function createOrder(input: CreateOrderInput) {
   const detailedList: { product: NonNullable<Awaited<ReturnType<typeof getProductBySlug>>>; qty: number }[] = [];
   for (const item of input.items) {
     const product = await getProductBySlug(item.slug);
-    if (!product) throw new Error(`Unknown product: ${item.slug}`);
-    if (product.stock < item.qty) throw new Error(`${product.name} is out of stock`);
+    if (!product) throw new BusinessError(`Unknown product: ${item.slug}`);
+    if (product.stock < item.qty) throw new BusinessError(`${product.name} is out of stock`);
     detailedList.push({ product, qty: item.qty });
   }
 
   const subtotal = detailedList.reduce((s, { product, qty }) => s + product.price * qty, 0);
-  const shipping = subtotal >= FREE_SHIPPING_ABOVE ? 0 : SHIPPING_FEE;
-  const total = subtotal + shipping;
+
+  // Discount code — validated and priced entirely server-side
+  let discount = 0;
+  let discountCode: string | null = null;
+  let discountId: number | null = null;
+  if (input.discountCode) {
+    const check = await checkDiscount(input.discountCode, subtotal);
+    if (!check.ok) throw new BusinessError(check.reason ?? "That code isn't valid.");
+    discount = check.amount;
+    discountCode = check.discount!.code;
+    discountId = check.discount!.id;
+  }
+
+  const storeSettings = await getSettings();
+  const shipping = subtotal - discount >= storeSettings.freeShippingAbove ? 0 : storeSettings.shippingFee;
+  const total = subtotal - discount + shipping;
 
   const [{ count }] = await db.select({ count: sql<number>`COUNT(*)` }).from(orders);
   const orderNo = `EDM-2026-${String(Number(count) + 1).padStart(4, "0")}`;
@@ -193,9 +212,12 @@ export async function createOrder(input: CreateOrderInput) {
       })),
     ),
     subtotal,
+    discount,
+    discountCode,
     shipping,
     total,
     paymentMethod: input.paymentMethod,
+    paymentStatus: "pending",
     isGift: input.isGift ?? false,
     giftMessage: input.giftMessage ?? null,
     recipientAddress: input.recipientAddress ? JSON.stringify(input.recipientAddress) : null,
@@ -214,7 +236,7 @@ export async function createOrder(input: CreateOrderInput) {
 
   // ---- Tree obligations: every order plants a tree; "a tree in their name" adds one per unit ----
   const openBatch = await getOpenBatch();
-  if (!openBatch) throw new Error("No open tree batch configured");
+  if (!openBatch) throw new BusinessError("No open tree batch configured");
 
   const [{ treeCount }] = await db.select({ treeCount: sql<number>`COUNT(*)` }).from(trees);
   let nextTreeNo = Number(treeCount) + 1;
@@ -253,7 +275,29 @@ export async function createOrder(input: CreateOrderInput) {
     }
   }
 
-  return { orderNo, orderId, subtotal, shipping, total, trees: createdTrees };
+  if (discountId !== null) await redeemDiscount(discountId);
+
+  // Fan out: integration webhooks + customer confirmation (both fire-and-forget,
+  // both persisted first so nothing is lost silently)
+  void dispatchEvent("order.placed", {
+    orderNo,
+    email: input.email,
+    name: input.name,
+    total,
+    paymentMethod: input.paymentMethod,
+    isGift: input.isGift ?? false,
+    items: detailedList.map(({ product, qty }) => ({ slug: product.slug, name: product.name, qty, price: product.price })),
+  });
+  const mail = orderConfirmationMail({
+    orderNo,
+    name: input.name,
+    total,
+    treeNos: createdTrees.map((t) => t.treeNo),
+    isGift: input.isGift ?? false,
+  });
+  void queueNotification("order_confirmation", input.email, mail.subject, mail.body);
+
+  return { orderNo, orderId, subtotal, discount, shipping, total, trees: createdTrees };
 }
 
 export async function getOrderByNo(orderNo: string) {

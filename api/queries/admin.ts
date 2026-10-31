@@ -1,8 +1,11 @@
 import { desc, eq, sql, like, or, count, sum } from "drizzle-orm";
 import { orders, products, subscribers, trees, treeBatches, users } from "@db/schema";
 import { getDb } from "./connection";
+import { dispatchEvent } from "../services/webhooks";
+import { queueNotification, orderStatusMail } from "../services/notify";
 
-export type OrderStatus = "placed" | "packed" | "shipped" | "delivered";
+export type OrderStatus = "placed" | "packed" | "shipped" | "delivered" | "cancelled";
+export type PaymentStatus = "pending" | "paid" | "failed" | "refunded";
 
 /* ---------------- Overview stats ---------------- */
 
@@ -82,7 +85,55 @@ export async function getOrderAdmin(orderNo: string) {
 
 export async function setOrderStatus(orderNo: string, status: OrderStatus) {
   const db = getDb();
+  const [order] = await db.select().from(orders).where(eq(orders.orderNo, orderNo)).limit(1);
+  if (!order) throw new Error("Order not found");
+  if (order.status === status) return { ok: true };
+
+  // Cancelling puts units back on the shelf — and re-opening a cancelled order
+  // takes them off again. Both transitions run at most once per crossing.
+  if (status === "cancelled" && order.status !== "cancelled") {
+    const items = JSON.parse(order.items) as { slug: string; qty: number }[];
+    for (const item of items) {
+      await db
+        .update(products)
+        .set({ stock: sql`${products.stock} + ${item.qty}` })
+        .where(eq(products.slug, item.slug));
+    }
+  }
+  if (order.status === "cancelled" && status !== "cancelled") {
+    const items = JSON.parse(order.items) as { slug: string; qty: number }[];
+    for (const item of items) {
+      await db
+        .update(products)
+        .set({ stock: sql`${products.stock} - ${item.qty}` })
+        .where(eq(products.slug, item.slug));
+    }
+  }
+
   await db.update(orders).set({ status }).where(eq(orders.orderNo, orderNo));
+
+  void dispatchEvent(status === "cancelled" ? "order.cancelled" : "order.status_changed", {
+    orderNo,
+    previousStatus: order.status,
+    status,
+    email: order.email,
+  });
+  const mail = orderStatusMail({ orderNo, name: order.name, status });
+  void queueNotification("order_status", order.email, mail.subject, mail.body);
+  return { ok: true };
+}
+
+export async function setPaymentStatus(orderNo: string, paymentStatus: PaymentStatus, paymentRef?: string) {
+  const db = getDb();
+  const [order] = await db.select().from(orders).where(eq(orders.orderNo, orderNo)).limit(1);
+  if (!order) throw new Error("Order not found");
+  await db
+    .update(orders)
+    .set({ paymentStatus, paymentRef: paymentRef ?? order.paymentRef })
+    .where(eq(orders.orderNo, orderNo));
+  if (paymentStatus === "paid" && order.paymentStatus !== "paid") {
+    void dispatchEvent("payment.paid", { orderNo, total: order.total, paymentRef: paymentRef ?? order.paymentRef });
+  }
   return { ok: true };
 }
 

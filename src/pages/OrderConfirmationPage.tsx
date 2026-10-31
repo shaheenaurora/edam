@@ -72,9 +72,18 @@ export default function OrderConfirmationPage() {
           ))}
         </ul>
         <dl className="mt-2 space-y-1.5 border-t border-border pt-4 text-sm">
+          {order.discount > 0 && (
+            <div className="flex justify-between font-semibold text-primary">
+              <dt>Discount{order.discountCode ? ` · ${order.discountCode}` : ""}</dt>
+              <dd className="tabular-nums">− {inr(order.discount)}</dd>
+            </div>
+          )}
           <div className="flex justify-between"><dt className="text-muted-foreground">Shipping</dt><dd>{order.shipping === 0 ? "Free" : inr(order.shipping)}</dd></div>
           <div className="flex justify-between text-base font-semibold"><dt>Total (incl. GST)</dt><dd className="tabular-nums">{inr(order.total)}</dd></div>
-          <div className="flex justify-between"><dt className="text-muted-foreground">Payment</dt><dd className="uppercase">{order.paymentMethod}</dd></div>
+          <div className="flex justify-between">
+            <dt className="text-muted-foreground">Payment</dt>
+            <dd><span className="uppercase">{order.paymentMethod}</span> · <span className="capitalize">{order.paymentStatus}</span></dd>
+          </div>
         </dl>
         {order.isGift && order.giftMessage && (
           <p className="mt-4 rounded-md bg-secondary p-4 text-sm italic text-foreground/85">“{order.giftMessage}”</p>

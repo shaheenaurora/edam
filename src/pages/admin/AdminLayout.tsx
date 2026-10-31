@@ -1,6 +1,6 @@
 import { Link, NavLink, Outlet, useNavigate } from "react-router";
 import { trpc } from "@/providers/trpc";
-import { LayoutDashboard, Package, Users, Mail, TreePine, Boxes, ArrowLeft } from "lucide-react";
+import { LayoutDashboard, Package, Users, Mail, TreePine, Boxes, ArrowLeft, TicketPercent, Plug2, Settings2 } from "lucide-react";
 
 const ADMIN_NAV = [
   { to: "/admin", label: "Overview", icon: LayoutDashboard, end: true },
@@ -8,6 +8,9 @@ const ADMIN_NAV = [
   { to: "/admin/customers", label: "Customers", icon: Users, end: false },
   { to: "/admin/trees", label: "Trees", icon: TreePine, end: false },
   { to: "/admin/stock", label: "Catalogue & stock", icon: Boxes, end: false },
+  { to: "/admin/discounts", label: "Discounts", icon: TicketPercent, end: false },
+  { to: "/admin/integrations", label: "Integrations", icon: Plug2, end: false },
+  { to: "/admin/settings", label: "Settings", icon: Settings2, end: false },
   { to: "/admin/subscribers", label: "Field Notes", icon: Mail, end: false },
 ];
 

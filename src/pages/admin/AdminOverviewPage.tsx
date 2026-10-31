@@ -5,6 +5,7 @@ import { inr } from "@/lib/format";
 export default function AdminOverviewPage() {
   const stats = trpc.admin.stats.useQuery();
   const recent = trpc.admin.orders.useQuery({});
+  const audit = trpc.admin.audit.useQuery();
 
   if (stats.isLoading) return <p className="text-sm text-muted-foreground">Loading the day's numbers…</p>;
   const s = stats.data;
@@ -79,6 +80,28 @@ export default function AdminOverviewPage() {
           </table>
         </div>
       </section>
+
+      <section>
+        <h2 className="font-display text-xl text-foreground">Recent activity</h2>
+        <p className="mt-1 text-xs text-muted-foreground">Every privileged change is recorded — who did what, when.</p>
+        <ul className="mt-4 divide-y divide-border rounded-md border border-border bg-card">
+          {(audit.data ?? []).map((a) => (
+            <li key={a.id} className="flex items-baseline justify-between gap-4 px-4 py-3 text-sm">
+              <span>
+                <span className="font-mono text-xs font-semibold text-clay">{a.action}</span>
+                {a.detail && <span className="ml-2 text-foreground">{a.detail}</span>}
+                <span className="ml-2 text-xs text-muted-foreground">by {a.actorName}</span>
+              </span>
+              <span className="shrink-0 text-xs text-muted-foreground">
+                {new Date(a.createdAt).toLocaleString("en-IN", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}
+              </span>
+            </li>
+          ))}
+          {(audit.data ?? []).length === 0 && (
+            <li className="px-4 py-6 text-center text-sm text-muted-foreground">Nothing yet — admin actions will be logged here.</li>
+          )}
+        </ul>
+      </section>
     </div>
   );
 }
@@ -89,6 +112,7 @@ export function StatusPill({ status }: { status: string }) {
     packed: "bg-sand/20 text-foreground",
     shipped: "bg-leaf/20 text-foreground",
     delivered: "bg-primary/10 text-primary",
+    cancelled: "bg-destructive/10 text-destructive",
   };
   return (
     <span className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold capitalize ${styles[status] ?? "bg-secondary text-foreground"}`}>
