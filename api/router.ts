@@ -25,6 +25,26 @@ function actor(ctx: { user?: { name: string | null; email: string | null } | nul
   return ctx.user?.name ?? ctx.user?.email ?? "unknown";
 }
 
+const productInputSchema = z.object({
+  slug: z.string().min(2).max(160).regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "lowercase letters, numbers and dashes only"),
+  name: z.string().min(1).max(255),
+  range: z.enum(["NOURISH", "CARE", "DWELL", "GROW", "GIVE"]),
+  category: z.string().min(1).max(120),
+  price: z.number().int().min(0),
+  unit: z.string().min(1).max(60),
+  shortLine: z.string().min(1).max(240),
+  description: z.string().min(1).max(5000),
+  usage: z.string().max(2000).nullable(),
+  image: z.string().min(1).max(512),
+  makerId: z.number().int().positive(),
+  makerName: z.string().min(1).max(255),
+  giftReady: z.boolean(),
+  livePlant: z.boolean(),
+  featured: z.boolean(),
+  hero: z.boolean(),
+  stock: z.number().int().min(0),
+});
+
 export const appRouter = createRouter({
   ping: publicQuery.query(() => ({ ok: true, ts: Date.now() })),
   auth: authRouter,
@@ -230,6 +250,34 @@ export const appRouter = createRouter({
     setFeatured: adminQuery.input(z.object({ id: z.number(), featured: z.boolean() })).mutation(async ({ input, ctx }) => {
       const res = await admin.setFeatured(input.id, input.featured);
       await recordAudit(actor(ctx), "product.featured", `product ${input.id} → ${input.featured}`);
+      return res;
+    }),
+
+    /* ---------------- Products ---------------- */
+    product: adminQuery.input(z.object({ id: z.number() })).query(({ input }) => admin.getProductAdmin(input.id)),
+    makersForSelect: adminQuery.query(() => admin.listMakersSelect()),
+    createProduct: adminQuery.input(productInputSchema).mutation(async ({ input, ctx }) => {
+      const clash = await admin.findProductBySlug(input.slug);
+      if (clash) {
+        throw new TRPCError({ code: "CONFLICT", message: `Slug "${input.slug}" already belongs to product #${clash.id}.` });
+      }
+      const res = await admin.createProductAdmin(input);
+      await recordAudit(actor(ctx), "product.create", `${input.name} (${input.slug})`);
+      return res;
+    }),
+    updateProduct: adminQuery.input(productInputSchema.extend({ id: z.number() })).mutation(async ({ input, ctx }) => {
+      const { id, ...fields } = input;
+      const clash = await admin.findProductBySlug(fields.slug);
+      if (clash && clash.id !== id) {
+        throw new TRPCError({ code: "CONFLICT", message: `Slug "${fields.slug}" already belongs to product #${clash.id}.` });
+      }
+      const res = await admin.updateProductAdmin(id, fields);
+      await recordAudit(actor(ctx), "product.update", `#${id} (${fields.slug})`);
+      return res;
+    }),
+    deleteProduct: adminQuery.input(z.object({ id: z.number() })).mutation(async ({ input, ctx }) => {
+      const res = await admin.deleteProductAdmin(input.id);
+      await recordAudit(actor(ctx), "product.delete", `#${input.id}`);
       return res;
     }),
     users: adminQuery.query(() => admin.listUsersAdmin()),

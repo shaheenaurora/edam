@@ -1,5 +1,5 @@
 import { desc, eq, sql, like, or, count, sum } from "drizzle-orm";
-import { orders, products, subscribers, trees, treeBatches, users } from "@db/schema";
+import { makers, orders, products, subscribers, trees, treeBatches, users } from "@db/schema";
 import { getDb } from "./connection";
 import { dispatchEvent } from "../services/webhooks";
 import { queueNotification, orderStatusMail } from "../services/notify";
@@ -214,6 +214,8 @@ export async function listStockAdmin(q?: string) {
       price: products.price,
       stock: products.stock,
       featured: products.featured,
+      image: products.image,
+      hero: products.hero,
     })
     .from(products)
     .where(pat ? like(products.name, pat) : undefined)
@@ -229,6 +231,59 @@ export async function setStock(id: number, stock: number) {
 export async function setFeatured(id: number, featured: boolean) {
   await getDb().update(products).set({ featured }).where(eq(products.id, id));
   return { ok: true };
+}
+
+/* ---------------- Products ---------------- */
+
+export type ProductInput = {
+  slug: string;
+  name: string;
+  range: "NOURISH" | "CARE" | "DWELL" | "GROW" | "GIVE";
+  category: string;
+  price: number;
+  unit: string;
+  shortLine: string;
+  description: string;
+  usage: string | null;
+  image: string;
+  makerId: number;
+  makerName: string;
+  giftReady: boolean;
+  livePlant: boolean;
+  featured: boolean;
+  hero: boolean;
+  stock: number;
+};
+
+export async function getProductAdmin(id: number) {
+  const db = getDb();
+  const rows = await db.select().from(products).where(eq(products.id, id)).limit(1);
+  return rows[0] ?? null;
+}
+
+export async function findProductBySlug(slug: string) {
+  const db = getDb();
+  const rows = await db.select({ id: products.id }).from(products).where(eq(products.slug, slug)).limit(1);
+  return rows[0] ?? null;
+}
+
+export async function createProductAdmin(input: ProductInput) {
+  const result = await getDb().insert(products).values(input);
+  return { id: Number(result[0].insertId), ...input };
+}
+
+export async function updateProductAdmin(id: number, input: ProductInput) {
+  await getDb().update(products).set(input).where(eq(products.id, id));
+  return { id, ...input };
+}
+
+export async function deleteProductAdmin(id: number) {
+  await getDb().delete(products).where(eq(products.id, id));
+  return { ok: true };
+}
+
+export async function listMakersSelect() {
+  return getDb().select({ id: makers.id, name: makers.name }).from(makers).orderBy(makers.name);
 }
 
 /* ---------------- Registered users ---------------- */
