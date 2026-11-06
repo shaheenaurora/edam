@@ -1,13 +1,14 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { Link } from "react-router";
 import { trpc } from "@/providers/trpc";
-import { ArrowDown, ArrowUp, Pencil, Plus, Search, Star, Trash2 } from "lucide-react";
+import { ArrowDown, ArrowUp, Copy, Download, Pencil, Plus, Search, Star, Trash2, Upload } from "lucide-react";
 
+type Range = "NOURISH" | "CARE" | "DWELL" | "GROW" | "GIVE";
 type StockRow = {
   id: number;
   slug: string;
   name: string;
-  range: "NOURISH" | "CARE" | "DWELL" | "GROW" | "GIVE";
+  range: Range;
   category: string;
   price: number;
   unit: string;
@@ -23,6 +24,7 @@ type StockRow = {
   hero: boolean;
   stock: number;
 };
+type ProductInput = Omit<StockRow, "id">;
 
 const RANGES = ["NOURISH", "CARE", "DWELL", "GROW", "GIVE"] as const;
 
@@ -174,6 +176,98 @@ function FlagChip({ label, on, title, onToggle }: { label: string; on: boolean; 
   );
 }
 
+/* ---------------- csv ---------------- */
+
+const CSV_HEADER = [
+  "id",
+  "slug",
+  "name",
+  "range",
+  "category",
+  "price",
+  "unit",
+  "shortLine",
+  "description",
+  "usage",
+  "image",
+  "makerId",
+  "makerName",
+  "giftReady",
+  "livePlant",
+  "featured",
+  "hero",
+  "stock",
+];
+
+const parseCsv = (text: string): Record<string, string>[] => {
+  const rows: string[][] = [];
+  let field = "";
+  let row: string[] = [];
+  let inQuotes = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (inQuotes) {
+      if (c === '"') {
+        if (text[i + 1] === '"') {
+          field += '"';
+          i++;
+        } else inQuotes = false;
+      } else field += c;
+    } else if (c === '"') inQuotes = true;
+    else if (c === ",") {
+      row.push(field);
+      field = "";
+    } else if (c === "\n" || c === "\r") {
+      if (c === "\r" && text[i + 1] === "\n") i++;
+      row.push(field);
+      field = "";
+      if (row.some((f) => f.trim() !== "")) rows.push(row);
+      row = [];
+    } else field += c;
+  }
+  row.push(field);
+  if (row.some((f) => f.trim() !== "")) rows.push(row);
+  if (rows.length < 2) return [];
+  const header = rows[0].map((h) => h.trim().toLowerCase());
+  return rows.slice(1).map((r) => Object.fromEntries(header.map((h, i) => [h, r[i] ?? ""])));
+};
+
+const toBool = (v: string | undefined) => ["true", "1", "yes"].includes((v ?? "").trim().toLowerCase());
+
+const csvToInput = (r: Record<string, string>): ProductInput | null => {
+  const slug = slugify(r.slug ?? "");
+  const name = (r.name ?? "").trim();
+  const category = (r.category ?? "").trim();
+  const unit = (r.unit ?? "").trim();
+  const shortLine = (r.shortline ?? "").trim();
+  const description = (r.description ?? "").trim();
+  const image = (r.image ?? "").trim();
+  const makerId = parseInt(r.makerid ?? "", 10);
+  const makerName = (r.makername ?? "").trim();
+  const range = (r.range ?? "").toUpperCase();
+  if (!slug || !name || !category || !unit || !shortLine || !description || !image || !Number.isInteger(makerId) || !makerName) return null;
+  if (!RANGES.includes(range as Range)) return null;
+  return {
+    slug,
+    name,
+    range: range as Range,
+    category,
+    price: Math.max(0, parseInt(r.price ?? "0", 10) || 0),
+    unit,
+    shortLine,
+    description,
+    usage: (r.usage ?? "").trim() || null,
+    image,
+    makerId,
+    makerName,
+    giftReady: toBool(r.giftready),
+    livePlant: toBool(r.liveplant),
+    featured: toBool(r.featured),
+    hero: toBool(r.hero),
+    stock: Math.max(0, parseInt(r.stock ?? "0", 10) || 0),
+  };
+};
+
 /* ---------------- page ---------------- */
 
 type SortKey = "name" | "range" | "category" | "makerName" | "price" | "stock";
@@ -182,7 +276,9 @@ export default function AdminProductsPage() {
   const [q, setQ] = useState("");
   const [sort, setSort] = useState<{ key: SortKey; dir: 1 | -1 }>({ key: "name", dir: 1 });
   const [error, setError] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
   const [draft, setDraft] = useState<{ name: string; price: string; stock: string; makerId: string } | null>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
 
   const stock = trpc.admin.stock.useQuery({ q: q || undefined });
   const makers = trpc.admin.makersForSelect.useQuery();
@@ -198,19 +294,30 @@ export default function AdminProductsPage() {
     },
     onError: (e) => setError(e.message),
   });
+  const dup = trpc.admin.duplicateProduct.useMutation({
+    onSuccess: () => {
+      invalidate();
+      setNotice("Product duplicated — find the “(copy)” row and edit it.");
+    },
+    onError: (e) => setError(e.message),
+  });
+  const bulk = trpc.admin.bulkUpsertProducts.useMutation({
+    onSuccess: (r) =>
+      setNotice(`Import done: ${r.created} created, ${r.updated} updated${r.errors.length ? `, ${r.errors.length} failed (${r.errors.map((e) => `row ${e.row}`).join(", ")})` : ""}.`),
+    onError: (e) => setError(e.message),
+  });
 
   const rows = useMemo(() => {
     const data = stock.data ?? [];
-    const sorted = [...data].sort((a, b) => {
+    return [...data].sort((a, b) => {
       const va = a[sort.key];
       const vb = b[sort.key];
       const cmp = typeof va === "string" ? va.localeCompare(String(vb)) : Number(va) - Number(vb);
       return cmp * sort.dir;
     });
-    return sorted;
   }, [stock.data, sort]);
 
-  const toPayload = (r: StockRow) => ({
+  const toPayload = (r: StockRow): ProductInput => ({
     slug: r.slug,
     name: r.name,
     range: r.range,
@@ -230,14 +337,13 @@ export default function AdminProductsPage() {
     stock: r.stock,
   });
 
-  const patch = (r: StockRow, changes: Partial<ReturnType<typeof toPayload>>) =>
-    update.mutate({ id: r.id, ...toPayload(r), ...changes });
+  const patch = (r: StockRow, changes: Partial<ProductInput>) => update.mutate({ id: r.id, ...toPayload(r), ...changes });
 
   const saveDraft = () => {
     if (!draft) return;
     const maker = makers.data?.find((m) => String(m.id) === draft.makerId) ?? makers.data?.[0];
     if (!maker) {
-      setError("No makers yet. Create a maker first (database seed includes several).");
+      setError("No makers yet. Seed the database first.");
       return;
     }
     const name = draft.name.trim();
@@ -263,6 +369,42 @@ export default function AdminProductsPage() {
     });
   };
 
+  const exportCsv = () => {
+    const esc = (v: unknown) => `"${String(v ?? "").replace(/"/g, '""')}"`;
+    const lines = [CSV_HEADER.join(",")];
+    for (const r of stock.data ?? []) {
+      lines.push(CSV_HEADER.map((h) => esc(r[h as keyof StockRow])).join(","));
+    }
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([lines.join("\n")], { type: "text/csv" }));
+    a.download = "edam-products.csv";
+    a.click();
+    URL.revokeObjectURL(a.href);
+  };
+
+  const importFile = async (file: File) => {
+    setError(null);
+    setNotice(null);
+    const records = parseCsv(await file.text());
+    if (records.length === 0) {
+      setError("That file has no data rows.");
+      return;
+    }
+    const rowsToSend: ProductInput[] = [];
+    const skipped: number[] = [];
+    records.forEach((r, i) => {
+      const row = csvToInput(r);
+      if (row) rowsToSend.push(row);
+      else skipped.push(i + 2);
+    });
+    if (rowsToSend.length === 0) {
+      setError("No valid rows. Export first and use that file as the template.");
+      return;
+    }
+    bulk.mutate({ rows: rowsToSend });
+    if (skipped.length) setNotice(`Skipped rows (missing required fields): ${skipped.join(", ")}`);
+  };
+
   const sortHeader = (key: SortKey, label: string) => (
     <button
       type="button"
@@ -282,12 +424,11 @@ export default function AdminProductsPage() {
         <div>
           <h2 className="font-display text-xl text-foreground">Products</h2>
           <p className="mt-1 text-sm text-muted-foreground">
-            Click any cell to edit it. F = featured, H = range hero, G = gift-ready, L = live plant. Long text and images:
-            use the pencil.
+            Click any cell to edit it. F = featured, H = range hero, G = gift-ready, L = live plant.
           </p>
         </div>
-        <div className="flex flex-wrap items-center gap-3">
-          <div className="relative w-full sm:w-56">
+        <div className="flex flex-wrap items-center gap-2">
+          <div className="relative w-full sm:w-52">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <input
               value={q}
@@ -296,6 +437,32 @@ export default function AdminProductsPage() {
               className="focus-ring h-11 w-full rounded-md border border-input bg-card pl-10 pr-4 text-sm"
             />
           </div>
+          <button
+            type="button"
+            onClick={exportCsv}
+            className="focus-ring inline-flex h-11 items-center gap-2 border border-border bg-card px-4 text-sm font-semibold hover:bg-secondary/60"
+          >
+            <Download className="h-4 w-4" /> Export CSV
+          </button>
+          <button
+            type="button"
+            onClick={() => fileRef.current?.click()}
+            disabled={bulk.isPending}
+            className="focus-ring inline-flex h-11 items-center gap-2 border border-border bg-card px-4 text-sm font-semibold hover:bg-secondary/60 disabled:opacity-50"
+          >
+            <Upload className="h-4 w-4" /> Import CSV
+          </button>
+          <input
+            ref={fileRef}
+            type="file"
+            accept=".csv,text/csv"
+            className="hidden"
+            onChange={(e) => {
+              const f = e.target.files?.[0];
+              if (f) void importFile(f);
+              e.target.value = "";
+            }}
+          />
           <button
             type="button"
             onClick={() => setDraft({ name: "", price: "0", stock: "50", makerId: String(makers.data?.[0]?.id ?? "") })}
@@ -307,6 +474,7 @@ export default function AdminProductsPage() {
       </div>
 
       {error && <p className="rounded-md border border-destructive/40 bg-destructive/10 px-4 py-2 text-sm text-destructive">{error}</p>}
+      {notice && <p className="rounded-md border border-border bg-card px-4 py-2 text-sm text-muted-foreground">{notice}</p>}
 
       <div className="overflow-x-auto rounded-md border border-border bg-card">
         <table className="w-full min-w-[1500px] text-sm">
@@ -458,6 +626,15 @@ export default function AdminProductsPage() {
                 </td>
                 <td className="px-2 py-1 text-right">
                   <div className="inline-flex">
+                    <button
+                      type="button"
+                      onClick={() => dup.mutate({ id: p.id })}
+                      aria-label={`Duplicate ${p.name}`}
+                      title="Duplicate product"
+                      className="focus-ring inline-flex h-9 w-9 items-center justify-center rounded-md text-muted-foreground hover:text-foreground"
+                    >
+                      <Copy className="h-4 w-4" />
+                    </button>
                     <Link
                       to={`/admin/products/${p.id}`}
                       aria-label={`Full edit ${p.name}`}

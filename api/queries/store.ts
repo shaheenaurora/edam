@@ -5,6 +5,8 @@ import { checkDiscount, redeemDiscount } from "../services/discounts";
 import { getSettings } from "../services/settings";
 import { dispatchEvent } from "../services/webhooks";
 import { queueNotification, orderConfirmationMail } from "../services/notify";
+import { recordStockMovement } from "./stock-ledger";
+import { alertIfLowStock } from "./admin";
 
 /** Deliberate business-rule failures (bad code, out of stock) — the router maps these to 400, not 500. */
 export class BusinessError extends Error {}
@@ -228,10 +230,21 @@ export async function createOrder(input: CreateOrderInput) {
 
   // Decrement stock
   for (const { product, qty } of detailedList) {
+    const [before] = await db.select({ stock: products.stock }).from(products).where(eq(products.id, product.id));
     await db
       .update(products)
       .set({ stock: sql`${products.stock} - ${qty}` })
       .where(eq(products.id, product.id));
+    const next = Number(before?.stock ?? 0) - qty;
+    await recordStockMovement({
+      productId: product.id,
+      productName: product.name,
+      delta: -qty,
+      resultingStock: next,
+      reason: "sale",
+      actor: `storefront:${input.email}`,
+    });
+    if (Number(before?.stock ?? 0) > 5 && next <= 5) void alertIfLowStock(product.name, next);
   }
 
   // ---- Tree obligations: every order plants a tree; "a tree in their name" adds one per unit ----

@@ -30,6 +30,7 @@ import AdminTreesPage from "./pages/admin/AdminTreesPage";
 import AdminStockPage from "./pages/admin/AdminStockPage";
 import AdminProductsPage from "./pages/admin/AdminProductsPage";
 import AdminProductFormPage from "./pages/admin/AdminProductFormPage";
+import AdminMovementsPage from "./pages/admin/AdminMovementsPage";
 import AdminSubscribersPage from "./pages/admin/AdminSubscribersPage";
 import AdminDiscountsPage from "./pages/admin/AdminDiscountsPage";
 import AdminIntegrationsPage from "./pages/admin/AdminIntegrationsPage";
@@ -68,6 +69,7 @@ export default function App() {
           <Route path="products" element={<AdminProductsPage />} />
           <Route path="products/new" element={<AdminProductFormPage />} />
           <Route path="products/:id" element={<AdminProductFormPage />} />
+          <Route path="movements" element={<AdminMovementsPage />} />
             <Route path="subscribers" element={<AdminSubscribersPage />} />
             <Route path="discounts" element={<AdminDiscountsPage />} />
             <Route path="integrations" element={<AdminIntegrationsPage />} />

@@ -243,7 +243,7 @@ export const appRouter = createRouter({
       }),
     stock: adminQuery.input(z.object({ q: z.string().optional() })).query(({ input }) => admin.listStockAdmin(input.q)),
     setStock: adminQuery.input(z.object({ id: z.number(), stock: z.number().int().min(0) })).mutation(async ({ input, ctx }) => {
-      const res = await admin.setStock(input.id, input.stock);
+      const res = await admin.setStock(input.id, input.stock, actor(ctx));
       await recordAudit(actor(ctx), "stock.set", `product ${input.id} → ${input.stock}`);
       return res;
     }),
@@ -280,6 +280,41 @@ export const appRouter = createRouter({
       await recordAudit(actor(ctx), "product.delete", `#${input.id}`);
       return res;
     }),
+
+    /* ---------------- Stock ledger & analytics ---------------- */
+    stockMovements: adminQuery
+      .input(z.object({ productId: z.number().optional() }))
+      .query(({ input }) => admin.listStockMovements(input.productId)),
+    adjustStock: adminQuery
+      .input(
+        z.object({
+          id: z.number(),
+          delta: z.number().int(),
+          note: z.string().max(255).nullable().default(null),
+        }),
+      )
+      .mutation(async ({ input, ctx }) => {
+        const res = await admin.adjustStock(input.id, input.delta, input.note, actor(ctx));
+        await recordAudit(
+          actor(ctx),
+          "stock.adjust",
+          `product ${input.id} ${input.delta > 0 ? "+" : ""}${input.delta}${input.note ? ` — ${input.note}` : ""}`,
+        );
+        return res;
+      }),
+    duplicateProduct: adminQuery.input(z.object({ id: z.number() })).mutation(async ({ input, ctx }) => {
+      const res = await admin.duplicateProductAdmin(input.id);
+      await recordAudit(actor(ctx), "product.duplicate", `#${input.id} → ${res.slug}`);
+      return res;
+    }),
+    bulkUpsertProducts: adminQuery
+      .input(z.object({ rows: z.array(productInputSchema).min(1).max(200) }))
+      .mutation(async ({ input, ctx }) => {
+        const res = await admin.bulkUpsertProducts(input.rows, actor(ctx));
+        await recordAudit(actor(ctx), "product.bulk", `${res.created} created, ${res.updated} updated, ${res.errors.length} failed`);
+        return res;
+      }),
+    analytics: adminQuery.query(() => admin.getSalesAnalytics()),
     users: adminQuery.query(() => admin.listUsersAdmin()),
 
     /* ---------------- Discount codes ---------------- */

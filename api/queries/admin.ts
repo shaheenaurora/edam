@@ -1,6 +1,7 @@
-import { desc, eq, sql, like, or, count, sum } from "drizzle-orm";
+import { desc, eq, gte, sql, like, or, count, sum } from "drizzle-orm";
 import { makers, orders, products, subscribers, trees, treeBatches, users } from "@db/schema";
 import { getDb } from "./connection";
+import { recordStockMovement, listStockMovements } from "./stock-ledger";
 import { dispatchEvent } from "../services/webhooks";
 import { queueNotification, orderStatusMail } from "../services/notify";
 
@@ -94,19 +95,51 @@ export async function setOrderStatus(orderNo: string, status: OrderStatus) {
   if (status === "cancelled" && order.status !== "cancelled") {
     const items = JSON.parse(order.items) as { slug: string; qty: number }[];
     for (const item of items) {
+      const [before] = await db
+        .select({ id: products.id, name: products.name, stock: products.stock })
+        .from(products)
+        .where(eq(products.slug, item.slug))
+        .limit(1);
       await db
         .update(products)
         .set({ stock: sql`${products.stock} + ${item.qty}` })
         .where(eq(products.slug, item.slug));
+      if (before) {
+        await recordStockMovement({
+          productId: before.id,
+          productName: before.name,
+          delta: item.qty,
+          resultingStock: before.stock + item.qty,
+          reason: "order_cancelled",
+          actor: `order:${orderNo}`,
+        });
+      }
     }
   }
   if (order.status === "cancelled" && status !== "cancelled") {
     const items = JSON.parse(order.items) as { slug: string; qty: number }[];
     for (const item of items) {
+      const [before] = await db
+        .select({ id: products.id, name: products.name, stock: products.stock })
+        .from(products)
+        .where(eq(products.slug, item.slug))
+        .limit(1);
       await db
         .update(products)
         .set({ stock: sql`${products.stock} - ${item.qty}` })
         .where(eq(products.slug, item.slug));
+      if (before) {
+        const next = before.stock - item.qty;
+        await recordStockMovement({
+          productId: before.id,
+          productName: before.name,
+          delta: -item.qty,
+          resultingStock: next,
+          reason: "order_reopened",
+          actor: `order:${orderNo}`,
+        });
+        if (before.stock > 5 && next <= 5) await alertIfLowStock(before.name, next);
+      }
     }
   }
 
@@ -212,10 +245,64 @@ export async function listStockAdmin(q?: string) {
     .limit(300);
 }
 
-export async function setStock(id: number, stock: number) {
-  await getDb().update(products).set({ stock }).where(eq(products.id, id));
+/* Low-stock alert: fires when stock crosses down through the threshold. */
+export async function alertIfLowStock(productName: string, stock: number) {
+  if (stock > 5) return;
+  const admins = (process.env.ADMIN_EMAILS ?? "")
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+  for (const to of admins) {
+    void queueNotification(
+      "low_stock",
+      to,
+      `Low stock: ${productName}`,
+      `${productName} is down to ${stock} units. Restock soon — checkout blocks at zero. The movement ledger shows the history.`,
+    );
+  }
+}
+
+export async function setStock(id: number, stock: number, actorName = "admin") {
+  const db = getDb();
+  const [row] = await db.select().from(products).where(eq(products.id, id)).limit(1);
+  if (!row) throw new Error("Product not found");
+  await db.update(products).set({ stock }).where(eq(products.id, id));
+  const delta = stock - row.stock;
+  if (delta !== 0) {
+    await recordStockMovement({
+      productId: id,
+      productName: row.name,
+      delta,
+      resultingStock: stock,
+      reason: delta > 0 ? "restock" : "adjust",
+      actor: actorName,
+    });
+    if (row.stock > 5 && stock <= 5) await alertIfLowStock(row.name, stock);
+  }
   return { ok: true };
 }
+
+export async function adjustStock(id: number, delta: number, note: string | null, actorName: string) {
+  const db = getDb();
+  const [row] = await db.select().from(products).where(eq(products.id, id)).limit(1);
+  if (!row) throw new Error("Product not found");
+  const next = row.stock + delta;
+  if (next < 0) throw new Error(`Only ${row.stock} in stock — cannot remove ${Math.abs(delta)}.`);
+  await db.update(products).set({ stock: next }).where(eq(products.id, id));
+  await recordStockMovement({
+    productId: id,
+    productName: row.name,
+    delta,
+    resultingStock: next,
+    reason: delta >= 0 ? "restock" : "adjust",
+    note,
+    actor: actorName,
+  });
+  if (row.stock > 5 && next <= 5) await alertIfLowStock(row.name, next);
+  return { ok: true, stock: next };
+}
+
+export { listStockMovements };
 
 export async function setFeatured(id: number, featured: boolean) {
   await getDb().update(products).set({ featured }).where(eq(products.id, id));
@@ -256,9 +343,20 @@ export async function findProductBySlug(slug: string) {
   return rows[0] ?? null;
 }
 
-export async function createProductAdmin(input: ProductInput) {
+export async function createProductAdmin(input: ProductInput, actorName = "admin") {
   const result = await getDb().insert(products).values(input);
-  return { id: Number(result[0].insertId), ...input };
+  const id = Number(result[0].insertId);
+  if (input.stock !== 0) {
+    await recordStockMovement({
+      productId: id,
+      productName: input.name,
+      delta: input.stock,
+      resultingStock: input.stock,
+      reason: "create",
+      actor: actorName,
+    });
+  }
+  return { id, ...input };
 }
 
 export async function updateProductAdmin(id: number, input: ProductInput) {
@@ -266,9 +364,103 @@ export async function updateProductAdmin(id: number, input: ProductInput) {
   return { id, ...input };
 }
 
-export async function deleteProductAdmin(id: number) {
+export async function deleteProductAdmin(id: number, actorName = "admin") {
+  const [row] = await getDb().select().from(products).where(eq(products.id, id)).limit(1);
+  if (row) {
+    await recordStockMovement({
+      productId: id,
+      productName: row.name,
+      delta: -row.stock,
+      resultingStock: 0,
+      reason: "delete",
+      actor: actorName,
+    });
+  }
   await getDb().delete(products).where(eq(products.id, id));
   return { ok: true };
+}
+
+export async function duplicateProductAdmin(id: number) {
+  const db = getDb();
+  const [row] = await db.select().from(products).where(eq(products.id, id)).limit(1);
+  if (!row) throw new Error("Product not found");
+  const base = row.slug.replace(/(-copy)+$/u, "");
+  let slug = `${base}-copy`;
+  let n = 2;
+  while (await findProductBySlug(slug)) {
+    slug = `${base}-copy-${n}`;
+    n += 1;
+  }
+  const { id: _id, createdAt: _createdAt, ...rest } = row;
+  const result = await db.insert(products).values({ ...rest, slug, name: `${row.name} (copy)`, stock: 0, featured: false, hero: false });
+  return { id: Number(result[0].insertId), slug };
+}
+
+export async function bulkUpsertProducts(rows: ProductInput[], actorName: string) {
+  const results = { created: 0, updated: 0, errors: [] as { row: number; message: string }[] };
+  for (let i = 0; i < rows.length; i++) {
+    try {
+      const row = rows[i];
+      const existingBySlug = await findProductBySlug(row.slug);
+      if (existingBySlug) {
+        await getDb().update(products).set(row).where(eq(products.id, existingBySlug.id));
+        results.updated += 1;
+      } else {
+        await createProductAdmin(row, actorName);
+        results.created += 1;
+      }
+    } catch (e) {
+      results.errors.push({ row: i + 1, message: e instanceof Error ? e.message : String(e) });
+    }
+  }
+  return results;
+}
+
+export async function getSalesAnalytics() {
+  const db = getDb();
+  const since = new Date(Date.now() - 29 * 86_400_000);
+  const recent = await db.select().from(orders).where(gte(orders.createdAt, since));
+  const active = recent.filter((o) => o.status !== "cancelled");
+
+  const byDay = new Map<string, { revenue: number; orders: number }>();
+  for (const o of active) {
+    const key = o.createdAt.toISOString().slice(0, 10);
+    const e = byDay.get(key) ?? { revenue: 0, orders: 0 };
+    e.revenue += Number(o.total);
+    e.orders += 1;
+    byDay.set(key, e);
+  }
+  const days: { date: string; revenue: number; orders: number }[] = [];
+  for (let i = 29; i >= 0; i--) {
+    const key = new Date(Date.now() - i * 86_400_000).toISOString().slice(0, 10);
+    const e = byDay.get(key) ?? { revenue: 0, orders: 0 };
+    days.push({ date: key, revenue: e.revenue, orders: e.orders });
+  }
+
+  const qty = new Map<string, { name: string; qty: number; revenue: number }>();
+  for (const o of active) {
+    try {
+      const items = JSON.parse(o.items) as { slug: string; name: string; qty: number; price: number }[];
+      for (const it of items) {
+        const e = qty.get(it.slug) ?? { name: it.name, qty: 0, revenue: 0 };
+        e.qty += it.qty;
+        e.revenue += it.price * it.qty;
+        qty.set(it.slug, e);
+      }
+    } catch {
+      // skip malformed legacy rows
+    }
+  }
+  const top = [...qty.entries()]
+    .map(([slug, v]) => ({ slug, ...v }))
+    .sort((a, b) => b.qty - a.qty)
+    .slice(0, 8);
+
+  const totals30 = days.reduce(
+    (a, d) => ({ revenue: a.revenue + d.revenue, orders: a.orders + d.orders }),
+    { revenue: 0, orders: 0 },
+  );
+  return { days, top, totals30 };
 }
 
 export async function listMakersSelect() {

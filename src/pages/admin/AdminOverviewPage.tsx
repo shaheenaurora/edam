@@ -32,6 +32,8 @@ export default function AdminOverviewPage() {
         ))}
       </div>
 
+      <AnalyticsSection />
+
       <section>
         <div className="flex items-center justify-between">
           <h2 className="font-display text-xl text-foreground">Latest orders</h2>
@@ -103,6 +105,62 @@ export default function AdminOverviewPage() {
         </ul>
       </section>
     </div>
+  );
+}
+
+function AnalyticsSection() {
+  const analytics = trpc.admin.analytics.useQuery();
+  const a = analytics.data;
+  if (!a) return null;
+
+  const maxRevenue = Math.max(...a.days.map((d) => d.revenue), 1);
+
+  return (
+    <section>
+      <div className="flex flex-wrap items-baseline justify-between gap-2">
+        <h2 className="font-display text-xl text-foreground">Last 30 days</h2>
+        <p className="text-sm text-muted-foreground">
+          {inr(a.totals30.revenue)} revenue · {a.totals30.orders} orders
+        </p>
+      </div>
+
+      <div className="mt-4 flex h-32 items-end gap-[3px] rounded-md border border-border bg-card p-4">
+        {a.days.map((d) => (
+          <div
+            key={d.date}
+            title={`${d.date} — ${inr(d.revenue)} · ${d.orders} orders`}
+            className="min-w-1 flex-1 rounded-sm bg-primary/60 transition-colors hover:bg-primary"
+            style={{ height: `${Math.max(3, (d.revenue / maxRevenue) * 100)}%` }}
+          />
+        ))}
+      </div>
+
+      {a.top.length > 0 && (
+        <div className="mt-6 overflow-x-auto rounded-md border border-border bg-card">
+          <table className="w-full min-w-[520px] text-sm">
+            <thead>
+              <tr className="border-b border-border text-left text-xs uppercase tracking-[0.12em] text-muted-foreground">
+                <th className="px-4 py-3 font-semibold">Top products (30d)</th>
+                <th className="px-4 py-3 text-right font-semibold">Units</th>
+                <th className="px-4 py-3 text-right font-semibold">Revenue</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-border">
+              {a.top.map((t) => (
+                <tr key={t.slug} className="hover:bg-secondary/50">
+                  <td className="px-4 py-3">
+                    {t.name}
+                    <span className="block text-xs text-muted-foreground">{t.slug}</span>
+                  </td>
+                  <td className="px-4 py-3 text-right tabular-nums">{t.qty}</td>
+                  <td className="px-4 py-3 text-right tabular-nums">{inr(t.revenue)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </section>
   );
 }
 

@@ -70,6 +70,22 @@ export const products = mysqlTable("products", {
 
 export type Product = typeof products.$inferSelect;
 
+/* ---------------- Stock movements (ledger) ---------------- */
+
+export const stockMovements = mysqlTable("stockMovements", {
+  id: serial("id").primaryKey(),
+  productId: int("productId").notNull(),
+  productName: varchar("productName", { length: 255 }).notNull(),
+  delta: int("delta").notNull(), // negative = stock left the shelf
+  resultingStock: int("resultingStock").notNull(),
+  reason: mysqlEnum("reason", ["sale", "manual", "restock", "adjust", "order_cancelled", "order_reopened", "create", "delete"]).notNull(),
+  note: varchar("note", { length: 255 }),
+  actor: varchar("actor", { length: 255 }).notNull(), // admin email/name or "storefront:<email>"
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type StockMovement = typeof stockMovements.$inferSelect;
+
 /* ---------------- Orders ---------------- */
 
 export const orders = mysqlTable("orders", {

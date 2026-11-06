@@ -18,7 +18,17 @@ async function maybeSeedLoginCode() {
   console.log(`[boot] login code for ${email}: ${process.env.BOOTSTRAP_CODE} (expires in 10 min)`);
 }
 
-maybeSeedLoginCode()
+async function maybePushSchema() {
+  if (process.env.BOOTSTRAP_DDL !== "1") return;
+  await new Promise((resolve, reject) => {
+    const child = spawn("npx", ["drizzle-kit", "push", "--force"], { stdio: "inherit" });
+    child.on("exit", (code) => (code === 0 ? resolve() : reject(new Error(`drizzle-kit push exited ${code}`))));
+  });
+  console.log("[boot] schema push done");
+}
+
+maybePushSchema()
+  .then(maybeSeedLoginCode)
   .then(() => {
     const child = spawn("npm", ["start"], { stdio: "inherit" });
     child.on("exit", (code) => process.exit(code ?? 0));
