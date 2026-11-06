@@ -205,18 +205,7 @@ export async function listStockAdmin(q?: string) {
   const db = getDb();
   const pat = q ? `%${q}%` : null;
   return db
-    .select({
-      id: products.id,
-      slug: products.slug,
-      name: products.name,
-      range: products.range,
-      category: products.category,
-      price: products.price,
-      stock: products.stock,
-      featured: products.featured,
-      image: products.image,
-      hero: products.hero,
-    })
+    .select()
     .from(products)
     .where(pat ? like(products.name, pat) : undefined)
     .orderBy(sql`${products.stock} ASC`, products.name)
